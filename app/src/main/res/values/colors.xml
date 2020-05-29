@@ -7,8 +7,14 @@
     <color name="secondaryLightColor">#ffffff</color>
     <color name="secondaryDarkColor">#c7c7c7</color>
     <color name="primaryTextColor">#000000</color>
-    <color name="secondaryTextColor">#000000</color>
+    <color name="secondaryTextColor">#FFFFFF</color>
     <color name="tileColor">#b2ebf2</color>
     <color name="secondaryLightTileColor">#e5ffff</color>
     <color name="secondaryDarkTileColor">#81b9bf</color>
+
+    <!--splash screen colors-->
+    <color name="innerRadiusColor">#0288d1</color>
+    <color name="outerRadiusColor">#b3e5fc</color>
+
+
 </resources>
