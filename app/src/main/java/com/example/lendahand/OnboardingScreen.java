@@ -121,7 +121,6 @@ public class OnboardingScreen extends AppCompatActivity {
 
 
         //makes certain that onboarding screen doesn't open again after installation
-
         if (isOpenAlready()){
             Intent intent = new Intent(OnboardingScreen.this,MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|intent.FLAG_ACTIVITY_NEW_TASK);

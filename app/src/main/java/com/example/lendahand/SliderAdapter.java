@@ -1,11 +1,9 @@
 package com.example.lendahand;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -71,19 +69,6 @@ public class SliderAdapter extends PagerAdapter {
         ImageView imgSlider = (ImageView)view.findViewById(R.id.img_slider);
         TextView txtHeading = (TextView)view.findViewById(R.id.txt_heading_slider);
         TextView txtDescription = (TextView)view.findViewById(R.id.txt_slider_desc);
-
-
-        /*
-        btnGetStarted.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                //switches to main activity
-                Intent intent = new Intent(context,MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
-            }
-        });
-        */
 
         //sets the components to the array contents
         imgSlider.setImageResource(arrImages[position]);
