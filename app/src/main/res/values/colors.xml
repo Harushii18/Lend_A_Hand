@@ -16,5 +16,16 @@
     <color name="innerRadiusColor">#0288d1</color>
     <color name="outerRadiusColor">#b3e5fc</color>
 
+    <!--onboarding screen colors-->
+    <color name="border_dot_color">#000000</color>
+    <color name="selected_dot_color">#0288d1</color>
+    <color name="deselected_dot_color">#2E0288D1</color>
+    <color name="arrow_color">#004C75</color>
+    <color name="btn_background">#00000000</color>
+    <color name="btn_get_started_bground">#9E0288D1</color>
+    <color name="btn_get_started_border">#3E00334E</color>
+
+
+
 
 </resources>

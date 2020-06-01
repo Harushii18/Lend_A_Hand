@@ -1,3 +1,33 @@
 <resources>
     <string name="app_name">Lend A Hand</string>
+<!-- ============================================================ -->
+    <!--Strings for onboarding screen-->
+
+    <!--Titles-->
+    <string name="first_screen_title">\"LOCKDOWN\"</string>
+    <string name="second_screen_title">DONATE</string>
+    <string name="third_screen_title">RECEIVE</string>
+    <string name="fourth_screen_title">LEND A HAND</string>
+    <string name="fifth_screen_title">JOIN US!</string>
+
+    <!--Descriptions-->
+    <string name="first_screen_desc">The word that we’ve heard a million times now. And because of this word, other words have come up:\n
+\"hungry\" \n
+\"in need\" \n
+And many others.
+</string>
+    <string name="second_screen_desc">Let\'s reduce the amount of people who will use these words by donating to those who need it.</string>
+    <string name="third_screen_desc">And let\'s not be afraid to ask for help when we need it.</string>
+    <string name="fourth_screen_desc">Our app is designed to connect donors and donees all over South Africa in one common place. \n\n
+        Donees request for the items they need, and donors donate items to the donees who request them.
+      </string>
+    <string name="fifth_screen_desc">Help us in our cause by creating an account to request or donate. \n\n
+        It\'s that simple!</string>
+
+
+    <!--Buttons-->
+    <string name="skip_btn">Skip</string>
+    <string name="prev_btn">Previous</string>
+    <string name="next_btn">Next</string>
+    <string name="get_started">Get started</string>
 </resources>

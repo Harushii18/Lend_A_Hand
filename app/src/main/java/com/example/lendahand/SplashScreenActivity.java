@@ -56,7 +56,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 }
 
                 //switches to main activity
-                Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
+                Intent intent = new Intent(SplashScreenActivity.this, OnboardingScreen.class);
                 startActivity(intent);
                 SplashScreenActivity.this.finish();
 
