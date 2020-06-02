@@ -11,4 +11,6 @@
     <color name="tileColor">#b2ebf2</color>
     <color name="secondaryLightTileColor">#e5ffff</color>
     <color name="secondaryDarkTileColor">#81b9bf</color>
+    <color name="btnbackground">#9E0288D1</color>
+    <color name="btnBorder">#3E00334E</color>
 </resources>
