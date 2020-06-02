@@ -8,7 +8,7 @@
     android:background="@drawable/possiblebackground2"
     tools:context=".MainActivity"
     android:fitsSystemWindows="true"
-    tools:openDrawer="start"
+    tools:openDrawer="end"
     >
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
@@ -28,6 +28,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
 
         <TextView
             android:id="@+id/textView"
@@ -166,9 +169,7 @@
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
 
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/toolbar" />
+
 
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
