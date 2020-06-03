@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.google.android.material.tabs.TabLayout;
@@ -25,7 +26,6 @@ public class OnboardingScreen extends AppCompatActivity {
     int position=0;
     Animation animationGetStarted;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +38,6 @@ public class OnboardingScreen extends AppCompatActivity {
         btnPrev=(Button)findViewById(R.id.btnPrev);
         tabIndicator=findViewById(R.id.tabLayout);
         animationGetStarted= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.btn_get_started_anim);
-
 
         //Call Adapter
         sliderAdapter=new SliderAdapter(this);
@@ -55,15 +54,13 @@ public class OnboardingScreen extends AppCompatActivity {
                 if (position<5) {
                     position++;
                     viewPager.setCurrentItem(position);
-
+                    if (position==2){
+                        btnPrev.setVisibility(View.VISIBLE);
+                    }
                     if (position==4){
                         loadLastScreen();
                     }
                 }
-                if (position==2){
-                    btnPrev.setVisibility(View.VISIBLE);
-                }
-
             }
         });
 
@@ -119,7 +116,6 @@ public class OnboardingScreen extends AppCompatActivity {
             }
         });
 
-
         //makes certain that onboarding screen doesn't open again after installation
         if (isOpenAlready()){
             Intent intent = new Intent(OnboardingScreen.this,MainActivity.class);
@@ -130,7 +126,6 @@ public class OnboardingScreen extends AppCompatActivity {
             editor.putBoolean("slide",true);
             editor.commit();
         }
-
     }
 
     //removes next, indicator and previous button and shows get started button
@@ -141,7 +136,7 @@ public class OnboardingScreen extends AppCompatActivity {
         btnPrev.setVisibility(View.INVISIBLE);
         btnGetStarted.setVisibility(View.VISIBLE);
 
-        //animate get started buttton
+        //animate get started button
         btnGetStarted.setAnimation(animationGetStarted);
     }
 
@@ -151,6 +146,5 @@ public class OnboardingScreen extends AppCompatActivity {
         boolean result=sharedPreferences.getBoolean("slide",false);
         return result;
     }
-
 
 }

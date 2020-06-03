@@ -24,10 +24,10 @@ public class SliderAdapter extends PagerAdapter {
     //put heart icon for now
     int arrImages[] = {
             R.drawable.ic_lockdownicon,
-            R.drawable.ic_ob_donate,
-            R.drawable.ic_receiveicon,
-            R.drawable.ic_hearticon,
-            R.drawable.ic_ob_lendahand
+            R.drawable.ic_donateboy,
+            R.drawable.ic_donatewoman,
+            R.drawable.ic_donateicon,
+            R.drawable.ic_join_us
     };
 
     int arrHeadings[] = {
@@ -69,7 +69,11 @@ public class SliderAdapter extends PagerAdapter {
         ImageView imgSlider = (ImageView)view.findViewById(R.id.img_slider);
         TextView txtHeading = (TextView)view.findViewById(R.id.txt_heading_slider);
         TextView txtDescription = (TextView)view.findViewById(R.id.txt_slider_desc);
-
+        if (position==2 || position==4){
+            imgSlider.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        }else{
+            imgSlider.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        }
         //sets the components to the array contents
         imgSlider.setImageResource(arrImages[position]);
         txtHeading.setText(arrHeadings[position]);
