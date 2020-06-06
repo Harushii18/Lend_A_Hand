@@ -25,6 +25,9 @@
     <color name="btn_get_started_bground">#9E0288D1</color>
     <color name="btn_get_started_border">#3E00334E</color>
 
+    <!--login screen colors-->
+    <color name="sign_up_color">#298EC5</color>
+    <color name="toast_bkground_color">#81d4fa</color>
 
 
 

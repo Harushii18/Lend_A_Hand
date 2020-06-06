@@ -110,7 +110,7 @@ public class OnboardingScreen extends AppCompatActivity {
         btnGetStarted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(OnboardingScreen.this,MainActivity.class);
+                Intent intent = new Intent(OnboardingScreen.this,LoginScreenActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
@@ -118,7 +118,7 @@ public class OnboardingScreen extends AppCompatActivity {
 
         //makes certain that onboarding screen doesn't open again after installation
         if (isOpenAlready()){
-            Intent intent = new Intent(OnboardingScreen.this,MainActivity.class);
+            Intent intent = new Intent(OnboardingScreen.this,LoginScreenActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }else{

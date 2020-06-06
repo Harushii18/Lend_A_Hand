@@ -8,6 +8,13 @@
         <item name="colorAccent">@color/secondaryColor</item>
     </style>
 
+    <!--Theme for login and reg screens-->
+    <style name="MaterialTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="colorAccent">@color/secondaryColor</item>
+    </style>
     <!-- No action bar theme-->
     <style name="AppTheme.NoActionBar" >
         <item name="windowActionBar">false</item>
