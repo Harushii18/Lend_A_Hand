@@ -28,6 +28,10 @@
     <!--login screen colors-->
     <color name="sign_up_color">#298EC5</color>
     <color name="toast_bkground_color">#81d4fa</color>
+    <color name="toast_stroke_color">#53B1BCBE</color>
+
+    <!--general signing in button colours-->
+    <color name="sign_in_btn_colors">#ffffff</color>
 
 
 

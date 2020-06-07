@@ -37,8 +37,16 @@ And many others.
     <string name="content_description_username">Username Icon</string>
     <string name="content_description_password">Password Icon</string>
     <string name="txt_btnlogin">LOGIN</string>
-    <string name="login_nocc">No account? \u0020</string>
+    <string name="login_nocc">No account?</string>
     <string name="login_signup">" Sign up!"</string>
     <string name="stay_signed_in">Stay signed in</string>
     <string name="txt_toast_login">Logging in...</string>
+
+    <!--Select user screen-->
+    <string name="txt_btn_donor">DONOR</string>
+    <string name="txt_btn_donee">DONEE</string>
+    <string name="txt_select_usertype_sentence1">New here?</string>
+    <string name="txt_select_usertype_sentence2">Select your user type:</string>
+    <string name="txt_have_acc_usertype">Already have an account?</string>
+    <string name="txt_login_usertype">Log in</string>
 </resources>

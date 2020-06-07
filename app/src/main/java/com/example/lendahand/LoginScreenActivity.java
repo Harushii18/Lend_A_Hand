@@ -18,12 +18,13 @@ import android.widget.Toast;
 
 public class LoginScreenActivity extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
+
+        //TODO: Shared preferences, stay logged in
         //ensuring that we stay logged in
         /*
         if(StayLoggedIn.getUserName(LoginScreenActivity.this).length() == 0)
@@ -72,6 +73,7 @@ public class LoginScreenActivity extends AppCompatActivity {
                 try {
                     Thread.sleep(2000);
                     startActivity(intent);
+                    finish();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -89,8 +91,8 @@ public class LoginScreenActivity extends AppCompatActivity {
     }
 
     public void SignIn(View view) {
-        //TODO: change to sign up screen
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, SelectUserTypeActivity.class);
         startActivity(intent);
+        finish();
     }
 }

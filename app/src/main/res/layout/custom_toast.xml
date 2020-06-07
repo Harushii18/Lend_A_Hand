@@ -9,7 +9,7 @@
         android:id="@+id/custom_toast_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/toast_bkground_color"
+        android:background="@drawable/custom_toast_bg"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
