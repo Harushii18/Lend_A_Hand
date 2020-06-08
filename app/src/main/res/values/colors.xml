@@ -33,6 +33,11 @@
     <!--general signing in button colours-->
     <color name="sign_in_btn_colors">#ffffff</color>
 
+    <!--registration de-selected icon colors-->
+    <color name="desel_icon_colors">#3EBDBDBD</color>
+    <color name="tab_layout_bg_colors">#ffffff</color>
+    <color name="next_icon_tab_colors">#000000</color>
+
 
 
 </resources>

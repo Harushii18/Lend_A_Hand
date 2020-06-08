@@ -49,4 +49,28 @@ And many others.
     <string name="txt_select_usertype_sentence2">Select your user type:</string>
     <string name="txt_have_acc_usertype">Already have an account?</string>
     <string name="txt_login_usertype">Log in</string>
+
+    <!--Registration donor screen-->
+    <string name="txt_donor_reg">DONOR REGISTRATION</string>
+    <string name="txt_enter_username">Enter username</string>
+    <string name="txt_enter_password">Enter password</string>
+    <string name="txt_enter_password_again">Re-enter password</string>
+    <string name="txt_enter_firstname">Enter first name</string>
+    <string name="txt_enter_lastname">Enter last name</string>
+    <string name="txt_enter_email">Enter e-mail address</string>
+    <string name="txt_enter_phone_number">Enter  phone number</string>
+    <string name="txt_enter_street_address">Street address</string>
+    <string name="txt_enter_suburb">Suburb</string>
+    <string name="txt_enter_province">Province</string>
+    <string name="txt_enter_postal_code">Postal code</string>
+
+    <!--Donee viewpager screens-->
+    <string name="txt_step_one">Step 1: Enter your details</string>
+    <string name="txt_step_one_add_info">You\'ll be logging in using your username and password</string>
+    <string name="txt_step_two">Step 2: Enter your e-mail address</string>
+    <string name="txt_step_two_add_info">We\'ll be using your e-mail to send confirmation for your orders, therefore it needs to be valid</string>
+    <string name="txt_step_three">Step 3: Enter your address</string>
+    <string name="txt_step_three_add_info">Our couriers will need it to pick up your donations to deliver it to the necessary donees</string>
+    <string name="txt_step_four">Your account has been successfully created!</string>
+    <string name="txt_step_four_add_info">You can now help donees in your province</string>
 </resources>

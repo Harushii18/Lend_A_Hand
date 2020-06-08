@@ -25,7 +25,7 @@ public class SelectUserTypeActivity extends AppCompatActivity {
 
     public void goToDonorRegScreen(View view) {
         //go to donor reg activity
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, DonorRegActivity.class);
         startActivity(intent);
         //didn't add finish, so they can go back
     }
