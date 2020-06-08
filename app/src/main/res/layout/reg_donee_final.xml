@@ -13,9 +13,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="200dp"
         android:gravity="center_horizontal"
-        android:text="@string/txt_step_four"
+        android:text="@string/txt_step_six_donee"
         android:textColor="@color/primaryTextColor"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,17 +27,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:gravity="center_horizontal"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:text="@string/txt_step_four_add_info"
+        android:text="@string/txt_step_six_donee_add_info"
         android:textColor="@color/primaryTextColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <Button
-        android:id="@+id/btnDonorLogin"
+        android:id="@+id/btnDoneeLogin"
         style="@style/Widget.MaterialComponents.Button.Icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -49,8 +48,7 @@
         android:backgroundTint="@color/sign_in_btn_colors"
         android:textColor="@color/primaryTextColor"
         android:textSize="12sp"
-        android:onClick="DonorLogin"/>
-
+        android:onClick="DoneeLogin"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

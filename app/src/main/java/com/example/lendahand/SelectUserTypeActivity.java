@@ -32,7 +32,7 @@ public class SelectUserTypeActivity extends AppCompatActivity {
 
     public void goToDoneeRegScreen(View view) {
         //go to donee reg activity
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, DoneeRegActivity.class);
         startActivity(intent);
         //didn't add finish, so they can go back
     }

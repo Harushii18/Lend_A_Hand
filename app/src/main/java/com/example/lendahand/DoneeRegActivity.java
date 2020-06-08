@@ -4,12 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,25 +16,27 @@ import android.widget.LinearLayout;
 
 import com.google.android.material.tabs.TabLayout;
 
-public class DonorRegActivity extends AppCompatActivity {
-    private CustomViewPager vpDonorReg;
-    private TabLayout tbDonorReg;
+public class DoneeRegActivity extends AppCompatActivity {
+    private CustomViewPager vpDoneeReg;
+    private TabLayout tbDoneeReg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         //hide title bar
         getSupportActionBar().hide();
-        setContentView(R.layout.activity_donor_reg);
+
+        setContentView(R.layout.activity_donee_reg);
 
         //initialise views
-        vpDonorReg=(CustomViewPager)findViewById(R.id.vpDonorReg);
-        tbDonorReg=(TabLayout)findViewById(R.id.tbDonorReg);
+        vpDoneeReg=(CustomViewPager)findViewById(R.id.vpDoneeReg);
+        tbDoneeReg=(TabLayout)findViewById(R.id.tbDoneeReg);
 
         //set views to be in line with tabs
-        tbDonorReg.setupWithViewPager(vpDonorReg);
+        tbDoneeReg.setupWithViewPager(vpDoneeReg);
         //due to icons disappearing on setting up with viewpager:
-        tbDonorReg.addOnTabSelectedListener(
-                new TabLayout.ViewPagerOnTabSelectedListener(vpDonorReg) {
+        tbDoneeReg.addOnTabSelectedListener(
+                new TabLayout.ViewPagerOnTabSelectedListener(vpDoneeReg) {
                     @Override
                     public void onTabSelected(TabLayout.Tab tab) {
 
@@ -45,66 +45,74 @@ public class DonorRegActivity extends AppCompatActivity {
 
                         super.onTabSelected(tab);
                         //don't allow the user to move forward to next tabs, only tab 2
-                        if (tab.getPosition()==0){
-                            tbDonorReg.getTabAt(0).setIcon(R.drawable.indicator_selector_one);
-                            tbDonorReg.getTabAt(1).setIcon(R.drawable.ic_looks_two_next);
-                            tbDonorReg.getTabAt(2).setIcon(R.drawable.indicator_selector_three);
-                            tbDonorReg.getTabAt(3).setIcon(R.drawable.indicator_selector_four);
-                            tbDonorReg.getTabAt(4).setIcon(R.drawable.indicator_selector_five);
+                        if (tab.getPosition() == 0) {
+                            tbDoneeReg.getTabAt(0).setIcon(R.drawable.indicator_selector_one);
+                            tbDoneeReg.getTabAt(1).setIcon(R.drawable.ic_looks_two_next);
+                            tbDoneeReg.getTabAt(2).setIcon(R.drawable.indicator_selector_three);
+                            tbDoneeReg.getTabAt(3).setIcon(R.drawable.indicator_selector_four);
+                            tbDoneeReg.getTabAt(4).setIcon(R.drawable.indicator_selector_five);
+                            tbDoneeReg.getTabAt(5).setIcon(R.drawable.indicator_selector_six);
 
                             //don't allow clicking of these
-                            LinearLayout tabStrip3 = ((LinearLayout)tbDonorReg.getChildAt(0));
+                            LinearLayout tabStrip3 = ((LinearLayout) tbDoneeReg.getChildAt(0));
                             tabStrip3.getChildAt(2).setOnTouchListener(new View.OnTouchListener() {
                                 @Override
                                 public boolean onTouch(View v, MotionEvent event) {
                                     return true;
                                 }
                             });
-                            LinearLayout tabStrip4 = ((LinearLayout)tbDonorReg.getChildAt(0));
+                            LinearLayout tabStrip4 = ((LinearLayout) tbDoneeReg.getChildAt(0));
                             tabStrip4.getChildAt(3).setOnTouchListener(new View.OnTouchListener() {
                                 @Override
                                 public boolean onTouch(View v, MotionEvent event) {
                                     return true;
                                 }
                             });
-                            LinearLayout tabStrip5 = ((LinearLayout)tbDonorReg.getChildAt(0));
+                            LinearLayout tabStrip5 = ((LinearLayout) tbDoneeReg.getChildAt(0));
                             tabStrip5.getChildAt(4).setOnTouchListener(new View.OnTouchListener() {
                                 @Override
                                 public boolean onTouch(View v, MotionEvent event) {
                                     return true;
                                 }
                             });
-
+                            LinearLayout tabStrip6 = ((LinearLayout) tbDoneeReg.getChildAt(0));
+                            tabStrip6.getChildAt(5).setOnTouchListener(new View.OnTouchListener() {
+                                @Override
+                                public boolean onTouch(View v, MotionEvent event) {
+                                    return true;
+                                }
+                            });
                         }
 
 
                         //don't allow the user to move forward to next tabs, only tab 3
-                        if (tab.getPosition()==1){
-                            tbDonorReg.getTabAt(0).setIcon(R.drawable.ic_progress_complete);
-                            tbDonorReg.getTabAt(1).setIcon(R.drawable.indicator_selector_two);
-                            tbDonorReg.getTabAt(2).setIcon(R.drawable.ic_looks_3_next);
-                            tbDonorReg.getTabAt(3).setIcon(R.drawable.indicator_selector_four);
-                            tbDonorReg.getTabAt(4).setIcon(R.drawable.indicator_selector_five);
+                        if (tab.getPosition() == 1) {
+                            tbDoneeReg.getTabAt(0).setIcon(R.drawable.ic_progress_complete);
+                            tbDoneeReg.getTabAt(1).setIcon(R.drawable.indicator_selector_two);
+                            tbDoneeReg.getTabAt(2).setIcon(R.drawable.ic_looks_3_next);
+                            tbDoneeReg.getTabAt(3).setIcon(R.drawable.indicator_selector_four);
+                            tbDoneeReg.getTabAt(4).setIcon(R.drawable.indicator_selector_five);
+                            tbDoneeReg.getTabAt(5).setIcon(R.drawable.indicator_selector_six);
 
 
                             //for the following, the true property will hide the tab
                             //false will show the tab
                             //don't allow clicking of these
-                            LinearLayout tabStrip1 = ((LinearLayout)tbDonorReg.getChildAt(0));
+                            LinearLayout tabStrip1 = ((LinearLayout) tbDoneeReg.getChildAt(0));
                             tabStrip1.getChildAt(0).setOnTouchListener(new View.OnTouchListener() {
                                 @Override
                                 public boolean onTouch(View v, MotionEvent event) {
                                     return true;
                                 }
                             });
-                            LinearLayout tabStrip3 = ((LinearLayout)tbDonorReg.getChildAt(0));
+                            LinearLayout tabStrip3 = ((LinearLayout) tbDoneeReg.getChildAt(0));
                             tabStrip3.getChildAt(2).setOnTouchListener(new View.OnTouchListener() {
                                 @Override
                                 public boolean onTouch(View v, MotionEvent event) {
                                     return false;
                                 }
                             });
-                            LinearLayout tabStrip4 = ((LinearLayout)tbDonorReg.getChildAt(0));
+                            LinearLayout tabStrip4 = ((LinearLayout) tbDoneeReg.getChildAt(0));
                             tabStrip4.getChildAt(3).setOnTouchListener(new View.OnTouchListener() {
                                 @Override
                                 public boolean onTouch(View v, MotionEvent event) {
@@ -115,23 +123,24 @@ public class DonorRegActivity extends AppCompatActivity {
                         }
 
                         //don't allow the user to move forward to next tabs, only tab 4
-                        if (tab.getPosition()==2){
-                            tbDonorReg.getTabAt(0).setIcon(R.drawable.ic_progress_complete);
-                            tbDonorReg.getTabAt(1).setIcon(R.drawable.ic_progress_complete);
-                            tbDonorReg.getTabAt(2).setIcon(R.drawable.indicator_selector_three);
-                            tbDonorReg.getTabAt(3).setIcon(R.drawable.ic_looks_4_next);
-                            tbDonorReg.getTabAt(4).setIcon(R.drawable.indicator_selector_five);
+                        if (tab.getPosition() == 2) {
+                            tbDoneeReg.getTabAt(0).setIcon(R.drawable.ic_progress_complete);
+                            tbDoneeReg.getTabAt(1).setIcon(R.drawable.ic_progress_complete);
+                            tbDoneeReg.getTabAt(2).setIcon(R.drawable.indicator_selector_three);
+                            tbDoneeReg.getTabAt(3).setIcon(R.drawable.ic_looks_4_next);
+                            tbDoneeReg.getTabAt(4).setIcon(R.drawable.indicator_selector_five);
+                            tbDoneeReg.getTabAt(5).setIcon(R.drawable.indicator_selector_six);
 
                             //don't allow clicking of these
 
-                            LinearLayout tabStrip2 = ((LinearLayout)tbDonorReg.getChildAt(0));
+                            LinearLayout tabStrip2 = ((LinearLayout) tbDoneeReg.getChildAt(0));
                             tabStrip2.getChildAt(1).setOnTouchListener(new View.OnTouchListener() {
                                 @Override
                                 public boolean onTouch(View v, MotionEvent event) {
                                     return true;
                                 }
                             });
-                            LinearLayout tabStrip4 = ((LinearLayout)tbDonorReg.getChildAt(0));
+                            LinearLayout tabStrip4 = ((LinearLayout) tbDoneeReg.getChildAt(0));
                             tabStrip4.getChildAt(3).setOnTouchListener(new View.OnTouchListener() {
                                 @Override
                                 public boolean onTouch(View v, MotionEvent event) {
@@ -142,23 +151,24 @@ public class DonorRegActivity extends AppCompatActivity {
                         }
 
                         //don't allow the user to move behind, go to next activity now
-                        if (tab.getPosition()==3){
-                            tbDonorReg.getTabAt(0).setIcon(R.drawable.ic_progress_complete);
-                            tbDonorReg.getTabAt(1).setIcon(R.drawable.ic_progress_complete);
-                            tbDonorReg.getTabAt(2).setIcon(R.drawable.ic_progress_complete);
-                            tbDonorReg.getTabAt(3).setIcon(R.drawable.indicator_selector_four);
-                            tbDonorReg.getTabAt(4).setIcon(R.drawable.ic_looks_5_next);
+                        if (tab.getPosition() == 3) {
+                            tbDoneeReg.getTabAt(0).setIcon(R.drawable.ic_progress_complete);
+                            tbDoneeReg.getTabAt(1).setIcon(R.drawable.ic_progress_complete);
+                            tbDoneeReg.getTabAt(2).setIcon(R.drawable.ic_progress_complete);
+                            tbDoneeReg.getTabAt(3).setIcon(R.drawable.indicator_selector_four);
+                            tbDoneeReg.getTabAt(4).setIcon(R.drawable.ic_looks_5_next);
+                            tbDoneeReg.getTabAt(5).setIcon(R.drawable.indicator_selector_six);
 
                             //don't allow clicking of these
 
-                            LinearLayout tabStrip3 = ((LinearLayout)tbDonorReg.getChildAt(0));
+                            LinearLayout tabStrip3 = ((LinearLayout) tbDoneeReg.getChildAt(0));
                             tabStrip3.getChildAt(2).setOnTouchListener(new View.OnTouchListener() {
                                 @Override
                                 public boolean onTouch(View v, MotionEvent event) {
                                     return true;
                                 }
                             });
-                            LinearLayout tabStrip5 = ((LinearLayout)tbDonorReg.getChildAt(0));
+                            LinearLayout tabStrip5 = ((LinearLayout) tbDoneeReg.getChildAt(0));
                             tabStrip5.getChildAt(4).setOnTouchListener(new View.OnTouchListener() {
                                 @Override
                                 public boolean onTouch(View v, MotionEvent event) {
@@ -169,24 +179,53 @@ public class DonorRegActivity extends AppCompatActivity {
                         }
 
                         //don't allow the user to move behind, go to next activity now
-                        if (tab.getPosition()==4){
-                            tbDonorReg.getTabAt(0).setIcon(R.drawable.ic_progress_complete);
-                            tbDonorReg.getTabAt(1).setIcon(R.drawable.ic_progress_complete);
-                            tbDonorReg.getTabAt(2).setIcon(R.drawable.ic_progress_complete);
-                            tbDonorReg.getTabAt(3).setIcon(R.drawable.ic_progress_complete);
-                            tbDonorReg.getTabAt(4).setIcon(R.drawable.ic_progress_complete);
+                        if (tab.getPosition() == 4) {
+                            tbDoneeReg.getTabAt(0).setIcon(R.drawable.ic_progress_complete);
+                            tbDoneeReg.getTabAt(1).setIcon(R.drawable.ic_progress_complete);
+                            tbDoneeReg.getTabAt(2).setIcon(R.drawable.ic_progress_complete);
+                            tbDoneeReg.getTabAt(3).setIcon(R.drawable.ic_progress_complete);
+                            tbDoneeReg.getTabAt(4).setIcon(R.drawable.indicator_selector_five);
+                            tbDoneeReg.getTabAt(5).setIcon(R.drawable.ic_looks_6_next);
 
                             //don't allow clicking of these
 
-                            LinearLayout tabStrip4 = ((LinearLayout)tbDonorReg.getChildAt(0));
+                            LinearLayout tabStrip4 = ((LinearLayout) tbDoneeReg.getChildAt(0));
                             tabStrip4.getChildAt(3).setOnTouchListener(new View.OnTouchListener() {
                                 @Override
                                 public boolean onTouch(View v, MotionEvent event) {
                                     return true;
                                 }
                             });
-                            LinearLayout tabStrip5 = ((LinearLayout)tbDonorReg.getChildAt(0));
+                            LinearLayout tabStrip6 = ((LinearLayout) tbDoneeReg.getChildAt(0));
+                            tabStrip6.getChildAt(5).setOnTouchListener(new View.OnTouchListener() {
+                                @Override
+                                public boolean onTouch(View v, MotionEvent event) {
+                                    return false;
+                                }
+                            });
+
+                        }
+
+                        if (tab.getPosition() == 5) {
+                            tbDoneeReg.getTabAt(0).setIcon(R.drawable.ic_progress_complete);
+                            tbDoneeReg.getTabAt(1).setIcon(R.drawable.ic_progress_complete);
+                            tbDoneeReg.getTabAt(2).setIcon(R.drawable.ic_progress_complete);
+                            tbDoneeReg.getTabAt(3).setIcon(R.drawable.ic_progress_complete);
+                            tbDoneeReg.getTabAt(4).setIcon(R.drawable.ic_progress_complete);
+                            tbDoneeReg.getTabAt(5).setIcon(R.drawable.ic_progress_complete);
+
+
+                            //don't allow clicking of these
+
+                            LinearLayout tabStrip5 = ((LinearLayout) tbDoneeReg.getChildAt(0));
                             tabStrip5.getChildAt(4).setOnTouchListener(new View.OnTouchListener() {
+                                @Override
+                                public boolean onTouch(View v, MotionEvent event) {
+                                    return true;
+                                }
+                            });
+                            LinearLayout tabStrip6 = ((LinearLayout) tbDoneeReg.getChildAt(0));
+                            tabStrip6.getChildAt(5).setOnTouchListener(new View.OnTouchListener() {
                                 @Override
                                 public boolean onTouch(View v, MotionEvent event) {
                                     return true;
@@ -194,9 +233,6 @@ public class DonorRegActivity extends AppCompatActivity {
                             });
 
                         }
-
-
-
 
                     }
                     @Override
@@ -210,28 +246,29 @@ public class DonorRegActivity extends AppCompatActivity {
                     }
                 });
 
-
-        vpDonorReg.setAdapter(new DonorAdapter());
-        tbDonorReg.setupWithViewPager(vpDonorReg);
+        vpDoneeReg.setAdapter(new DoneeAdapter());
+        tbDoneeReg.setupWithViewPager(vpDoneeReg);
         //disable scrolling on viewpager
-        vpDonorReg.setPagingEnabled(false);
+        vpDoneeReg.setPagingEnabled(false);
     }
 
-    public void DonorLogin(View view) {
+    public void DoneeLogin(View view) {
         //go to log in activity
         Intent intent = new Intent(this, LoginScreenActivity.class);
         startActivity(intent);
         finish();
     }
 
-    public class DonorAdapter extends PagerAdapter{
+
+    public class DoneeAdapter extends PagerAdapter {
         LayoutInflater layoutInflater;
         int[] layouts={
                 R.layout.reg_common_one,
                 R.layout.reg_common_one_point_five,
                 R.layout.reg_common_three,
                 R.layout.reg_common_three,
-                R.layout.reg_donor_final
+                R.layout.reg_donee_five,
+                R.layout.reg_donee_final
         };
 
         @Override
@@ -252,8 +289,9 @@ public class DonorRegActivity extends AppCompatActivity {
             View two=layoutInflater.inflate(R.layout.reg_common_one_point_five,container,false);
             View three=layoutInflater.inflate(R.layout.reg_common_two,container,false);
             View four=layoutInflater.inflate(R.layout.reg_common_three,container,false);
-            View five=layoutInflater.inflate(R.layout.reg_donor_final,container,false);
-            View viewarr[]={one,two,three,four,five};
+            View five=layoutInflater.inflate(R.layout.reg_donee_five,container,false);
+            View six=layoutInflater.inflate(R.layout.reg_donee_final,container,false);
+            View viewarr[]={one,two,three,four,five,six};
             container.addView(viewarr[position]);
             return viewarr[position];
         }
@@ -265,3 +303,4 @@ public class DonorRegActivity extends AppCompatActivity {
         }
     }
 }
+

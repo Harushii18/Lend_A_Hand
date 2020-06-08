@@ -113,6 +113,7 @@ public class OnboardingScreen extends AppCompatActivity {
                 Intent intent = new Intent(OnboardingScreen.this,LoginScreenActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -121,6 +122,7 @@ public class OnboardingScreen extends AppCompatActivity {
             Intent intent = new Intent(OnboardingScreen.this,LoginScreenActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
+            finish();
         }else{
             SharedPreferences.Editor editor=getSharedPreferences("slide",MODE_PRIVATE).edit();
             editor.putBoolean("slide",true);
