@@ -9,8 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DoneeRegActivity"></activity>
-        <activity android:name=".DonorRegActivity" />
+        <activity android:name=".RegActivity5"></activity>
+        <activity android:name=".RegActivityFinal" />
+        <activity android:name=".RegActivity4" />
+        <activity android:name=".RegActivity3" />
+        <activity android:name=".RegActivity2" />
+        <activity android:name=".RegActivity1" />
+        <activity android:name=".RegActivityFinalDonee" />
+        <activity android:name=".RegActivity4Donee" />
+        <activity android:name=".RegActivity3Donee" />
+        <activity android:name=".RegActivity2Donee" />
+        <activity android:name=".RegActivity1Donee" />
         <activity android:name=".SelectUserTypeActivity" />
         <activity
             android:name=".LoginScreenActivity"

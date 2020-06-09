@@ -9,17 +9,7 @@
     tools:context=".DoneeRegActivity"
     android:theme="@style/MaterialTheme">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="@string/txt_donee_reg"
-        android:textColor="@color/primaryTextColor"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
 
     <com.example.lendahand.CustomViewPager
         android:id="@+id/vpDoneeReg"
@@ -33,60 +23,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tbDoneeReg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:background="@color/tab_layout_bg_colors"
-        app:tabIndicatorColor="@color/primaryColor">
-
-        <com.google.android.material.tabs.TabItem
-            android:icon="@drawable/indicator_selector_one"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content" />
-
-        <com.google.android.material.tabs.TabItem
-            android:icon="@drawable/indicator_selector_two"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content" />
-
-        <com.google.android.material.tabs.TabItem
-            android:icon="@drawable/indicator_selector_three"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content" />
-
-        <com.google.android.material.tabs.TabItem
-            android:icon="@drawable/indicator_selector_four"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content" />
-
-        <com.google.android.material.tabs.TabItem
-            android:icon="@drawable/indicator_selector_five"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content" />
-
-        <com.google.android.material.tabs.TabItem
-            android:icon="@drawable/indicator_selector_six"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content" />
 
 
-    </com.google.android.material.tabs.TabLayout>
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:layout_marginBottom="10dp"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toTopOf="@+id/vpDoneeReg"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

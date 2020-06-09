@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegActivityFinal"
+    tools:context=".RegActivityFinalDonee"
     android:theme="@style/MaterialTheme">
     <TextView
         android:id="@+id/textView2"
@@ -20,8 +20,9 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
+        android:layout_width="300dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="10dp"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
@@ -33,13 +34,17 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginBottom="300dp"
         android:gravity="center_horizontal"
         android:text="@string/txt_step_six_donee"
         android:textColor="@color/primaryTextColor"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/tbDoneeReg"
+        app:layout_constraintBottom_toTopOf="@+id/tbDoneeReg6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -74,7 +79,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tbDoneeReg"
+        android:id="@+id/tbDoneeReg6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/tab_layout_bg_colors"

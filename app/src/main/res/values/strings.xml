@@ -72,26 +72,36 @@ And many others.
     <string name="txt_step_one_add_info">You\'ll be logging in using your username and password</string>
     <string name="txt_step_one_point_five">Step 2: Enter your name</string>
     <string name="txt_step_one_point_five_add_info">We\'ll need your name for our personal records and delivery information</string>
-    <string name="txt_step_two">Step 3: Enter your e-mail address</string>
-    <string name="txt_step_two_add_info">We\'ll be using your e-mail to send confirmation for your deliveries, therefore it needs to be valid</string>
+    <string name="txt_step_two">Step 3: Enter your e-mail address and phone number</string>
+    <string name="txt_step_two_add_info">We\'ll be using your e-mail and phone number to send confirmation, and for our couriers to call you for pick-ups, therefore it needs to be valid</string>
     <string name="txt_step_three">Step 4: Enter your address</string>
     <string name="txt_step_three_add_info">Our couriers will need it to pick up your donations to deliver it to the necessary donees</string>
     <string name="txt_step_four">Your account has been successfully created!</string>
     <string name="txt_step_four_add_info">You can now help donees in your province</string>
 
     <!--Donee viewpager screens-->
-    <string name="txt_step_two_donee_add_info">We\'ll be using your e-mail to send confirmation for your requests, therefore it needs to be valid</string>
+    <string name="txt_step_two_donee_add_info">We\'ll be using your e-mail and phone number to send confirmation, and for our couriers to call you for your requests, therefore it needs to be valid</string>
     <string name="txt_step_three_donee_add_info">Our couriers will need it to pick up donations to have them delivered to you</string>
     <string name="txt_step_four_donee">Step 5: Write a motivational letter about why you need the help</string>
-    <string name="txt_step_four_donee_add_info">Please be honest and to the point.  This will determine whether you can be a donee or not.
-        \n\n The maximum amount of characters is 500.</string>
-    <string name="txt_step_six_donee">Your account has been successfully created...
-        \n But your donee status is under review</string>
-    <string name="txt_step_six_donee_add_info">We\'ll send you an e-mail about your donee status between 1-5 days.
-        \n If you are approved, you can request items immediately. If you are rejected, you will have to edit your motivational letter for approval.</string>
+    <string name="txt_step_four_donee_add_info">This will determine whether you can be a donee or not.
+        \n\n The maximum amount of characters is 1500.</string>
+    <string name="txt_step_six_donee">Your account has been successfully created!</string>
+    <string name="txt_step_six_donee_add_info">\n But your donee status is under review. We\'ll send you an e-mail about your donee status between 1-5 days.
+        \n \nIf you are approved, you can request items immediately. If you are rejected, you will have to edit your motivational letter for approval.</string>
 
     <!--Registration donee screen-->
     <string name="txt_donee_reg">Donee Registration</string>
     <string name="txt_enter_motivation">Type your motivational letter here</string>
+
+    <!--Possible error messages-->
+    <string name="txt_empty_field">Field cannot be empty</string>
+    <string name="txt_pword_no_match">Passwords do not match</string>
+    <string name="txt_invalid_fname">Invalid name</string>
+    <string name="txt_invalid_username">Invalid username</string>
+    <string name="txt_invalid_lname">Invalid name</string>
+    <string name="txt_invalid_email">Invalid email</string>
+    <string name="txt_invalid_phone_number">Invalid phone number</string>
+    <string name="txt_invalid_postal_code">Invalid postal code</string>
+
 
 </resources>

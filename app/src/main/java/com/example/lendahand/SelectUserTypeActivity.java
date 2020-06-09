@@ -24,15 +24,18 @@ public class SelectUserTypeActivity extends AppCompatActivity {
     }
 
     public void goToDonorRegScreen(View view) {
+
+        //TODO: Save in class that this is a donor
         //go to donor reg activity
-        Intent intent = new Intent(this, DonorRegActivity.class);
+        Intent intent = new Intent(this, RegActivity1.class);
         startActivity(intent);
         //didn't add finish, so they can go back
     }
 
     public void goToDoneeRegScreen(View view) {
         //go to donee reg activity
-        Intent intent = new Intent(this, DoneeRegActivity.class);
+        //TODO: Save in class that this is a donee
+        Intent intent = new Intent(this, RegActivity1Donee.class);
         startActivity(intent);
         //didn't add finish, so they can go back
     }
