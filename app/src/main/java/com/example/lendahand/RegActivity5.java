@@ -1,8 +1,10 @@
 package com.example.lendahand;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,10 +15,29 @@ import android.widget.LinearLayout;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputLayout;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.concurrent.CountDownLatch;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 public class RegActivity5 extends AppCompatActivity {
     private TabLayout tbDoneeReg;
     private TextInputLayout txtMotivationalLetter;
     private String strMotivationalLetter;
+    private String urlLink = "https://lamp.ms.wits.ac.za/home/s2089676/";
+    private OkHttpClient client;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,12 +61,98 @@ public class RegActivity5 extends AppCompatActivity {
         setUserComponentErrorInteractivity();
 
         tbDoneeReg.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition() == 5) {
                     if (validateInput()) {
-                        //TODO: Add motivational letter to class
+                        //TODO: Add motivational letter to class and post as well, after fezile changes it to 128 chars
                         Intent intent = new Intent(RegActivity5.this, RegActivityFinalDonee.class);
+                        //get from previous activity
+                        Bundle bundle = getIntent().getExtras();
+                        String strPassword = bundle.getString("password");
+                        String strUsername = bundle.getString("username");
+                        String strFName = bundle.getString("fname");
+                        String strLName = bundle.getString("lname");
+                        String strEmail = bundle.getString("email");
+                        String strPhoneNumber = bundle.getString("phoneNo");
+                        String strPostalCode = bundle.getString("postcode");
+                        String strStreetAddress = bundle.getString("streetadd");
+                        String strSuburb = bundle.getString("suburb");
+                        String strProvince = bundle.getString("prov");
+
+                        //ensure the values are of proper format
+                        assert strFName != null;
+                        strFName=capitalizeWord(strFName.toLowerCase());
+                        assert strLName != null;
+                        strLName=capitalizeWord(strLName.toLowerCase());
+                        assert strStreetAddress != null;
+                        strStreetAddress=capitalizeWord(strStreetAddress.toLowerCase());
+                        assert strSuburb != null;
+                        strSuburb=capitalizeWord(strSuburb.toLowerCase());
+                        assert strProvince != null;
+                        strProvince=capitalizeWord(strProvince.toLowerCase());
+
+
+                        //hash password with SHA-512
+
+                        String generatedPassword="";
+                        try {
+                            SecureRandom random=new SecureRandom();
+                            byte[] salt=new byte[16];
+                            random.nextBytes(salt);
+                            MessageDigest md= MessageDigest.getInstance("SHA-512");
+                            md.update(salt);
+                            byte[] hashedPassword=md.digest(strPassword.getBytes(StandardCharsets.UTF_8));
+                            StringBuilder stringBuilder=new StringBuilder();
+                            for (int i=0;i<hashedPassword.length;i++){
+                                stringBuilder.append(Integer.toString((hashedPassword[i] & 0xff)+0x100,16).substring(1));
+                            }
+                            generatedPassword=stringBuilder.toString();
+                        } catch (NoSuchAlgorithmException e) {
+                            e.printStackTrace();
+                        }
+
+                        client=new OkHttpClient();
+                        urlLink = urlLink + "donorpost.php";
+
+                        RequestBody formBody=new FormBody.Builder()
+                                .add("username",strUsername)
+                                .build();
+
+                        Request request = new Request.Builder()
+                                .url(urlLink)
+                                .post(formBody)
+                                .build();
+                        final CountDownLatch countDownLatch=new CountDownLatch(1);
+                        client.newCall(request).enqueue(new Callback() {
+                            @Override
+                            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                                e.printStackTrace();
+                                countDownLatch.countDown();
+                            }
+
+                            @Override
+                            public void onResponse(Call call, final Response response) throws IOException {
+                                if (response.isSuccessful()) {
+
+                                    final String responseData = response.body().string();
+
+                                    countDownLatch.countDown();
+                                }
+                            }
+                        });
+
+                        try {
+                            //to ensure that main thread waits for this
+                            countDownLatch.await();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+
+
+
                         startActivity(intent);
                         finish();
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
@@ -64,7 +171,16 @@ public class RegActivity5 extends AppCompatActivity {
             }
         });
     }
-
+    private String capitalizeWord(String str){
+        String words[]=str.split("\\s");
+        String capitalizeWord="";
+        for(String w:words){
+            String first=w.substring(0,1);
+            String afterfirst=w.substring(1);
+            capitalizeWord+=first.toUpperCase()+afterfirst+" ";
+        }
+        return capitalizeWord.trim();
+    }
     private boolean validateInput() {
         boolean blnValid=true;
         strMotivationalLetter=txtMotivationalLetter.getEditText().getText().toString().trim();

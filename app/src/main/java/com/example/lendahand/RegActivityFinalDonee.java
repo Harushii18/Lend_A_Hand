@@ -1,17 +1,26 @@
 package com.example.lendahand;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.tabs.TabLayout;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+
 public class RegActivityFinalDonee extends AppCompatActivity {
     private TabLayout tbDoneeReg;
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,9 +37,8 @@ public class RegActivityFinalDonee extends AppCompatActivity {
 
         //this method ensures that only the next step can be accessed
         setTabInteractivity();
-
-        //TODO: Add class to database
     }
+
 
     private void setTabInteractivity() {
         LinearLayout tabStrip1 = ((LinearLayout) tbDoneeReg.getChildAt(0));
@@ -87,7 +95,6 @@ public class RegActivityFinalDonee extends AppCompatActivity {
         tbDoneeReg.getTabAt(4).setIcon(R.drawable.ic_progress_complete_sel);
         tbDoneeReg.getTabAt(5).setIcon(R.drawable.ic_progress_complete_sel);
     }
-
     public void DoneeLogin(View view) {
         //go to log in activity
         Intent intent = new Intent(this, LoginScreenActivity.class);

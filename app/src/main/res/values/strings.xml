@@ -98,6 +98,8 @@ And many others.
     <string name="txt_pword_no_match">Passwords do not match</string>
     <string name="txt_invalid_fname">Invalid name</string>
     <string name="txt_invalid_username">Invalid username</string>
+    <string name="txt_username_no_spaces">Username cannot contain spaces</string>
+    <string name="txt_username_exists">Username already exists</string>
     <string name="txt_invalid_lname">Invalid name</string>
     <string name="txt_invalid_email">Invalid email</string>
     <string name="txt_invalid_phone_number">Invalid phone number</string>

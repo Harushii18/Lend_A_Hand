@@ -24,11 +24,13 @@
     <color name="btn_background">#00000000</color>
     <color name="btn_get_started_bground">#9E0288D1</color>
     <color name="btn_get_started_border">#3E00334E</color>
+    <color name="btn_skip_border">#3EFBFBFB</color>
 
     <!--login screen colors-->
     <color name="sign_up_color">#298EC5</color>
     <color name="toast_bkground_color">#81d4fa</color>
     <color name="toast_stroke_color">#53B1BCBE</color>
+    <color name="desel_chk_color">#AAACAE</color>
 
     <!--general signing in button colours-->
     <color name="sign_in_btn_colors">#ffffff</color>
@@ -37,6 +39,8 @@
     <color name="desel_icon_colors">#3EBDBDBD</color>
     <color name="tab_layout_bg_colors">#ffffff</color>
     <color name="next_icon_tab_colors">#000000</color>
+
+
 
 
 

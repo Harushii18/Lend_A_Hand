@@ -23,6 +23,7 @@ public class OnboardingScreen extends AppCompatActivity {
     Button btnNext;
     Button btnGetStarted;
     Button btnPrev;
+    Button btnSkip;
     int position=0;
     Animation animationGetStarted;
 
@@ -36,6 +37,7 @@ public class OnboardingScreen extends AppCompatActivity {
         btnGetStarted=(Button)findViewById(R.id.btnGetStarted);
         btnNext=(Button)findViewById(R.id.btnNext);
         btnPrev=(Button)findViewById(R.id.btnPrev);
+        btnSkip=findViewById(R.id.btnSkip);
         tabIndicator=findViewById(R.id.tabLayout);
         animationGetStarted= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.btn_get_started_anim);
 
@@ -132,6 +134,7 @@ public class OnboardingScreen extends AppCompatActivity {
 
     //removes next, indicator and previous button and shows get started button
     private void loadLastScreen() {
+        btnSkip.setVisibility(View.INVISIBLE);
         viewPager.setPagingEnabled(false);
         btnNext.setVisibility(View.INVISIBLE);
         tabIndicator.setVisibility(View.INVISIBLE);
@@ -149,4 +152,10 @@ public class OnboardingScreen extends AppCompatActivity {
         return result;
     }
 
+    public void Skip(View view) {
+        Intent intent = new Intent(OnboardingScreen.this,LoginScreenActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
+    }
 }

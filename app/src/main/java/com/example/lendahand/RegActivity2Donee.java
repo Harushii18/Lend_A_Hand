@@ -43,8 +43,17 @@ public class RegActivity2Donee extends AppCompatActivity {
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition() ==2 ) {
                     if (validateInput()) {
-                        //TODO: add to class- make lname and fname capitalised on first letter
+
                         Intent intent = new Intent(RegActivity2Donee.this, RegActivity3Donee.class);
+                        //get from previous activity
+                        Bundle bundle = getIntent().getExtras();
+                        String strPassword = bundle.getString("password");
+                        String strUsername = bundle.getString("username");
+                        //pass to next activity
+                        intent.putExtra("password", strPassword);
+                        intent.putExtra("username", strUsername);
+                        intent.putExtra("fname", strFName);
+                        intent.putExtra("lname", strLName);
                         startActivity(intent);
                         finish();
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);

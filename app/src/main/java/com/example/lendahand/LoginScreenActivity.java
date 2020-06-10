@@ -84,15 +84,9 @@ public class LoginScreenActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed() {
-        //TODO: get rid of toast on back button pressed
-
-    }
 
     public void SignIn(View view) {
         Intent intent = new Intent(this, SelectUserTypeActivity.class);
         startActivity(intent);
-        finish();
     }
 }

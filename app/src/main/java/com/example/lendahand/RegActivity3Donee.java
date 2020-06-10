@@ -48,6 +48,19 @@ public class RegActivity3Donee extends AppCompatActivity {
                     if (validateInput()) {
                         //TODO: add to class
                         Intent intent = new Intent(RegActivity3Donee.this, RegActivity4Donee.class);
+                        //get from previous activity
+                        Bundle bundle = getIntent().getExtras();
+                        String strPassword = bundle.getString("password");
+                        String strUsername = bundle.getString("username");
+                        String strFName = bundle.getString("fname");
+                        String strLName = bundle.getString("lname");
+                        //pass to next activity
+                        intent.putExtra("password", strPassword);
+                        intent.putExtra("username", strUsername);
+                        intent.putExtra("fname", strFName);
+                        intent.putExtra("lname", strLName);
+                        intent.putExtra("email", strEmail);
+                        intent.putExtra("phoneNo", strPhoneNumber);
                         startActivity(intent);
                         finish();
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
@@ -145,7 +158,6 @@ public class RegActivity3Donee extends AppCompatActivity {
                 return true;
             }
         });
-
         LinearLayout tabStrip2 = ((LinearLayout) tbDoneeReg.getChildAt(0));
         tabStrip2.getChildAt(1).setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -153,7 +165,6 @@ public class RegActivity3Donee extends AppCompatActivity {
                 return true;
             }
         });
-
         LinearLayout tabStrip3 = ((LinearLayout) tbDoneeReg.getChildAt(0));
         tabStrip3.getChildAt(2).setOnTouchListener(new View.OnTouchListener() {
             @Override

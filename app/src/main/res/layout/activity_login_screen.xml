@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_2_background"
     android:padding="20dp"
-    tools:context=".LoginScreenActivity">
+    tools:context=".LoginScreenActivity"
+    android:background="@drawable/login_2_background">
 
     <ImageView
         android:id="@+id/imgLogo"
@@ -85,7 +85,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="50dp"
-        android:backgroundTint="@color/sign_in_btn_colors"
+        android:backgroundTint="@color/primaryColor"
         android:onClick="LogIn"
         android:text="@string/txt_btnlogin"
         android:textColor="@color/primaryTextColor"
@@ -112,6 +112,7 @@
         android:id="@+id/txtSignup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
         android:gravity="center_horizontal|center_vertical"
         android:onClick="SignIn"
         android:text="@string/login_signup"
@@ -126,8 +127,9 @@
         android:id="@+id/chkStaySignedIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:buttonTint="@drawable/chkbox_color_selector"
         android:checked="false"
         android:text="@string/stay_signed_in"
         app:layout_constraintStart_toStartOf="parent"

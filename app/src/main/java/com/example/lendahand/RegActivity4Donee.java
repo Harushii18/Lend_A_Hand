@@ -47,6 +47,25 @@ public class RegActivity4Donee extends AppCompatActivity {
                     //TODO: Validation goes here
                     if (validateInput()) {
                         Intent intent = new Intent(RegActivity4Donee.this, RegActivity5.class);
+                        //get from previous activity
+                        Bundle bundle = getIntent().getExtras();
+                        String strPassword = bundle.getString("password");
+                        String strUsername = bundle.getString("username");
+                        String strFName = bundle.getString("fname");
+                        String strLName = bundle.getString("lname");
+                        String strEmail = bundle.getString("email");
+                        String strPhoneNumber = bundle.getString("phoneNo");
+                        //pass to next activity
+                        intent.putExtra("password", strPassword);
+                        intent.putExtra("username", strUsername);
+                        intent.putExtra("fname", strFName);
+                        intent.putExtra("lname", strLName);
+                        intent.putExtra("email", strEmail);
+                        intent.putExtra("phoneNo", strPhoneNumber);
+                        intent.putExtra("postcode", strPostalCode);
+                        intent.putExtra("prov", strProvince);
+                        intent.putExtra("streetadd", strStreetAddress);
+                        intent.putExtra("suburb", strSuburb);
                         startActivity(intent);
                         finish();
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
