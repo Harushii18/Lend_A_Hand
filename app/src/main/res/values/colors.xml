@@ -29,6 +29,8 @@
     <!--login screen colors-->
     <color name="sign_up_color">#298EC5</color>
     <color name="toast_bkground_color">#81d4fa</color>
+    <color name="toast_invalid_color">#000000</color>
+    <color name="toast_invalid_color_icon">#B80000</color>
     <color name="toast_stroke_color">#53B1BCBE</color>
     <color name="desel_chk_color">#AAACAE</color>
 

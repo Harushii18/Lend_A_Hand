@@ -41,6 +41,7 @@ And many others.
     <string name="login_signup">" Sign up!"</string>
     <string name="stay_signed_in">Stay signed in</string>
     <string name="txt_toast_login">Logging in...</string>
+    <string name="txt_toast_login_invalid">Invalid login details</string>
 
     <!--Select user screen-->
     <string name="txt_btn_donor">DONOR</string>

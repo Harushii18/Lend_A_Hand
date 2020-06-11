@@ -38,6 +38,7 @@ public class RegActivity5 extends AppCompatActivity {
     private String strMotivationalLetter;
     private String urlLink = "https://lamp.ms.wits.ac.za/home/s2089676/";
     private OkHttpClient client;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +47,7 @@ public class RegActivity5 extends AppCompatActivity {
         setContentView(R.layout.activity_reg5);
 
         tbDoneeReg = findViewById(R.id.tbDoneeReg5);
-        txtMotivationalLetter=findViewById(R.id.txtDoneeMotLetter);
+        txtMotivationalLetter = findViewById(R.id.txtDoneeMotLetter);
 
         //select current tab
         tbDoneeReg.getTabAt(4).select();
@@ -83,48 +84,48 @@ public class RegActivity5 extends AppCompatActivity {
 
                         //ensure the values are of proper format
                         assert strFName != null;
-                        strFName=capitalizeWord(strFName.toLowerCase());
+                        strFName = capitalizeWord(strFName.toLowerCase());
                         assert strLName != null;
-                        strLName=capitalizeWord(strLName.toLowerCase());
+                        strLName = capitalizeWord(strLName.toLowerCase());
                         assert strStreetAddress != null;
-                        strStreetAddress=capitalizeWord(strStreetAddress.toLowerCase());
+                        strStreetAddress = capitalizeWord(strStreetAddress.toLowerCase());
                         assert strSuburb != null;
-                        strSuburb=capitalizeWord(strSuburb.toLowerCase());
+                        strSuburb = capitalizeWord(strSuburb.toLowerCase());
                         assert strProvince != null;
-                        strProvince=capitalizeWord(strProvince.toLowerCase());
+                        strProvince = capitalizeWord(strProvince.toLowerCase());
 
 
                         //hash password with SHA-512
 
-                        String generatedPassword="";
+                        String generatedPassword = "";
                         try {
-                            SecureRandom random=new SecureRandom();
-                            byte[] salt=new byte[16];
+                            SecureRandom random = new SecureRandom();
+                            byte[] salt = new byte[16];
                             random.nextBytes(salt);
-                            MessageDigest md= MessageDigest.getInstance("SHA-512");
+                            MessageDigest md = MessageDigest.getInstance("SHA-512");
                             md.update(salt);
-                            byte[] hashedPassword=md.digest(strPassword.getBytes(StandardCharsets.UTF_8));
-                            StringBuilder stringBuilder=new StringBuilder();
-                            for (int i=0;i<hashedPassword.length;i++){
-                                stringBuilder.append(Integer.toString((hashedPassword[i] & 0xff)+0x100,16).substring(1));
+                            byte[] hashedPassword = md.digest(strPassword.getBytes(StandardCharsets.UTF_8));
+                            StringBuilder stringBuilder = new StringBuilder();
+                            for (int i = 0; i < hashedPassword.length; i++) {
+                                stringBuilder.append(Integer.toString((hashedPassword[i] & 0xff) + 0x100, 16).substring(1));
                             }
-                            generatedPassword=stringBuilder.toString();
+                            generatedPassword = stringBuilder.toString();
                         } catch (NoSuchAlgorithmException e) {
                             e.printStackTrace();
                         }
 
-                        client=new OkHttpClient();
+                        client = new OkHttpClient();
                         urlLink = urlLink + "donorpost.php";
 
-                        RequestBody formBody=new FormBody.Builder()
-                                .add("username",strUsername)
+                        RequestBody formBody = new FormBody.Builder()
+                                .add("username", strUsername)
                                 .build();
 
                         Request request = new Request.Builder()
                                 .url(urlLink)
                                 .post(formBody)
                                 .build();
-                        final CountDownLatch countDownLatch=new CountDownLatch(1);
+                        final CountDownLatch countDownLatch = new CountDownLatch(1);
                         client.newCall(request).enqueue(new Callback() {
                             @Override
                             public void onFailure(@NotNull Call call, @NotNull IOException e) {
@@ -135,11 +136,9 @@ public class RegActivity5 extends AppCompatActivity {
                             @Override
                             public void onResponse(Call call, final Response response) throws IOException {
                                 if (response.isSuccessful()) {
-
                                     final String responseData = response.body().string();
-
-                                    countDownLatch.countDown();
                                 }
+                                countDownLatch.countDown();
                             }
                         });
 
@@ -150,13 +149,10 @@ public class RegActivity5 extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-
-
-
                         startActivity(intent);
                         finish();
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                    }else{
+                    } else {
                         tbDoneeReg = findViewById(R.id.tbDoneeReg5);
                     }
                 }
@@ -171,22 +167,24 @@ public class RegActivity5 extends AppCompatActivity {
             }
         });
     }
-    private String capitalizeWord(String str){
-        String words[]=str.split("\\s");
-        String capitalizeWord="";
-        for(String w:words){
-            String first=w.substring(0,1);
-            String afterfirst=w.substring(1);
-            capitalizeWord+=first.toUpperCase()+afterfirst+" ";
+
+    private String capitalizeWord(String str) {
+        String words[] = str.split("\\s");
+        String capitalizeWord = "";
+        for (String w : words) {
+            String first = w.substring(0, 1);
+            String afterfirst = w.substring(1);
+            capitalizeWord += first.toUpperCase() + afterfirst + " ";
         }
         return capitalizeWord.trim();
     }
+
     private boolean validateInput() {
-        boolean blnValid=true;
-        strMotivationalLetter=txtMotivationalLetter.getEditText().getText().toString().trim();
-        if (strMotivationalLetter.length()==0){
+        boolean blnValid = true;
+        strMotivationalLetter = txtMotivationalLetter.getEditText().getText().toString().trim();
+        if (strMotivationalLetter.length() == 0) {
             txtMotivationalLetter.setError(getText(R.string.txt_empty_field));
-            blnValid=false;
+            blnValid = false;
         }
         return blnValid;
     }
@@ -194,7 +192,8 @@ public class RegActivity5 extends AppCompatActivity {
     private void setUserComponentErrorInteractivity() {
         txtMotivationalLetter.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
 
             @Override
             public void beforeTextChanged(CharSequence s, int start,
@@ -205,9 +204,9 @@ public class RegActivity5 extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
                 tbDoneeReg.getTabAt(4).select();
-                if(s.length() == 0) {
+                if (s.length() == 0) {
                     txtMotivationalLetter.setError(getText(R.string.txt_empty_field));
-                }else{
+                } else {
                     txtMotivationalLetter.setError(null);
                     txtMotivationalLetter.setErrorEnabled(false);
                 }

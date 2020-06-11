@@ -188,14 +188,14 @@ public class RegActivity1Donee extends AppCompatActivity {
                 txtUsername.setError(getText(R.string.txt_invalid_username));
                 blnValid = false;
             } else {
-                urlLink = urlLink + "usercheck.php";
+                String url = urlLink + "usercheck.php";
 
                 RequestBody formBody=new FormBody.Builder()
                         .add("username",strUsername)
                         .build();
 
                 Request request = new Request.Builder()
-                        .url(urlLink)
+                        .url(url)
                         .post(formBody)
                         .build();
                 final CountDownLatch countDownLatch=new CountDownLatch(1);
