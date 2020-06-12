@@ -51,7 +51,7 @@
         android:gravity="center_horizontal"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:text="@string/txt_step_two_add_info"
+        android:text="@string/txt_step_two_donee_add_info"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />

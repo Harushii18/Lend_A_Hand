@@ -106,6 +106,7 @@ And many others.
     <string name="txt_invalid_email">Invalid email</string>
     <string name="txt_invalid_phone_number">Invalid phone number</string>
     <string name="txt_invalid_postal_code">Invalid postal code</string>
+    <string name="txt_invalid_province">Select a province from the list</string>
 
 
 </resources>

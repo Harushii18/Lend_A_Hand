@@ -50,7 +50,7 @@
         android:gravity="center_horizontal"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:text="@string/txt_step_three_add_info"
+        android:text="@string/txt_step_three_donee_add_info"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -117,7 +117,8 @@
                 android:id="@+id/txtDoneeProvince"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="none" />
+                android:inputType="none"
+                android:singleLine="true"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 

@@ -20,7 +20,6 @@ import java.security.SecureRandom;
 
 public class RegActivityFinalDonee extends AppCompatActivity {
     private TabLayout tbDoneeReg;
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,10 +34,9 @@ public class RegActivityFinalDonee extends AppCompatActivity {
         //this method changes tab icons to arrows to show step was completed
         setTabIcons();
 
-        //this method ensures that only the next step can be accessed
+        //this method ensures that no previous steps can be accessed
         setTabInteractivity();
     }
-
 
     private void setTabInteractivity() {
         LinearLayout tabStrip1 = ((LinearLayout) tbDoneeReg.getChildAt(0));
@@ -48,7 +46,6 @@ public class RegActivityFinalDonee extends AppCompatActivity {
                 return true;
             }
         });
-
         LinearLayout tabStrip2 = ((LinearLayout) tbDoneeReg.getChildAt(0));
         tabStrip2.getChildAt(1).setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -56,7 +53,6 @@ public class RegActivityFinalDonee extends AppCompatActivity {
                 return true;
             }
         });
-
         LinearLayout tabStrip3 = ((LinearLayout) tbDoneeReg.getChildAt(0));
         tabStrip3.getChildAt(2).setOnTouchListener(new View.OnTouchListener() {
             @Override

@@ -68,7 +68,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView4">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txtDonFirstName"
+            android:id="@+id/txtDonorFirstName"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -84,12 +84,12 @@
                 android:layout_height="wrap_content"
                 android:maxLength="50"
                 android:singleLine="true"
-                android:inputType="textCapCharacters"/>
+                android:inputType="textCapSentences"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txtDonLastName"
+            android:id="@+id/txtDonorLastName"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:maxLength="50"
                 android:singleLine="true"
-                android:inputType="textCapCharacters"/>
+                android:inputType="textCapSentences"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -148,10 +148,6 @@
             android:layout_height="wrap_content"
             android:icon="@drawable/indicator_selector_five" />
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:icon="@drawable/indicator_selector_six" />
 
 
     </com.google.android.material.tabs.TabLayout>

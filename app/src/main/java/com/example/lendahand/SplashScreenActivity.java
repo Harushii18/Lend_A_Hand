@@ -22,14 +22,8 @@ public class SplashScreenActivity extends AppCompatActivity {
         //removes title bar of splash screen
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            //ensures that status bar shows in front of full screen splash screen if it is a certain build (android version must be kitkat and above)
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                    WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        }else {
-            //covers status bar with full screen splash screen
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        }
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
         setContentView(R.layout.activity_splash_screen);
 

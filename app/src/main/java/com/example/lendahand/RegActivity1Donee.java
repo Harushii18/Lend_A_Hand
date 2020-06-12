@@ -99,7 +99,7 @@ public class RegActivity1Donee extends AppCompatActivity {
                     if (username.contains(" ")) {
                         //if statement to prevent the error from reloading every time
                         if (invalidUsername == false) {
-                            txtUsername.setError(getText(R.string.txt_invalid_username));
+                            txtUsername.setError(getText(R.string.txt_username_no_spaces));
                             invalidUsername = true;
                         }
                     } else {
@@ -160,7 +160,6 @@ public class RegActivity1Donee extends AppCompatActivity {
                     txtPassword2.setError(null);
                     txtPassword2.setErrorEnabled(false);
                 }
-
             }
 
             @Override
@@ -185,7 +184,7 @@ public class RegActivity1Donee extends AppCompatActivity {
             blnValid = false;
         } else {
             if (strUsername.contains(" ")) {
-                txtUsername.setError(getText(R.string.txt_invalid_username));
+                txtUsername.setError(getText(R.string.txt_username_no_spaces));
                 blnValid = false;
             } else {
                 String url = urlLink + "usercheck.php";
@@ -265,7 +264,6 @@ public class RegActivity1Donee extends AppCompatActivity {
     }
     private void setUsernameExists(boolean blnValue){
         usernameExists=blnValue;
-
     }
     private void setTabInteractivity() {
         LinearLayout tabStrip2 = ((LinearLayout) tbDoneeReg.getChildAt(0));
@@ -275,7 +273,6 @@ public class RegActivity1Donee extends AppCompatActivity {
                 return false;
             }
         });
-
         LinearLayout tabStrip3 = ((LinearLayout) tbDoneeReg.getChildAt(0));
         tabStrip3.getChildAt(2).setOnTouchListener(new View.OnTouchListener() {
             @Override

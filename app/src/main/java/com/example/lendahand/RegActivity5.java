@@ -111,7 +111,7 @@ public class RegActivity5 extends AppCompatActivity {
                         }
 
                         client = new OkHttpClient();
-                        String link = urlLink + "donorpost.php";
+                        String link = urlLink + "doneepost.php";
 
                         RequestBody formBody = new FormBody.Builder()
                                 .add("username", strUsername)
@@ -124,7 +124,7 @@ public class RegActivity5 extends AppCompatActivity {
                                 .add("sub", strSuburb)
                                 .add("prov", strProvince)
                                 .add("postcode", strPostalCode)
-                                .add("utype", "donor")
+                                .add("utype", "donee")
                                 .add("mot", strMotivationalLetter)
                                 .add("stat", "Pending")
                                 .build();
@@ -230,7 +230,6 @@ public class RegActivity5 extends AppCompatActivity {
                 return true;
             }
         });
-
         LinearLayout tabStrip2 = ((LinearLayout) tbDoneeReg.getChildAt(0));
         tabStrip2.getChildAt(1).setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -238,7 +237,6 @@ public class RegActivity5 extends AppCompatActivity {
                 return true;
             }
         });
-
         LinearLayout tabStrip3 = ((LinearLayout) tbDoneeReg.getChildAt(0));
         tabStrip3.getChildAt(2).setOnTouchListener(new View.OnTouchListener() {
             @Override

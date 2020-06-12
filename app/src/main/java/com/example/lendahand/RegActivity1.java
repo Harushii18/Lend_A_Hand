@@ -96,7 +96,7 @@ public class RegActivity1 extends AppCompatActivity {
                     if (username.contains(" ")) {
                         //if statement to prevent the error from reloading every time
                         if (invalidUsername == false) {
-                            txtUsername.setError(getText(R.string.txt_invalid_username));
+                            txtUsername.setError(getText(R.string.txt_username_no_spaces));
                             invalidUsername = true;
                         }
                     } else {
@@ -181,7 +181,7 @@ public class RegActivity1 extends AppCompatActivity {
             blnValid = false;
         } else {
             if (strUsername.contains(" ")) {
-                txtUsername.setError(getText(R.string.txt_invalid_username));
+                txtUsername.setError(getText(R.string.txt_username_no_spaces));
                 blnValid = false;
             } else {
                 String url = urlLink + "usercheck.php";

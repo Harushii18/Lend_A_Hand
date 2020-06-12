@@ -116,11 +116,27 @@ public class RegActivity4Donee extends AppCompatActivity {
             txtStreetAddress.setError(getText(R.string.txt_empty_field));
             blnValid=false;
         }
-        if (strProvince.length()==0){
+        String strChkProvince=txtProvince.getText().toString();
+
+        if ((strProvince.length()==0) && (strChkProvince.length()==0)){
             txtProvLayout.setError(getText(R.string.txt_empty_field));
             blnValid=false;
+        }else{
+            if (strChkProvince!=strProvince){
+                boolean blnFound=false;
+                //checking that user didn't type in their own province
+                for (int i=0;i<arrProvinces.length;i++){
+                    if (strChkProvince.equals(arrProvinces[i])){
+                        blnFound=true;
+                    }
+                }
+                if (blnFound==false){
+                    blnValid=false;
+                    txtProvLayout.setError(getText(R.string.txt_invalid_province));
+                    txtProvince.setText("");
+                }
+            }
         }
-
         return blnValid;
     }
 
@@ -230,6 +246,8 @@ public class RegActivity4Donee extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //extract items
                 strProvince=parent.getItemAtPosition(position).toString();
+                txtProvLayout.setError(null);
+                txtProvLayout.setErrorEnabled(false);
             }
         });
     }
