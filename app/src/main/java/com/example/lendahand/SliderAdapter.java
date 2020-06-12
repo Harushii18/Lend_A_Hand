@@ -20,8 +20,6 @@ public class SliderAdapter extends PagerAdapter {
         this.context = context;
     }
 
-    //need to add donate image when they allow me to download it
-    //put heart icon for now
     int arrImages[] = {
             R.drawable.ic_lockdownicon,
             R.drawable.ic_donateboy,
@@ -66,9 +64,9 @@ public class SliderAdapter extends PagerAdapter {
         //Hooks
 
         //get 3 main components on layout
-        ImageView imgSlider = (ImageView)view.findViewById(R.id.img_slider);
-        TextView txtHeading = (TextView)view.findViewById(R.id.txt_heading_slider);
-        TextView txtDescription = (TextView)view.findViewById(R.id.txt_slider_desc);
+        ImageView imgSlider = view.findViewById(R.id.img_slider);
+        TextView txtHeading = view.findViewById(R.id.txt_heading_slider);
+        TextView txtDescription = view.findViewById(R.id.txt_slider_desc);
         if (position==2 || position==4){
             imgSlider.setScaleType(ImageView.ScaleType.FIT_CENTER);
         }else{

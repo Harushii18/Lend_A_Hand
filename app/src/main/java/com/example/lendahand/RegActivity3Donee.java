@@ -46,7 +46,6 @@ public class RegActivity3Donee extends AppCompatActivity {
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition() == 3) {
                     if (validateInput()) {
-                        //TODO: add to class
                         Intent intent = new Intent(RegActivity3Donee.this, RegActivity4Donee.class);
                         //get from previous activity
                         Bundle bundle = getIntent().getExtras();

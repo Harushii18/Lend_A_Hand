@@ -18,6 +18,9 @@ import com.google.android.material.textfield.TextInputLayout;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.CountDownLatch;
 
 import okhttp3.Call;
@@ -64,11 +67,26 @@ public class RegActivity1Donee extends AppCompatActivity {
 
                     if (validateInput()) {
                         //if it is valid
-                        //TODO: store hashed password in class
+                        //encrypt and hash password with SHA-512 to send through multiple intents
+                        String generatedPassword = "";
+                        try {
+                            String salt="A$thy*BJFK_P_$%#";
+                            MessageDigest md = MessageDigest.getInstance("SHA-512");
+                            md.update(salt.getBytes(StandardCharsets.UTF_8));
+                            byte[] hashedPassword = md.digest(strPassword.getBytes(StandardCharsets.UTF_8));
+                            StringBuilder stringBuilder = new StringBuilder();
+                            for (int i = 0; i < hashedPassword.length; i++) {
+                                stringBuilder.append(Integer.toString((hashedPassword[i] & 0xff) + 0x100, 16).substring(1));
+                            }
+                            generatedPassword = stringBuilder.toString();
+                        } catch (NoSuchAlgorithmException e) {
+                            e.printStackTrace();
+                        }
+
                         Intent intent = new Intent(RegActivity1Donee.this, RegActivity2Donee.class);
                         //pass password and username
                         intent.putExtra("username", strUsername);
-                        intent.putExtra("password", strPassword);
+                        intent.putExtra("password", generatedPassword);
                         startActivity(intent);
                         finish();
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);

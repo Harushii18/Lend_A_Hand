@@ -51,7 +51,6 @@ public class RegActivity4Donee extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition() == 4) {
-                    //TODO: Validation goes here
                     if (validateInput()) {
                         Intent intent = new Intent(RegActivity4Donee.this, RegActivity5.class);
                         //get from previous activity

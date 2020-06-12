@@ -82,7 +82,7 @@ public class OnboardingScreen extends AppCompatActivity {
         });
 
         //making certain buttons show/hide on tab movement
-        tabIndicator.addOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
+        tabIndicator.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition()<4){

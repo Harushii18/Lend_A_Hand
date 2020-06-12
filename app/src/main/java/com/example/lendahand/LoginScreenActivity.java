@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,8 +46,8 @@ public class LoginScreenActivity extends AppCompatActivity {
     private Button btnLogin;
     private String urlLink = "https://lamp.ms.wits.ac.za/home/s2089676/";
     private OkHttpClient client;
-    boolean blnValid=false;
-
+    boolean blnValid = false;
+    private CheckBox chkStayLoggedIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,96 +56,175 @@ public class LoginScreenActivity extends AppCompatActivity {
         //hide title bar
         getSupportActionBar().hide();
 
-        //TODO: Shared preferences, stay logged in
-        //ensuring that we stay logged in
-        /*
-        if(StayLoggedIn.getUserName(LoginScreenActivity.this).length() == 0)
+        //ensuring that if user decided to stay logged in, they will be redirected to their home page and not shown this screen
+        if(StayLoggedIn.getLoggedIn(LoginScreenActivity.this))
         {
-            // call Login Activity
-
+            //go to intent for donee/donor/admin accordingly
+            if (StayLoggedIn.getUserType(LoginScreenActivity.this).equals("Donor")){
+                //TODO: change to donor class here
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }else if (StayLoggedIn.getUserType(LoginScreenActivity.this).equals("Donee")){
+                //TODO: change to donee class here
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }else if (StayLoggedIn.getUserType(LoginScreenActivity.this).equals("Admin")){
+                //TODO: change to admin class here
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
         }
-        else
-        {
-            // Stay at the current activity.
-        }
-
-*/
         setContentView(R.layout.activity_login_screen);
         //initialise views
         initViews();
-
     }
 
 
     public void LogIn(View view) {
-        //extract input
-        extractInput();
-        //TODO: Validations and decryption
-
-        if (validateUser()) {
-
-            //Toast to display that they are logging in
-            LayoutInflater inflater = getLayoutInflater();
-            View layout = inflater.inflate(R.layout.custom_toast,
-                    (ViewGroup) findViewById(R.id.custom_toast_container));
-            TextView txtToast = layout.findViewById(R.id.txtToast);
-            txtToast.setText(getText(R.string.txt_toast_login));
-            Toast toast = new Toast(getApplicationContext());
-            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-            toast.setDuration(Toast.LENGTH_SHORT);
-            toast.setView(layout);
+        //check connectivity
+        GlobalConnectivityCheck globalConnectivityCheck = new GlobalConnectivityCheck(getApplicationContext());
+        if (!globalConnectivityCheck.isNetworkConnected()) {
+            //if internet is not connected
+            Toast toast=Toast.makeText(getApplicationContext(),getText(R.string.txt_internet_disconnected),Toast.LENGTH_SHORT);
             toast.show();
-
-            //TODO: Change this to certain screen depending on if logged in user is donor/ donee
-
-            final Intent intent = new Intent(this, MainActivity.class);
-
-            //thread is used to make sure toast is just shown on login
-            Thread thread = new Thread() {
-                @Override
-                public void run() {
-                    try {
-                        Thread.sleep(2000);
-                        startActivity(intent);
-                        finish();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            };
-
-            thread.start();
         } else {
-            //show toast on login fail
-            LayoutInflater inflater = getLayoutInflater();
-            View layout = inflater.inflate(R.layout.custom_invalid_toast,
-                    (ViewGroup) findViewById(R.id.custom_toast_container));
-            final TextView txtToast2 = layout.findViewById(R.id.txtToast2);
-            txtToast2.setText(getText(R.string.txt_toast_login_invalid));
-            Toast toast2 = new Toast(getApplicationContext());
-            toast2.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-            toast2.setDuration(Toast.LENGTH_SHORT);
-            toast2.setView(layout);
-            btnLogin.setEnabled(false);
-            toast2.show();
+            //extract input
+            extractInput();
+            if (validateUser()) {
+                //Toast to display that they are logging in
+                showLoginSuccessfulToast();
 
-            Thread thread = new Thread() {
-                @Override
-                public void run() {
-                    try {
-                        Thread.sleep(2000);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                //if users prefer to stay signed in, set shared preferences accordingly
+                setUserSignInPreference();
+
+                if (strUserType.equals("Donee")) {
+                    //go to donee screens
+                    //TODO: Change this to certain screen depending on if logged in user is donee
+                    final Intent intent = new Intent(this, MainActivity.class);
+
+                    //thread is used to make sure toast is just shown on login
+                    Thread thread = new Thread() {
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(2000);
+                                startActivity(intent);
+                                finish();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+
+                    thread.start();
+                } else if (strUserType.equals("Donor")) {
+                    //go to donor screens
+                    //TODO: Change this to certain screen depending on if logged in user is donor
+                    final Intent intent = new Intent(this, MainActivity.class);
+
+                    //thread is used to make sure toast is just shown on login
+                    Thread thread = new Thread() {
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(2000);
+                                startActivity(intent);
+                                finish();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+
+                    thread.start();
+
+                } else if (strUserType.equals("Admin")) {
+                    //go to admin screens
+                    //TODO: Change this to certain screen depending on if logged in user is admin
+                    final Intent intent = new Intent(this, MainActivity.class);
+
+                    //thread is used to make sure toast is just shown on login
+                    Thread thread = new Thread() {
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(2000);
+                                startActivity(intent);
+                                finish();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+
+                    thread.start();
                 }
 
-            };
-            thread.start();
-            txtPassword.getEditText().setText("");
-            txtUsername.getEditText().setText("");
-            btnLogin.setEnabled(true);
-        }
+            } else {
+                //show toast on login fail
+                showLoginFailedToast();
 
+                //reset to make it easier for user
+                txtPassword.getEditText().setText("");
+                txtUsername.getEditText().setText("");
+                btnLogin.setEnabled(true);
+            }
+        }
+    }
+
+    private void setUserSignInPreference() {
+        StayLoggedIn.setUserName(LoginScreenActivity.this, strUsername);
+        StayLoggedIn.setUserType(LoginScreenActivity.this, strUserType);
+        //set preferences to stay logged in
+        if (chkStayLoggedIn.isChecked()==true) {
+            StayLoggedIn.setLoggedIn(LoginScreenActivity.this, true);
+        }else{
+            StayLoggedIn.setLoggedIn(LoginScreenActivity.this, false);
+        }
+    }
+
+    private void showLoginSuccessfulToast() {
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.custom_toast,
+                (ViewGroup) findViewById(R.id.custom_toast_container));
+        TextView txtToast = layout.findViewById(R.id.txtToast);
+        txtToast.setText(getText(R.string.txt_toast_login));
+        Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+        toast.show();
+
+    }
+
+    private void showLoginFailedToast() {
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.custom_invalid_toast,
+                (ViewGroup) findViewById(R.id.custom_toast_container));
+        final TextView txtToast2 = layout.findViewById(R.id.txtToast2);
+        txtToast2.setText(getText(R.string.txt_toast_login_invalid));
+        Toast toast2 = new Toast(getApplicationContext());
+        toast2.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+        toast2.setDuration(Toast.LENGTH_SHORT);
+        toast2.setView(layout);
+        btnLogin.setEnabled(false);
+        toast2.show();
+
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(2000);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+        };
+        thread.start();
     }
 
     private void extractInput() {
@@ -156,6 +236,7 @@ public class LoginScreenActivity extends AppCompatActivity {
         txtUsername = findViewById(R.id.txtUsername);
         txtPassword = findViewById(R.id.txtPassword);
         btnLogin = findViewById(R.id.btnLogin);
+        chkStayLoggedIn=findViewById(R.id.chkStaySignedIn);
 
     }
 
@@ -164,14 +245,13 @@ public class LoginScreenActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
     private boolean validateUser() {
         blnValid = false;
         if ((strUsername.length() == 0) || (strPassword.length() == 0)) {
             blnValid = false;
         } else {
             client = new OkHttpClient();
-            String url= urlLink + "login.php";
+            String url = urlLink + "login.php";
 
             RequestBody formBody = new FormBody.Builder()
                     .add("username", strUsername)
@@ -188,7 +268,6 @@ public class LoginScreenActivity extends AppCompatActivity {
                     e.printStackTrace();
                     setblnValid(false, "");
                     countDownLatch.countDown();
-                    //TODO: Check internet connection here, show toast and close app
                 }
 
                 @Override
@@ -204,7 +283,7 @@ public class LoginScreenActivity extends AppCompatActivity {
 
                                 String generatedPassword = "";
                                 try {
-                                    String salt="A$thy*BJFK_P_$%#";
+                                    String salt = "A$thy*BJFK_P_$%#";
                                     MessageDigest md = MessageDigest.getInstance("SHA-512");
                                     md.update(salt.getBytes(StandardCharsets.UTF_8));
                                     byte[] hashedPassword = md.digest(strPassword.getBytes(StandardCharsets.UTF_8));

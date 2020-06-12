@@ -31,6 +31,9 @@ And many others.
     <string name="next_btn">Next</string>
     <string name="get_started">Get started</string>
 
+    <!--Common general screens-->
+    <string name="txt_internet_disconnected">Internet disconnected. Please try again</string>
+    <string name="txt_success">Success</string>
     <!--Login Screen-->
     <string name="txt_username">Username</string>
     <string name="txt_password">Password</string>

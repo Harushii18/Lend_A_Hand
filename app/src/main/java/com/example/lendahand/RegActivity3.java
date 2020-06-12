@@ -149,7 +149,6 @@ public class RegActivity3 extends AppCompatActivity {
     }
 
     private void setTabInteractivity() {
-
         LinearLayout tabStrip1 = ((LinearLayout) tbDonorReg.getChildAt(0));
         tabStrip1.getChildAt(0).setOnTouchListener(new View.OnTouchListener() {
             @Override

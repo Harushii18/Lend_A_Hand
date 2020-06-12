@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputLayout;
@@ -63,105 +64,97 @@ public class RegActivity5 extends AppCompatActivity {
         setUserComponentErrorInteractivity();
 
         tbDoneeReg.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition() == 5) {
-                    if (validateInput()) {
-                        //TODO: Add motivational letter to class and post as well, after fezile changes it to 128 chars
-                        Intent intent = new Intent(RegActivity5.this, RegActivityFinalDonee.class);
-                        //get from previous activity
-                        Bundle bundle = getIntent().getExtras();
-                        String strPassword = bundle.getString("password");
-                        String strUsername = bundle.getString("username");
-                        String strFName = bundle.getString("fname");
-                        String strLName = bundle.getString("lname");
-                        String strEmail = bundle.getString("email");
-                        String strPhoneNumber = bundle.getString("phoneNo");
-                        String strPostalCode = bundle.getString("postcode");
-                        String strStreetAddress = bundle.getString("streetadd");
-                        String strSuburb = bundle.getString("suburb");
-                        String strProvince = bundle.getString("prov");
-
-                        //ensure the values are of proper format
-                        assert strFName != null;
-                        strFName = capitalizeWord(strFName.toLowerCase());
-                        assert strLName != null;
-                        strLName = capitalizeWord(strLName.toLowerCase());
-                        assert strStreetAddress != null;
-                        strStreetAddress = capitalizeWord(strStreetAddress.toLowerCase());
-                        assert strSuburb != null;
-                        strSuburb = capitalizeWord(strSuburb.toLowerCase());
-
-                        //hash password with SHA-512
-
-                        String generatedPassword = "";
-                        try {
-                            String salt="A$thy*BJFK_P_$%#";
-                            MessageDigest md = MessageDigest.getInstance("SHA-512");
-                            md.update(salt.getBytes(StandardCharsets.UTF_8));
-                            byte[] hashedPassword = md.digest(strPassword.getBytes(StandardCharsets.UTF_8));
-                            StringBuilder stringBuilder = new StringBuilder();
-                            for (int i = 0; i < hashedPassword.length; i++) {
-                                stringBuilder.append(Integer.toString((hashedPassword[i] & 0xff) + 0x100, 16).substring(1));
-                            }
-                            generatedPassword = stringBuilder.toString();
-                        } catch (NoSuchAlgorithmException e) {
-                            e.printStackTrace();
-                        }
-
-                        client = new OkHttpClient();
-                        String link = urlLink + "doneepost.php";
-
-                        RequestBody formBody = new FormBody.Builder()
-                                .add("username", strUsername)
-                                .add("pass", generatedPassword)
-                                .add("fname", strFName)
-                                .add("surname", strLName)
-                                .add("email", strEmail)
-                                .add("phone", strPhoneNumber)
-                                .add("street", strStreetAddress)
-                                .add("sub", strSuburb)
-                                .add("prov", strProvince)
-                                .add("postcode", strPostalCode)
-                                .add("utype", "donee")
-                                .add("mot", strMotivationalLetter)
-                                .add("stat", "Pending")
-                                .build();
-
-                        Request request = new Request.Builder()
-                                .url(link)
-                                .post(formBody)
-                                .build();
-                        final CountDownLatch countDownLatch = new CountDownLatch(1);
-                        client.newCall(request).enqueue(new Callback() {
-                            @Override
-                            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                                e.printStackTrace();
-                                countDownLatch.countDown();
-                            }
-
-                            @Override
-                            public void onResponse(Call call, final Response response) throws IOException {
-                                if (response.isSuccessful()) {
-
-                                }
-                                countDownLatch.countDown();
-                            }
-                        });
-
-                        try {
-                            //to ensure that main thread waits for this
-                            countDownLatch.await();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-
-                        startActivity(intent);
-                        finish();
-                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                    //check connectivity
+                    GlobalConnectivityCheck globalConnectivityCheck = new GlobalConnectivityCheck(getApplicationContext());
+                    if (!globalConnectivityCheck.isNetworkConnected()) {
+                        //if internet is not connected
+                        Toast toast = Toast.makeText(getApplicationContext(), getText(R.string.txt_internet_disconnected), Toast.LENGTH_SHORT);
+                        toast.show();
                     } else {
-                        tbDoneeReg = findViewById(R.id.tbDoneeReg5);
+                        if (validateInput()) {
+                            Intent intent = new Intent(RegActivity5.this, RegActivityFinalDonee.class);
+                            //get from previous activity
+                            Bundle bundle = getIntent().getExtras();
+                            String strPassword = bundle.getString("password");
+                            String strUsername = bundle.getString("username");
+                            String strFName = bundle.getString("fname");
+                            String strLName = bundle.getString("lname");
+                            String strEmail = bundle.getString("email");
+                            String strPhoneNumber = bundle.getString("phoneNo");
+                            String strPostalCode = bundle.getString("postcode");
+                            String strStreetAddress = bundle.getString("streetadd");
+                            String strSuburb = bundle.getString("suburb");
+                            String strProvince = bundle.getString("prov");
+
+                            //ensure the values are of proper format
+                            assert strFName != null;
+                            strFName = capitalizeWord(strFName.toLowerCase());
+                            assert strLName != null;
+                            strLName = capitalizeWord(strLName.toLowerCase());
+                            assert strStreetAddress != null;
+                            strStreetAddress = capitalizeWord(strStreetAddress.toLowerCase());
+                            assert strSuburb != null;
+                            strSuburb = capitalizeWord(strSuburb.toLowerCase());
+
+
+                            client = new OkHttpClient();
+                            String link = urlLink + "doneepost.php";
+
+                            RequestBody formBody = new FormBody.Builder()
+                                    .add("username", strUsername)
+                                    .add("pass", strPassword)
+                                    .add("fname", strFName)
+                                    .add("surname", strLName)
+                                    .add("email", strEmail)
+                                    .add("phone", strPhoneNumber)
+                                    .add("street", strStreetAddress)
+                                    .add("sub", strSuburb)
+                                    .add("prov", strProvince)
+                                    .add("postcode", strPostalCode)
+                                    .add("utype", "donee")
+                                    .add("mot", strMotivationalLetter)
+                                    .add("stat", "Pending")
+                                    .build();
+
+                            Request request = new Request.Builder()
+                                    .url(link)
+                                    .post(formBody)
+                                    .build();
+                            final CountDownLatch countDownLatch = new CountDownLatch(1);
+                            client.newCall(request).enqueue(new Callback() {
+                                @Override
+                                public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                                    e.printStackTrace();
+                                    countDownLatch.countDown();
+                                }
+
+                                @Override
+                                public void onResponse(Call call, final Response response) throws IOException {
+                                    if (response.isSuccessful()) {
+                                        Log.d("INSERT","Inserting new donee to database successful");
+                                    }else{
+                                        Log.d("INSERT","Inserting new donee to database failed");
+                                    }
+                                    countDownLatch.countDown();
+                                }
+                            });
+
+                            try {
+                                //to ensure that main thread waits for this
+                                countDownLatch.await();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
+                            startActivity(intent);
+                            finish();
+                            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                        } else {
+                            tbDoneeReg = findViewById(R.id.tbDoneeReg5);
+                        }
                     }
                 }
             }

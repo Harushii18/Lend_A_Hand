@@ -91,6 +91,7 @@ public class RegActivityFinalDonee extends AppCompatActivity {
         tbDoneeReg.getTabAt(4).setIcon(R.drawable.ic_progress_complete_sel);
         tbDoneeReg.getTabAt(5).setIcon(R.drawable.ic_progress_complete_sel);
     }
+
     public void DoneeLogin(View view) {
         //go to log in activity
         Intent intent = new Intent(this, LoginScreenActivity.class);
