@@ -17,9 +17,9 @@
     </style>
 
     <style name="NoAnimTheme" parent="MaterialTheme">
-        <!-- Customize your theme here. -->
         <item name="android:windowAnimationStyle">@null</item>
     </style>
+
     <!-- No action bar theme-->
     <style name="AppTheme.NoActionBar" >
         <item name="windowActionBar">false</item>

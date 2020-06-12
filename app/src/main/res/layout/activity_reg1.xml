@@ -62,13 +62,13 @@
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/tbDonReg1"
+        app:layout_constraintBottom_toTopOf="@+id/tbDonorReg1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txtDonUsername"
+            android:id="@+id/txtDonorUsername"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -90,7 +90,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txtDonPassword1"
+            android:id="@+id/txtDonorPassword1"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -113,7 +113,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txtDonPassword2"
+            android:id="@+id/txtDonorPassword2"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -137,7 +137,7 @@
     </LinearLayout>
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tbDonReg1"
+        android:id="@+id/tbDonorReg1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/tab_layout_bg_colors"
@@ -171,10 +171,6 @@
             android:layout_height="wrap_content"
             android:icon="@drawable/indicator_selector_five" />
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:icon="@drawable/indicator_selector_six" />
 
 
     </com.google.android.material.tabs.TabLayout>

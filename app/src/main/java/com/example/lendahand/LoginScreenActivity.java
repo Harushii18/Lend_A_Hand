@@ -25,6 +25,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.concurrent.CountDownLatch;
 
 import okhttp3.Call;
@@ -48,7 +52,8 @@ public class LoginScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-
+        //hide title bar
+        getSupportActionBar().hide();
 
         //TODO: Shared preferences, stay logged in
         //ensuring that we stay logged in
@@ -73,7 +78,7 @@ public class LoginScreenActivity extends AppCompatActivity {
 
     public void LogIn(View view) {
         //extract input
-
+        extractInput();
         //TODO: Validations and decryption
 
         if (validateUser()) {
@@ -162,7 +167,6 @@ public class LoginScreenActivity extends AppCompatActivity {
 
     private boolean validateUser() {
         blnValid = false;
-        extractInput();
         if ((strUsername.length() == 0) || (strPassword.length() == 0)) {
             blnValid = false;
         } else {
@@ -197,11 +201,26 @@ public class LoginScreenActivity extends AppCompatActivity {
                             try {
                                 JSONArray JArray = new JSONArray(responseData);
                                 String objPassword, objType;
-                                //TODO:Hash strPassword here
+
+                                String generatedPassword = "";
+                                try {
+                                    String salt="A$thy*BJFK_P_$%#";
+                                    MessageDigest md = MessageDigest.getInstance("SHA-512");
+                                    md.update(salt.getBytes(StandardCharsets.UTF_8));
+                                    byte[] hashedPassword = md.digest(strPassword.getBytes(StandardCharsets.UTF_8));
+                                    StringBuilder stringBuilder = new StringBuilder();
+                                    for (int i = 0; i < hashedPassword.length; i++) {
+                                        stringBuilder.append(Integer.toString((hashedPassword[i] & 0xff) + 0x100, 16).substring(1));
+                                    }
+                                    generatedPassword = stringBuilder.toString();
+                                } catch (NoSuchAlgorithmException e) {
+                                    e.printStackTrace();
+                                }
+
                                 for (int i = 0; i < JArray.length(); i++) {
                                     JSONObject object = JArray.getJSONObject(i);
                                     objPassword = object.getString("PASSWORD");
-                                    if (objPassword.equals(strPassword)) {
+                                    if (objPassword.equals(generatedPassword)) {
                                         objType = object.getString("USER_TYPE");
                                         setblnValid(true, objType);
                                     } else {
@@ -212,10 +231,8 @@ public class LoginScreenActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                         }
-                        countDownLatch.countDown();
-                    }else{
-                        countDownLatch.countDown();
                     }
+                    countDownLatch.countDown();
                 }
             });
 

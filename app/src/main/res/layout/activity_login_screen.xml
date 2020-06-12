@@ -4,16 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/login_grad_bg"
     android:padding="20dp"
-    tools:context=".LoginScreenActivity"
-    android:background="@drawable/login_2_background">
+    android:theme="@style/MaterialTheme"
+    tools:context=".LoginScreenActivity">
 
     <ImageView
         android:id="@+id/imgLogo"
         android:layout_width="141dp"
         android:layout_height="149dp"
         android:layout_marginTop="30dp"
-        android:background="@android:color/transparent"
+        android:background="@drawable/login_icon_bg"
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.569"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +24,6 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/txtUsername"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -42,13 +43,13 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/login_field_bg"
             android:singleLine="true" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/txtPassword"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -70,12 +71,13 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/login_field_bg"
             android:inputType="textPassword"
             android:singleLine="true" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnLogin"
         style="@style/Widget.MaterialComponents.Button.Icon"
         android:layout_width="match_parent"
@@ -84,8 +86,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="50dp"
-        android:backgroundTint="@color/primaryColor"
+        android:backgroundTint="@color/login_btn_bg"
         android:onClick="LogIn"
         android:text="@string/txt_btnlogin"
         android:textColor="@color/primaryTextColor"
@@ -94,7 +95,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.476"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chkStaySignedIn" />
+        app:layout_constraintTop_toBottomOf="@+id/chkStaySignedIn"
+        app:strokeColor="@color/login_btn_stroke" />
 
     <TextView
         android:id="@+id/txtNoAcc"

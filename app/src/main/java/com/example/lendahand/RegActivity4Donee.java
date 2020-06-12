@@ -4,8 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,9 +22,11 @@ import java.util.regex.Pattern;
 
 public class RegActivity4Donee extends AppCompatActivity {
     private TabLayout tbDoneeReg;
-    private TextInputLayout txtStreetAddress, txtSuburb, txtProvince, txtPostalCode;
-    private String strStreetAddress, strSuburb, strProvince, strPostalCode;
-
+    private TextInputLayout txtStreetAddress, txtSuburb, txtPostalCode,txtProvLayout;
+    private AutoCompleteTextView txtProvince;
+    private String strStreetAddress, strSuburb, strProvince="", strPostalCode;
+    private  String[] arrProvinces = new String[] {"KwaZulu-Natal", "Western Cape", "North West", "Northern Cape","Free State","Gauteng", "Limpopo","Mpumalanga", "Eastern Cape"};
+    private ArrayAdapter<String> adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,7 +117,7 @@ public class RegActivity4Donee extends AppCompatActivity {
             blnValid=false;
         }
         if (strProvince.length()==0){
-            txtProvince.setError(getText(R.string.txt_empty_field));
+            txtProvLayout.setError(getText(R.string.txt_empty_field));
             blnValid=false;
         }
 
@@ -119,7 +126,6 @@ public class RegActivity4Donee extends AppCompatActivity {
 
     private void extractInput() {
         strPostalCode=txtPostalCode.getEditText().getText().toString().trim();
-        strProvince=txtProvince.getEditText().getText().toString().trim();
         strStreetAddress=txtStreetAddress.getEditText().getText().toString().trim();
         strSuburb=txtSuburb.getEditText().getText().toString().trim();
     }
@@ -169,29 +175,7 @@ public class RegActivity4Donee extends AppCompatActivity {
 
 
         });
-        txtProvince.getEditText().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-            @Override
-            public void beforeTextChanged(CharSequence s, int start,
-                                          int count, int after) {
-            }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start,
-                                      int before, int count) {
-                tbDoneeReg.getTabAt(3).select();
-                if(s.length() == 0) {
-                    txtProvince.setError(getText(R.string.txt_empty_field));
-                }else{
-                    txtProvince.setError(null);
-                    txtProvince.setErrorEnabled(false);
-                }
-            }
-
-
-        });
         txtPostalCode.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -230,9 +214,24 @@ public class RegActivity4Donee extends AppCompatActivity {
     private void initViews() {
         tbDoneeReg = findViewById(R.id.tbDoneeReg4);
         txtPostalCode=findViewById(R.id.txtDoneePostalCode);
-        txtProvince=findViewById(R.id.txtDoneeProvince);
         txtStreetAddress=findViewById(R.id.txtDoneeStreetAddress);
         txtSuburb=findViewById(R.id.txtDoneeSuburb);
+        //populate province drop down menu
+        txtProvLayout=findViewById(R.id.txtDoneeProvinceLayout);
+        adapter =
+                new ArrayAdapter<>(
+                        RegActivity4Donee.this,
+                        R.layout.reg_prov_combo_box,
+                        arrProvinces);
+        txtProvince = this.findViewById(R.id.txtDoneeProvince);
+        txtProvince.setAdapter(adapter);
+        txtProvince.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //extract items
+                strProvince=parent.getItemAtPosition(position).toString();
+            }
+        });
     }
 
     private void setTabInteractivity() {
@@ -288,4 +287,5 @@ public class RegActivity4Donee extends AppCompatActivity {
         tbDoneeReg.getTabAt(1).setIcon(R.drawable.ic_progress_complete_sel);
         tbDoneeReg.getTabAt(2).setIcon(R.drawable.ic_progress_complete_sel);
     }
+
 }

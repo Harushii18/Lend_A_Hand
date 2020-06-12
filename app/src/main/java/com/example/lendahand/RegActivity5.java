@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -91,19 +92,14 @@ public class RegActivity5 extends AppCompatActivity {
                         strStreetAddress = capitalizeWord(strStreetAddress.toLowerCase());
                         assert strSuburb != null;
                         strSuburb = capitalizeWord(strSuburb.toLowerCase());
-                        assert strProvince != null;
-                        strProvince = capitalizeWord(strProvince.toLowerCase());
-
 
                         //hash password with SHA-512
 
                         String generatedPassword = "";
                         try {
-                            SecureRandom random = new SecureRandom();
-                            byte[] salt = new byte[16];
-                            random.nextBytes(salt);
+                            String salt="A$thy*BJFK_P_$%#";
                             MessageDigest md = MessageDigest.getInstance("SHA-512");
-                            md.update(salt);
+                            md.update(salt.getBytes(StandardCharsets.UTF_8));
                             byte[] hashedPassword = md.digest(strPassword.getBytes(StandardCharsets.UTF_8));
                             StringBuilder stringBuilder = new StringBuilder();
                             for (int i = 0; i < hashedPassword.length; i++) {
@@ -115,14 +111,26 @@ public class RegActivity5 extends AppCompatActivity {
                         }
 
                         client = new OkHttpClient();
-                        urlLink = urlLink + "donorpost.php";
+                        String link = urlLink + "donorpost.php";
 
                         RequestBody formBody = new FormBody.Builder()
                                 .add("username", strUsername)
+                                .add("pass", generatedPassword)
+                                .add("fname", strFName)
+                                .add("surname", strLName)
+                                .add("email", strEmail)
+                                .add("phone", strPhoneNumber)
+                                .add("street", strStreetAddress)
+                                .add("sub", strSuburb)
+                                .add("prov", strProvince)
+                                .add("postcode", strPostalCode)
+                                .add("utype", "donor")
+                                .add("mot", strMotivationalLetter)
+                                .add("stat", "Pending")
                                 .build();
 
                         Request request = new Request.Builder()
-                                .url(urlLink)
+                                .url(link)
                                 .post(formBody)
                                 .build();
                         final CountDownLatch countDownLatch = new CountDownLatch(1);
@@ -136,7 +144,7 @@ public class RegActivity5 extends AppCompatActivity {
                             @Override
                             public void onResponse(Call call, final Response response) throws IOException {
                                 if (response.isSuccessful()) {
-                                    final String responseData = response.body().string();
+
                                 }
                                 countDownLatch.countDown();
                             }
