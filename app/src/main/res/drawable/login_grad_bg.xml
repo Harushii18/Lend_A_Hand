@@ -4,7 +4,8 @@
     <gradient android:angle="270"
         android:startColor="@color/login_grad_start"
         android:centerColor="@color/login_grad_center"
-        android:endColor="@color/login_grad_end"/>
+        android:endColor="@color/login_grad_end"
+       />
 
 
 </shape>

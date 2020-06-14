@@ -79,10 +79,10 @@ public class RegActivity5 extends AppCompatActivity {
                             //get from previous activity
                             Bundle bundle = getIntent().getExtras();
                             String strPassword = bundle.getString("password");
-                            String strUsername = bundle.getString("username");
+                            final String strUsername = bundle.getString("username");
                             String strFName = bundle.getString("fname");
                             String strLName = bundle.getString("lname");
-                            String strEmail = bundle.getString("email");
+                            final String strEmail = bundle.getString("email");
                             String strPhoneNumber = bundle.getString("phoneNo");
                             String strPostalCode = bundle.getString("postcode");
                             String strStreetAddress = bundle.getString("streetadd");
@@ -148,7 +148,24 @@ public class RegActivity5 extends AppCompatActivity {
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
+                            //send email to user telling them that their account has been created
+                            new Thread(new Runnable() {
 
+                                @Override
+                                public void run() {
+                                    try {
+                                        GMailSender sender = new GMailSender(getText(R.string.txt_developer_email).toString(),
+                                                getText(R.string.txt_developer_pword).toString());
+                                        sender.sendMail(getText(R.string.txt_email_subject).toString(), getText(R.string.txt_email_body_common).toString()+strUsername+getText(R.string.txt_email_body_donee).toString(),
+                                                getText(R.string.txt_developer_email).toString(), strEmail);
+                                    } catch (Exception e) {
+                                        Log.e("SendMail", e.getMessage(), e);
+                                    }
+                                }
+
+                            }).start();
+
+                            //go to next activity
                             startActivity(intent);
                             finish();
                             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);

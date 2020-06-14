@@ -5,6 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
+
+import static android.graphics.Color.parseColor;
+
 
 public class SelectUserTypeActivity extends AppCompatActivity {
 
@@ -13,6 +17,12 @@ public class SelectUserTypeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //hide title bar
         getSupportActionBar().hide();
+
+        //get colour of status bar to be the same as background
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        getWindow().setStatusBarColor(parseColor("#81d4fa"));
+
         setContentView(R.layout.activity_select_user_type);
     }
 

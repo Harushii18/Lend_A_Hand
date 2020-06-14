@@ -2,6 +2,8 @@ package com.example.lendahand;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
+import android.se.omapi.Session;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -21,11 +23,15 @@ import com.google.android.material.textfield.TextInputLayout;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.net.PasswordAuthentication;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
 import java.util.regex.Pattern;
+
+import javax.sql.DataSource;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -81,10 +87,10 @@ public class RegActivity4 extends AppCompatActivity {
                             //get from previous activity
                             Bundle bundle = getIntent().getExtras();
                             String strPassword = bundle.getString("password");
-                            String strUsername = bundle.getString("username");
+                            final String strUsername = bundle.getString("username");
                             String strFName = bundle.getString("fname");
                             String strLName = bundle.getString("lname");
-                            String strEmail = bundle.getString("email");
+                            final String strEmail = bundle.getString("email");
                             String strPhoneNumber = bundle.getString("phoneNo");
 
                             //ensure the values are of proper format
@@ -145,6 +151,24 @@ public class RegActivity4 extends AppCompatActivity {
                                 e.printStackTrace();
                             }
 
+                            //send email to user telling them that their account has been created
+                            new Thread(new Runnable() {
+
+                                @Override
+                                public void run() {
+                                    try {
+                                        GMailSender sender = new GMailSender(getText(R.string.txt_developer_email).toString(),
+                                                getText(R.string.txt_developer_pword).toString());
+                                        sender.sendMail(getText(R.string.txt_email_subject).toString(), getText(R.string.txt_email_body_common).toString()+strUsername+getText(R.string.txt_email_body_donor).toString(),
+                                                getText(R.string.txt_developer_email).toString(), strEmail);
+                                    } catch (Exception e) {
+                                        Log.e("SendMail", e.getMessage(), e);
+                                    }
+                                }
+
+                            }).start();
+
+                            //go to next activity
                             startActivity(intent);
                             finish();
                             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);

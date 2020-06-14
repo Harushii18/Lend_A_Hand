@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.lendahand">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -13,31 +14,63 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RegActivity5"></activity>
-        <activity android:name=".RegActivity1" />
-        <activity android:name=".RegActivity2" />
-        <activity android:name=".RegActivity3" />
-        <activity android:name=".RegActivity4" />
-        <activity android:name=".RegActivityFinalDonee" />
-        <activity android:name=".RegActivityFinal" />
-        <activity android:name=".RegActivity4Donee" />
-        <activity android:name=".RegActivity3Donee" />
-        <activity android:name=".RegActivity2Donee" />
-        <activity android:name=".RegActivity1Donee" />
-        <activity android:name=".SelectUserTypeActivity" />
+        <activity android:name=".RegActivity5"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
+        <activity android:name=".RegActivity1"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
+        <activity android:name=".RegActivity2"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
+        <activity android:name=".RegActivity3"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
+        <activity android:name=".RegActivity4"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
+        <activity android:name=".RegActivityFinalDonee"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
+        <activity android:name=".RegActivityFinal"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
+        <activity android:name=".RegActivity4Donee"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
+        <activity android:name=".RegActivity3Donee"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
+        <activity android:name=".RegActivity2Donee"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
+        <activity android:name=".RegActivity1Donee"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
+        <activity android:name=".SelectUserTypeActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
         <activity
-            android:name=".LoginScreenActivity"/>
+            android:name=".LoginScreenActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".OnboardingScreen"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".SplashScreenActivity">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
+        <activity android:name=".SplashScreenActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
 
         <meta-data
             android:name="preloaded_fonts"

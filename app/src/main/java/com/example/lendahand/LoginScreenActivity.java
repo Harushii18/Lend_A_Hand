@@ -1,6 +1,7 @@
 package com.example.lendahand;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -40,6 +41,8 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import static android.graphics.Color.parseColor;
+
 public class LoginScreenActivity extends AppCompatActivity {
     private TextInputLayout txtPassword, txtUsername;
     private String strUsername, strPassword, strUserType;
@@ -55,6 +58,12 @@ public class LoginScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //hide title bar
         getSupportActionBar().hide();
+
+        //get colour of status bar to be the same as background
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        getWindow().setStatusBarColor(parseColor("#81d4fa"));
+
 
         //ensuring that if user decided to stay logged in, they will be redirected to their home page and not shown this screen
         if(StayLoggedIn.getLoggedIn(LoginScreenActivity.this))
@@ -81,7 +90,6 @@ public class LoginScreenActivity extends AppCompatActivity {
         //initialise views
         initViews();
     }
-
 
     public void LogIn(View view) {
         //check connectivity
@@ -321,7 +329,6 @@ public class LoginScreenActivity extends AppCompatActivity {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
 
         }
         return blnValid;

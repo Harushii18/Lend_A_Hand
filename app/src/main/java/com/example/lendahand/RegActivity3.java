@@ -4,21 +4,44 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputLayout;
 
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.concurrent.CountDownLatch;
 import java.util.regex.Pattern;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class RegActivity3 extends AppCompatActivity {
     private TabLayout tbDonorReg;
     private TextInputLayout txtPhoneNumber, txtEmail;
     private String strPhoneNumber, strEmail;
+    private String urlLink = "https://lamp.ms.wits.ac.za/home/s2089676/";
+    private OkHttpClient client;
+    private boolean blnExist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +133,7 @@ public class RegActivity3 extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 String phoneNum = txtPhoneNumber.getEditText().getText().toString().trim();
-                if (phoneNum.length()!=0) {
+                if (phoneNum.length() != 0) {
                     if (!Pattern.matches("^[0-9]*$", phoneNum)) {
                         txtPhoneNumber.setError(getText(R.string.txt_invalid_phone_number));
                     } else {
@@ -198,6 +221,20 @@ public class RegActivity3 extends AppCompatActivity {
             if (!Pattern.matches("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])", strEmail.toLowerCase())) {
                 txtEmail.setError(getText(R.string.txt_invalid_email));
                 blnValid = false;
+            } else {
+                //ensuring user is connected to the internet
+                GlobalConnectivityCheck globalConnectivityCheck = new GlobalConnectivityCheck(getApplicationContext());
+                if (!globalConnectivityCheck.isNetworkConnected()) {
+                    //if internet is not connected
+                    Toast toast = Toast.makeText(getApplicationContext(), getText(R.string.txt_internet_disconnected), Toast.LENGTH_SHORT);
+                    toast.show();
+                } else {
+                    //checking that email exists using Mailbox Validator
+                    if (!checkEmailExists()) {
+                        txtEmail.setError(getText(R.string.txt_email_exists));
+                        blnValid = false;
+                    }
+                }
             }
         }
         if (strPhoneNumber.length() == 0) {
@@ -205,7 +242,7 @@ public class RegActivity3 extends AppCompatActivity {
             blnValid = false;
         } else {
             //checking if it is only numbers
-            if ((strPhoneNumber.length()<10) || (!Pattern.matches("^[0-9]*$", strPhoneNumber))) {
+            if ((strPhoneNumber.length() < 10) || (!Pattern.matches("^[0-9]*$", strPhoneNumber))) {
                 txtPhoneNumber.setError(getText(R.string.txt_invalid_phone_number));
                 blnValid = false;
             }
@@ -215,10 +252,73 @@ public class RegActivity3 extends AppCompatActivity {
         return blnValid;
     }
 
+    private boolean checkEmailExists() {
+        //connect to mailbox validator
+        blnExist = false;
+        client = new OkHttpClient();
+        String url = urlLink + "emailvalidator.php";
+
+        RequestBody formBody = new FormBody.Builder()
+                .add("email", strEmail)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(formBody)
+                .build();
+        final CountDownLatch countDownLatch = new CountDownLatch(1);
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                e.printStackTrace();
+                setblnExist(false);
+                countDownLatch.countDown();
+
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String responseData = response.body().string();
+                    try {
+                        //extract is verified from epi response object
+                        JSONObject JObj = new JSONObject(responseData);
+                        String objEmailVerified = JObj.getString("is_verified");
+                        if (objEmailVerified.equals("True")) {
+                            setblnExist(true);
+                        } else {
+                            setblnExist(false);
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                countDownLatch.countDown();
+            }
+        });
+
+        try {
+            //to ensure that main thread waits for this
+            countDownLatch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return blnExist;
+    }
+
+    private void setblnExist(boolean blnChange) {
+        //method to change bln exist value due to it being changed in another method
+        blnExist = blnChange;
+    }
+
     private void extractInput() {
         strPhoneNumber = txtPhoneNumber.getEditText().getText().toString().trim();
         strEmail = txtEmail.getEditText().getText().toString().trim();
     }
+
 
     private void setTabIcons() {
         tbDonorReg.getTabAt(0).setIcon(R.drawable.ic_progress_complete_sel);

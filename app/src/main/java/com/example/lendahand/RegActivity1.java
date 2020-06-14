@@ -7,6 +7,7 @@ import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -201,51 +202,59 @@ public class RegActivity1 extends AppCompatActivity {
                 txtUsername.setError(getText(R.string.txt_username_no_spaces));
                 blnValid = false;
             } else {
-                String url = urlLink + "usercheck.php";
+                //check connectivity
+                GlobalConnectivityCheck globalConnectivityCheck = new GlobalConnectivityCheck(getApplicationContext());
+                if (!globalConnectivityCheck.isNetworkConnected()) {
+                    //if internet is not connected
+                    Toast toast = Toast.makeText(getApplicationContext(), getText(R.string.txt_internet_disconnected), Toast.LENGTH_SHORT);
+                    toast.show();
+                } else {
+                    String url = urlLink + "usercheck.php";
 
-                RequestBody formBody=new FormBody.Builder()
-                        .add("username",strUsername)
-                        .build();
+                    RequestBody formBody = new FormBody.Builder()
+                            .add("username", strUsername)
+                            .build();
 
-                Request request = new Request.Builder()
-                        .url(url)
-                        .post(formBody)
-                        .build();
-                final CountDownLatch countDownLatch=new CountDownLatch(1);
-                client.newCall(request).enqueue(new Callback() {
-                    @Override
-                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                        e.printStackTrace();
-                        countDownLatch.countDown();
-                    }
-
-                    @Override
-                    public void onResponse(Call call, final Response response) throws IOException {
-                        if (response.isSuccessful()) {
-
-                            final String responseData = response.body().string();
-                            if (responseData.contains("Matches")) {
-                                setUsernameExists(true);
-                            } else {
-                                setUsernameExists(false);
-                            }
+                    Request request = new Request.Builder()
+                            .url(url)
+                            .post(formBody)
+                            .build();
+                    final CountDownLatch countDownLatch = new CountDownLatch(1);
+                    client.newCall(request).enqueue(new Callback() {
+                        @Override
+                        public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                            e.printStackTrace();
                             countDownLatch.countDown();
                         }
+
+                        @Override
+                        public void onResponse(Call call, final Response response) throws IOException {
+                            if (response.isSuccessful()) {
+
+                                final String responseData = response.body().string();
+                                if (responseData.contains("Matches")) {
+                                    setUsernameExists(true);
+                                } else {
+                                    setUsernameExists(false);
+                                }
+                                countDownLatch.countDown();
+                            }
+                        }
+                    });
+
+                    try {
+                        //to ensure that main thread waits for this
+                        countDownLatch.await();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-                });
+                    if (usernameExists) {
+                        //checking if username already exists
 
-                try {
-                    //to ensure that main thread waits for this
-                    countDownLatch.await();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                if (usernameExists) {
-                    //checking if username already exists
+                        txtUsername.setError(getText(R.string.txt_username_exists));
+                        blnValid = false;
 
-                    txtUsername.setError(getText(R.string.txt_username_exists));
-                    blnValid = false;
-
+                    }
                 }
             }
 

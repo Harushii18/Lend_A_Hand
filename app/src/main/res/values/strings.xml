@@ -11,17 +11,22 @@
     <string name="fifth_screen_title">JOIN US!</string>
 
     <!--Descriptions-->
-    <string name="first_screen_desc">The word that we’ve heard a million times now. And because of this word, other words have come up:\n
-\"hungry\" \n
-\"in need\" \n
-And many others.
+    <string name="first_screen_desc">The word that we’ve heard a million times now. And because of this word, other words have come up:
+        \n
+        \"hungry\"
+        \n
+        \"in need\"
+        \n
+        And many others.
 </string>
     <string name="second_screen_desc">Let\'s reduce the amount of people who will use these words by donating to those who need it.</string>
     <string name="third_screen_desc">And let\'s not be afraid to ask for help when we need it.</string>
-    <string name="fourth_screen_desc">Our app is designed to connect donors and donees all over South Africa in one common place. \n\n
+    <string name="fourth_screen_desc">Our app is designed to connect donors and donees all over South Africa in one common place.
+        \n\n
         Donees request for the items they need, and donors donate items to the donees who request them.
       </string>
-    <string name="fifth_screen_desc">Help us in our cause by creating an account to request or donate. \n\n
+    <string name="fifth_screen_desc">Help us in our cause by creating an account to request or donate.
+        \n\n
         It\'s that simple!</string>
 
 
@@ -49,7 +54,7 @@ And many others.
     <!--Select user screen-->
     <string name="txt_btn_donor">DONOR</string>
     <string name="txt_btn_donee">DONEE</string>
-    <string name="txt_sign_up_sel">Sign up!</string>
+    <string name="txt_sign_up_sel">SIGN UP!</string>
     <string name="txt_select_usertype_sentence1">New here?</string>
     <string name="txt_select_usertype_sentence2">Select your user type:</string>
     <string name="txt_have_acc_usertype">Already have an account?\u0020</string>
@@ -89,10 +94,12 @@ And many others.
     <string name="txt_step_three_donee_add_info">Our couriers will need it to pick up donations to have them delivered to you</string>
     <string name="txt_step_four_donee">Step 5: Write a motivational letter about why you need the help</string>
     <string name="txt_step_four_donee_add_info">This will determine whether you can be a donee or not.
-        \n\n The maximum amount of characters is 1500.</string>
+        \n\n
+        The maximum amount of characters is 1500.</string>
     <string name="txt_step_six_donee">Your account has been successfully created!</string>
     <string name="txt_step_six_donee_add_info">\n But your donee status is under review. We\'ll send you an e-mail about your donee status between 1-5 days.
-        \n \nIf you are approved, you can request items immediately. If you are rejected, you will have to edit your motivational letter for approval.</string>
+        \n\n
+        If you are approved, you can request items immediately. If you are rejected, you will have to edit your motivational letter for approval.</string>
 
     <!--Registration donee screen-->
     <string name="txt_donee_reg">Donee Registration</string>
@@ -107,9 +114,39 @@ And many others.
     <string name="txt_username_exists">Username already exists</string>
     <string name="txt_invalid_lname">Invalid name</string>
     <string name="txt_invalid_email">Invalid email</string>
+    <string name="txt_email_exists">E-mail address does not exist</string>
     <string name="txt_invalid_phone_number">Invalid phone number</string>
     <string name="txt_invalid_postal_code">Invalid postal code</string>
     <string name="txt_invalid_province">Select a province from the list</string>
 
+    <!--Sending emails-->
+    <string name="txt_developer_email">lendahand.rsa@gmail.com</string>
+    <string name="txt_developer_pword">Fezi_&amp;_Su_2618</string>
+    <string name="txt_email_subject">Welcome to Lend A Hand </string>
+    <string name="txt_email_body_common">Hi,\u0020</string>
+    <string name="txt_email_body_donor">
+        \n\n
+        We at Lend a Hand are pleased to have you join our large community of donors all over South Africa.
+        \n\n
+        To get started, simply log in and select the items you wish to donate and our couriers will arrive as soon as possible to pick them up and deliver them to the necessary donees. Once a donation is made, the estimated date of pick-up and donation details will be emailed to you, as well as accessible through the app.
+        \n\n
+        Please ensure that all your contact and location details are correct, as we will be contacting you to ensure that all requests and donations are successful.
+        \n\n
+        Thank you for helping those in need.
+        \n\n
+        The staff at Lend A Hand</string>
+    <string name="txt_email_body_donee">
+        \n\n
+        We at Lend a Hand are pleased to have you join our large community of donees all over South Africa.
+        \n\n
+        To get started, simply log in and select the items you need and our couriers will arrive when a donor donates those items within 5 working days of the donation. Not all requests will be fulfilled immediately, as donees are on a waiting list. This means that donees are served on a first come, first serve basis, and the delivery of goods is dependent on the number of donors that we have. Requests that are made first will be attended to first once a donation for that particular item is made.
+        \n\n
+        Please ensure that all your contact and location details are correct, as we will be contacting you to ensure that all requests and donations are successful.
+        \n\n
+        Once a request is made, or a donation is on its way to you, you will be notified. The request details and estimated date of delivery will be emailed to you, as well as accessible through the app.
+        \n\n
+        Thank you for joining Lend A Hand.
+        \n\n
+        The staff at Lend A Hand</string>
 
 </resources>
