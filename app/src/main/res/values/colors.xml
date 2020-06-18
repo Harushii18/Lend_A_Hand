@@ -13,4 +13,8 @@
     <color name="secondaryDarkTileColor">#81b9bf</color>
     <color name="btnbackground">#9E0288D1</color>
     <color name="btnBorder">#3E00334E</color>
+    <color name="heading5">#2D47D0F7</color>
+    <color name="heading">#36C4EEF7</color>
+    <color name="grey">#C0C0C0</color>
+
 </resources>

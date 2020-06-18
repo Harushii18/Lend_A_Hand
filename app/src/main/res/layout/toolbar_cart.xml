@@ -5,8 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/transparent"
     android:elevation="20dp"
-    app:title="Lend a hand"
-    app:navigationIcon="@drawable/menu_icon"
+    app:title="Cart"
+
     android:minHeight="?attr/actionBarSize">
 
 
