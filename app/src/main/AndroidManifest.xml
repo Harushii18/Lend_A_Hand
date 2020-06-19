@@ -4,8 +4,8 @@
     package="com.example.lendahand">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -14,52 +14,67 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RegActivity5"
+        <activity android:name=".AdminPendingReqActivity"></activity>
+        <activity android:name=".AdminDashboardActivity" />
+        <activity
+            android:name=".RegActivity5"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".RegActivity1"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".RegActivity1"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".RegActivity2"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".RegActivity2"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".RegActivity3"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".RegActivity3"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".RegActivity4"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".RegActivity4"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".RegActivityFinalDonee"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".RegActivityFinalDonee"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".RegActivityFinal"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".RegActivityFinal"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".RegActivity4Donee"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".RegActivity4Donee"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".RegActivity3Donee"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".RegActivity3Donee"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".RegActivity2Donee"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".RegActivity2Donee"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".RegActivity1Donee"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".RegActivity1Donee"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".SelectUserTypeActivity"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".SelectUserTypeActivity"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".LoginScreenActivity"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".OnboardingScreen"
-            android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".SplashScreenActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".SplashScreenActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
@@ -68,9 +83,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
+            tools:ignore="LockedOrientationActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

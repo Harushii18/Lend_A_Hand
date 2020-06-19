@@ -27,6 +27,8 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     //okhttp
     implementation 'com.squareup.okhttp3:okhttp:4.1.0'
+    //expandable text view
+    implementation 'com.github.gifffert:ExpandableTextView:0.1.6'
     //other implementations
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
