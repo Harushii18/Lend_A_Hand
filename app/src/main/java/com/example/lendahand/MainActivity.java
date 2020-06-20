@@ -20,6 +20,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import android.util.Log;
+
 import android.widget.Toast;
 
 
@@ -55,9 +58,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     int sum;
 
 
-
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -217,5 +217,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
 
+
     }
+
+
 }
