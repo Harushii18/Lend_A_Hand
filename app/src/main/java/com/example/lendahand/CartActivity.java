@@ -111,24 +111,13 @@ public class CartActivity extends AppCompatActivity  {
                 GradientDrawable border = new GradientDrawable();
                 border.setColor(0xFFFFFFFF);
                 border.setStroke(1,0xFFC0C0C0);
-                if(Build.VERSION.SDK_INT<Build.VERSION_CODES.JELLY_BEAN){
-                    right.setBackgroundDrawable(border);
-                }
-                else{
-                    right.setBackground(border);
-                }
-
+                right.setBackground(border);
                 items_layout.addView(right);
-
             }
             else{
                 continue;
             }
         }
-
-
-
-
 
     }
 
@@ -204,7 +193,6 @@ public class CartActivity extends AppCompatActivity  {
         trash.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 qty.setText("0");
                 Toast.makeText(CartActivity.this, "Item deleted.", Toast.LENGTH_SHORT).show();
                 right.setBackgroundColor(Color.parseColor("#D3D3D3"));
@@ -236,17 +224,12 @@ public class CartActivity extends AppCompatActivity  {
                     overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
 
                 }
-               
-
-
-
             }
         });
 
     }
     @Override
     public void onBackPressed() {
-
             super.onBackPressed();
             Intent i = new Intent(CartActivity.this, CategoryListActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

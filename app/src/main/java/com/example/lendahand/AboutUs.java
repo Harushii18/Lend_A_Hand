@@ -30,11 +30,13 @@ public class AboutUs extends AppCompatActivity implements NavigationView.OnNavig
         /*toolbar, so toolbar acts as action bar to utilise menu toggle*/
 
         setSupportActionBar(toolbar);
-        /*---------------------nav view-----------------------------------------*/
-        Menu menu= navigationView.getMenu();
-        menu.findItem(R.id.nav_about).setVisible(false);
 
+        /*---------------------nav view-----------------------------------------*/
         navigationView.bringToFront(); //nav view can slide back
+
+        //show which nav item was selected
+        navigationView.setCheckedItem(R.id.nav_about);
+
 
         //toggle is for the nav bar to go back and forth
         ActionBarDrawerToggle toggle= new ActionBarDrawerToggle(this, drawerLayout,toolbar,R.string.nav_open,R.string.nav_close);
@@ -70,7 +72,13 @@ public class AboutUs extends AppCompatActivity implements NavigationView.OnNavig
             case R.id.nav_home: i= new Intent(this, DoneeDashboard.class);
                 startActivity(i);
                 break;
-            default:break;
+            case R.id.nav_logout:
+                StayLoggedIn.clearUserDetails(this);
+                i = new Intent(this, LoginScreenActivity.class);
+                startActivity(i);
+                break;
+            default:
+                break;
         }
         drawerLayout.closeDrawer(GravityCompat.START); //Close drawer after menu item is selected
         return true;

@@ -282,7 +282,7 @@ public class LoginScreenActivity extends AppCompatActivity {
                             try {
                                 JSONArray JArray = new JSONArray(responseData);
                                 String objPassword, objType;
-
+                                //encrypt password
                                 String generatedPassword = "";
                                 try {
                                     String salt = "A$thy*BJFK_P_$%#";

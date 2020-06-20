@@ -36,25 +36,25 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class ListItemsActivity extends AppCompatActivity implements View.OnClickListener{
+public class ListItemsActivity extends AppCompatActivity implements View.OnClickListener {
     EditText qty;
     LinearLayout layout;
 
-    int[] tempID= new int[50];
+    int[] tempID = new int[50];
     int[] ID;
 
     String[] Item;
-    String[] tempItem= new String[50];
+    String[] tempItem = new String[50];
 
     String[] Qty;
-    String[] tempQty= new String[50];
+    String[] tempQty = new String[50];
 
     Button btnAdd;
 
 
-    int index=100;
-    int limit=0;
-    int num=0;
+    int index = 100;
+    int limit = 0;
+    int num = 0;
 
     ProgressBar pb;
     CountDownTimer countDownTimer;
@@ -71,70 +71,80 @@ public class ListItemsActivity extends AppCompatActivity implements View.OnClick
         setContentView(R.layout.activity_list_items);
 
 
-        toolbar=findViewById(R.id.toolbar_ListItems);
+        toolbar = findViewById(R.id.toolbar_ListItems);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i= new Intent(ListItemsActivity.this, CategoryListActivity.class);
+                Intent i = new Intent(ListItemsActivity.this, CategoryListActivity.class);
                 startActivity(i);
                 finish();
             }
         });
 
 
-
-        pb= findViewById(R.id.progressBar2);
+        pb = findViewById(R.id.progressBar2);
         pb.setProgress(0);
         pb.setSecondaryProgress(0);
-
 
 
         layout = findViewById(R.id.linear_layout);
 
 
-        ID= DoneeDashboard.IDArray.ID;
+        ID = DoneeDashboard.IDArray.ID;
         Item = DoneeDashboard.ItemArray.Item;
         Qty = DoneeDashboard.QtyArray.Qty;
 
-        for(int i=0; i<50;i++){
-            if(ID[i]==0){
+        for (int i = 0; i < 50; i++) {
+            if (ID[i] == 0) {
 
-                index=i-1;
-                num=i;
+                index = i - 1;
+                num = i;
                 break;
-            }
-            else{
-                limit=limit+Integer.parseInt(Qty[i]);
+            } else {
+                limit = limit + Integer.parseInt(Qty[i]);
             }
         }
 
-        if(index==100){
-            index=49;
+        if (index == 100) {
+            index = 49;
         }
 
 
-
-        btnAdd= findViewById(R.id.btnAddQty);
+        btnAdd = findViewById(R.id.btnAddQty);
         btnAdd.setOnClickListener(this);
 
 
 
 
         /* Getting stuff from remote database using OkHttp*/
-        countDownTimer= new CountDownTimer(3000,100) {
+        countDownTimer = new CountDownTimer(3000, 100) {
             @Override
             public void onTick(long millisUntilFinished) {
-                int progress = pb.getProgress()+2;
-                if(progress>pb.getMax()) progress=0;
+                int progress = pb.getProgress() + 2;
+                if (progress > pb.getMax()) progress = 0;
                 pb.setProgress(progress);
 
             }
 
             @Override
             public void onFinish() {
-                //Toast.makeText(DonorRankingList.this,"Done",Toast.LENGTH_SHORT).show();
-                pb.setVisibility(View.VISIBLE);
+                //check connectivity
+                GlobalConnectivityCheck globalConnectivityCheck = new GlobalConnectivityCheck(getApplicationContext());
+                if (!globalConnectivityCheck.isNetworkConnected()) {
+                    //if internet is not connected
+                    Toast toast = Toast.makeText(getApplicationContext(), getText(R.string.txt_internet_disconnected), Toast.LENGTH_SHORT);
+                    toast.show();
+                } else {
+                    pb.setVisibility(View.VISIBLE);
+                    //perform okhttp request to server
+                    performRequest();
+                }
+            }
+        }.start();
 
+    }
+
+    private void performRequest() {
         OkHttpClient client = new OkHttpClient();
         String url = getIntent().getStringExtra("url");
 
@@ -161,13 +171,9 @@ public class ListItemsActivity extends AppCompatActivity implements View.OnClick
             }
         });
 
-            }
-        }.start();
-
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void processJSON(String json) {
         try {
             JSONArray all = new JSONArray(json);
@@ -175,85 +181,29 @@ public class ListItemsActivity extends AppCompatActivity implements View.OnClick
                 JSONObject item = all.getJSONObject(i);
 
                 String itemid = item.getString("ITEM_ID");
-                int item_id=Integer.parseInt(itemid);
+                int item_id = Integer.parseInt(itemid);
                 String item_name = item.getString("ITEM_NAME");
 
                 qty = new EditText(this);
-                /*
-                qty.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                    @Override
-                    public void onFocusChange(View v, boolean hasFocus) {
-                        if(hasFocus){
-                            qty.setHint("uh");
-                        }
-                        else{
-                            qty.setHint("0");
-                        }
-                    }
-                });*/
-                txtitem_name= new TextView(this);
 
-                RelativeLayout rl= new RelativeLayout(this);
+                txtitem_name = new TextView(this);
 
-                View view= getLayoutInflater().inflate(R.layout.items_list,null);
-                qty= view.findViewById(R.id.qty);
-                txtitem_name= view.findViewById(R.id.item_name);
+                RelativeLayout rl = new RelativeLayout(this);
+
+                View view = getLayoutInflater().inflate(R.layout.items_list, null);
+                qty = view.findViewById(R.id.qty);
+                txtitem_name = view.findViewById(R.id.item_name);
                 txtitem_name.setText(item_name);
                 rl.addView(view);
 
-                EditTextMethod(qty, item_name,item_id);//get stuff from EditText
-
-
-
+                EditTextMethod(qty, item_name, item_id);//get stuff from EditText
 
 
                 GradientDrawable border = new GradientDrawable();
                 border.setColor(0xFFFFFFFF);
-                border.setStroke(1,0xFFC0C0C0);
-                if(Build.VERSION.SDK_INT<Build.VERSION_CODES.JELLY_BEAN){
-                    rl.setBackgroundDrawable(border);
-                }
-                else{
-                    rl.setBackground(border);
-                }
-
-
+                border.setStroke(1, 0xFFC0C0C0);
+                rl.setBackground(border);
                 layout.addView(rl);
-
-
-                /*Left left = new Left(this);/////
-
-                ////////////////////////////////////////////////////////
-                ---------------------------------------------------------------editText for Quantity------------------------------------------------------
-
-                LinearLayout right = new LinearLayout(this);
-                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(100, LinearLayout.LayoutParams.WRAP_CONTENT);
-                qty = new EditText(this);
-                qty.setInputType(InputType.TYPE_CLASS_NUMBER);
-
-                qty.setHint("0");
-                qty.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#81d4fa")));
-                qty.setHighlightColor(Color.parseColor("#81d4fa"));
-                lp.weight = 0;
-                lp.leftMargin = 15;
-                lp.bottomMargin = 15;
-                right.addView(qty, lp);*/
-
-                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-                /*----------------------------------Setting Colour Layouts----------------------------------------
-                if (i % 2 == 0) {
-                    right.setBackgroundColor(Color.parseColor("#e6f2ff"));
-                    left.setBackgroundColor(Color.parseColor("#e6f2ff"));
-                } else {
-                    right.setBackgroundColor(Color.parseColor("#FFFFFF"));
-                    left.setBackgroundColor(Color.parseColor("#FFFFFF"));
-
-                }*/
-
 
             }
             pb.setVisibility(View.GONE);
@@ -270,22 +220,17 @@ public class ListItemsActivity extends AppCompatActivity implements View.OnClick
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
 
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
 
-
-
-
-
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                final AlertDialog.Builder builder=new AlertDialog.Builder(ListItemsActivity.this);
+                final AlertDialog.Builder builder = new AlertDialog.Builder(ListItemsActivity.this);
                 builder.setCancelable(true);
                 builder.setTitle("Your cart is full. ");
                 builder.setMessage("You are only permitted to request 50 or less items.");
@@ -296,84 +241,78 @@ public class ListItemsActivity extends AppCompatActivity implements View.OnClick
                         //dialog.cancel();
                         //qty.setHint("0");
                         startActivity(getIntent());
-                        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     }
                 });
 
 
-                if(s.toString().length()>0){
-                    limit=limit+Integer.parseInt(s.toString());
+                if (s.toString().length() > 0) {
+                    limit = limit + Integer.parseInt(s.toString());
                 }
 
 
-                for (int k=0;k<50;k++){
+                for (int k = 0; k < 50; k++) {
 
                     if (tempID[k] != 0 && tempID[k] == item_id) {
-                        limit=limit-Integer.parseInt(tempQty[k]);
+                        limit = limit - Integer.parseInt(tempQty[k]);
                         //index=index-1;
-                        if(s.toString().length()>0 && limit<=50) {
+                        if (s.toString().length() > 0 && limit <= 50) {
                             tempQty[k] = s.toString();
                             break;
-                        }
-                        else if(limit>50){
+                        } else if (limit > 50) {
                             //Toast.makeText(ListItemsActivity.this, "Sorry, your cart is full.", Toast.LENGTH_SHORT).show();
 
                             builder.show();
 
 
-                            for(int j=k;j<50;j++){
-                                if(j!=49){
-                                    if(tempID[j+1]!=0){
-                                        tempID[j]=tempID[j+1];
-                                        tempItem[j]=tempItem[j+1];
-                                        tempQty[j]=tempQty[j+1];
-                                        tempID[j+1]=0;
-                                        tempItem[j+1]="0";
-                                        tempQty[j+1]="0";
+                            for (int j = k; j < 50; j++) {
+                                if (j != 49) {
+                                    if (tempID[j + 1] != 0) {
+                                        tempID[j] = tempID[j + 1];
+                                        tempItem[j] = tempItem[j + 1];
+                                        tempQty[j] = tempQty[j + 1];
+                                        tempID[j + 1] = 0;
+                                        tempItem[j + 1] = "0";
+                                        tempQty[j + 1] = "0";
 
+                                    } else {
+                                        tempID[j] = 0;
+                                        tempItem[j] = "0";
+                                        tempQty[j] = "0";
                                     }
-                                    else{
-                                        tempID[j]=0;
-                                        tempItem[j]="0";
-                                        tempQty[j]="0";
+                                }
+                            }
+
+                            break;
+                        } else {
+                            for (int j = k; j < 50; j++) {
+                                if (j != 49) {
+                                    if (tempID[j + 1] != 0) {
+                                        tempID[j] = tempID[j + 1];
+                                        tempItem[j] = tempItem[j + 1];
+                                        tempQty[j] = tempQty[j + 1];
+                                        tempID[j + 1] = 0;
+                                        tempItem[j + 1] = "0";
+                                        tempQty[j + 1] = "0";
+
+                                    } else {
+                                        tempID[j] = 0;
+                                        tempItem[j] = "0";
+                                        tempQty[j] = "0";
                                     }
                                 }
                             }
 
                             break;
                         }
-                        else{
-                            for(int j=k;j<50;j++){
-                                if(j!=49){
-                                    if(tempID[j+1]!=0){
-                                        tempID[j]=tempID[j+1];
-                                        tempItem[j]=tempItem[j+1];
-                                        tempQty[j]=tempQty[j+1];
-                                        tempID[j+1]=0;
-                                        tempItem[j+1]="0";
-                                        tempQty[j+1]="0";
 
-                                    }
-                                    else{
-                                        tempID[j]=0;
-                                        tempItem[j]="0";
-                                        tempQty[j]="0";
-                                    }
-                                }
-                            }
-
-                            break;
-                        }
-
-                    }
-                    else if (tempID[k] == 0) {
-                        if(limit>50){
+                    } else if (tempID[k] == 0) {
+                        if (limit > 50) {
                             //Toast.makeText(ListItemsActivity.this, "Sorry, your cart is full.", Toast.LENGTH_SHORT).show();
 
                             builder.show();
 
-                        }
-                        else{
+                        } else {
                             tempID[k] = item_id;
                             tempItem[k] = item_name;
                             tempQty[k] = s.toString();
@@ -385,7 +324,6 @@ public class ListItemsActivity extends AppCompatActivity implements View.OnClick
                 }
 
 
-
             }//end of textChanged
         });
     }
@@ -393,43 +331,42 @@ public class ListItemsActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         Intent i;
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btnAddQty:
-                int temp=0;
-                if(tempID[0]==0){
+                int temp = 0;
+                if (tempID[0] == 0) {
                     Toast.makeText(ListItemsActivity.this, "Enter quantity for required items.", Toast.LENGTH_SHORT).show();
 
-                }
-                else{
-                    for(int j=num; j<50; j++){
-                        if(tempID[temp]!=0){
-                            ID[j]=tempID[temp];
-                            Item[j]=tempItem[temp];
-                            Qty[j]=tempQty[temp];
-                            temp=temp+1;
-                        }
-                        else {
-                            temp=temp+1;
+                } else {
+                    for (int j = num; j < 50; j++) {
+                        if (tempID[temp] != 0) {
+                            ID[j] = tempID[temp];
+                            Item[j] = tempItem[temp];
+                            Qty[j] = tempQty[temp];
+                            temp = temp + 1;
+                        } else {
+                            temp = temp + 1;
                         }
                     }
-                Toast.makeText(ListItemsActivity.this, "Successfully added to cart.", Toast.LENGTH_SHORT).show();
-                i = new Intent(this, CategoryListActivity.class);
-                startActivity(i);
-                break;
+                    Toast.makeText(ListItemsActivity.this, "Successfully added to cart.", Toast.LENGTH_SHORT).show();
+                    i = new Intent(this, CategoryListActivity.class);
+                    startActivity(i);
+                    break;
                 }
-            break;
-            default:break;
+                break;
+            default:
+                break;
         }
     }
+
     @Override
     public void onBackPressed() {
-
-            super.onBackPressed();
-            Intent i = new Intent(ListItemsActivity.this, CategoryListActivity.class);
-            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-            finish();
+        super.onBackPressed();
+        Intent i = new Intent(ListItemsActivity.this, CategoryListActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        finish();
 
     }
 

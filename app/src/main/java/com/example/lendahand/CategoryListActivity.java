@@ -43,10 +43,10 @@ public class CategoryListActivity extends AppCompatActivity implements View.OnCl
 
         setSupportActionBar(toolbar);
         /*---------------------nav view-----------------------------------------*/
-        Menu menu= navigationView.getMenu();
-        menu.findItem(R.id.nav_request).setVisible(false);
-        
         navigationView.bringToFront(); //nav view can slide back
+
+        //show which nav item was selected
+        navigationView.setCheckedItem(R.id.nav_request);
 
         //toggle is for the nav bar to go back and forth
         ActionBarDrawerToggle toggle= new ActionBarDrawerToggle(this, drawerLayout,toolbar,R.string.nav_open,R.string.nav_close);
@@ -55,10 +55,6 @@ public class CategoryListActivity extends AppCompatActivity implements View.OnCl
 
         /*make menu clickable*/
         navigationView.setNavigationItemSelectedListener(this);
-
-
-
-
 
         /*OnClick Listener for cart*/
         cart = findViewById(R.id.imgViewCart);
@@ -159,6 +155,11 @@ public class CategoryListActivity extends AppCompatActivity implements View.OnCl
                 startActivity(i);
                 break;
             case R.id.nav_home: i= new Intent(this, DoneeDashboard.class);
+                startActivity(i);
+                break;
+            case R.id.nav_logout:
+                StayLoggedIn.clearUserDetails(this);
+                i = new Intent(this, LoginScreenActivity.class);
                 startActivity(i);
                 break;
             default:break;

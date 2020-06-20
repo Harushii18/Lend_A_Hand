@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.appcompat.widget.Toolbar;
@@ -36,7 +37,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class DoneeDashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
+public class DoneeDashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     //Variables
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -54,15 +55,15 @@ public class DoneeDashboard extends AppCompatActivity implements NavigationView.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donee_dashboard);
-        TotalDonors=findViewById(R.id.textDonors);
-        TotalDonees=findViewById(R.id.textDonees);
-        requestButton= findViewById(R.id.button);
+        TotalDonors = findViewById(R.id.textDonors);
+        TotalDonees = findViewById(R.id.textDonees);
+        requestButton = findViewById(R.id.button);
         drawerLayout = findViewById(R.id.drawer_layout);
-        navigationView=findViewById(R.id.nav_view);
-        toolbar=findViewById(R.id.toolbar);
-        HowCardview= findViewById(R.id.HowItWorks_cardview);
-        DonorsView= findViewById(R.id.DonorsView);
-        DoneesView=findViewById(R.id.DoneesView);
+        navigationView = findViewById(R.id.nav_view);
+        toolbar = findViewById(R.id.toolbar);
+        HowCardview = findViewById(R.id.HowItWorks_cardview);
+        DonorsView = findViewById(R.id.DonorsView);
+        DoneesView = findViewById(R.id.DoneesView);
 
 
 
@@ -71,19 +72,20 @@ public class DoneeDashboard extends AppCompatActivity implements NavigationView.
 
         setSupportActionBar(toolbar);
         /*---------------------nav view-----------------------------------------*/
-        Menu menu= navigationView.getMenu();
-        menu.findItem(R.id.nav_home).setVisible(false);
         navigationView.bringToFront(); //nav view can slide back
 
+        //show which nav item was selected
+        navigationView.setCheckedItem(R.id.nav_home);
+
         //toggle is for the nav bar to go back and forth
-        ActionBarDrawerToggle toggle= new ActionBarDrawerToggle(this, drawerLayout,toolbar,R.string.nav_open,R.string.nav_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.nav_open, R.string.nav_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
         /*make menu clickable*/
         navigationView.setNavigationItemSelectedListener(this);
 
-       /*--------------CardView-----------------------*/
+        /*--------------CardView-----------------------*/
         HowCardview.setOnClickListener(this);
         DonorsView.setOnClickListener(this);
         DoneesView.setOnClickListener(this);
@@ -93,6 +95,21 @@ public class DoneeDashboard extends AppCompatActivity implements NavigationView.
         requestButton.setOnClickListener(this);
 
         /*-------------------------------------------------------OkHttp--------------------------------------*/
+        //check connectivity
+        GlobalConnectivityCheck globalConnectivityCheck = new GlobalConnectivityCheck(getApplicationContext());
+        if (!globalConnectivityCheck.isNetworkConnected()) {
+            //if internet is not connected
+            Toast toast = Toast.makeText(getApplicationContext(), getText(R.string.txt_internet_disconnected), Toast.LENGTH_SHORT);
+            toast.show();
+        } else {
+            //get total donors by requesting from server
+            performRequest();
+        }
+
+
+    }
+
+    private void performRequest() {
         OkHttpClient client = new OkHttpClient();
         String url = "https://lamp.ms.wits.ac.za/home/s2089676/donors.php";
 
@@ -119,40 +136,41 @@ public class DoneeDashboard extends AppCompatActivity implements NavigationView.
             }
         });
 
-
-
-
     }
 
-        /*--------------------------------------------OnClick Listener method--------------------------------------------------------------*/
-        @Override
-        public void onClick(View v) {
-            Intent i;
-            switch (v.getId()){
-                case R.id.HowItWorks_cardview : i= new Intent(this, HowItWorksActivity.class); //HowItWorks cardView
+    /*--------------------------------------------OnClick Listener method--------------------------------------------------------------*/
+    @Override
+    public void onClick(View v) {
+        Intent i;
+        switch (v.getId()) {
+            case R.id.HowItWorks_cardview:
+                i = new Intent(this, HowItWorksActivity.class); //HowItWorks cardView
                 startActivity(i);
                 break;
-                case R.id.button : i = new Intent(this, CategoryListActivity.class); //RequestButton
+            case R.id.button:
+                i = new Intent(this, CategoryListActivity.class); //RequestButton
                 startActivity(i);
                 break;
-                case R.id.DonorsView : i= new Intent(this, TotalDonorsActivity.class);
+            case R.id.DonorsView:
+                i = new Intent(this, TotalDonorsActivity.class);
                 startActivity(i);
                 break;
-                case R.id.DoneesView : i= new Intent(this, TotalDoneesActivity.class);
+            case R.id.DoneesView:
+                i = new Intent(this, TotalDoneesActivity.class);
                 startActivity(i);
                 break;
-                default:break;
-            }
-
+            default:
+                break;
         }
+
+    }
 
     //so that when back button is pressed, it only closes the nav bar and the app doesn't close
     @Override
     public void onBackPressed() {
-        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
-        }
-        else{
+        } else {
             super.onBackPressed();
         }
 
@@ -163,34 +181,44 @@ public class DoneeDashboard extends AppCompatActivity implements NavigationView.
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Intent i;
-        switch (item.getItemId()){
-            case R.id.nav_request : i= new Intent(this, CategoryListActivity.class); //Request items menu item
-            startActivity(i);
-            overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
-            break;
-            case R.id.nav_list: i=new Intent(this,DonorRankingList.class);
-            startActivity(i);
-            break;
-            case R.id.nav_about: i=new Intent(this, AboutUs.class);
-            startActivity(i);
-
-            break;
-            default:break;
+        switch (item.getItemId()) {
+            case R.id.nav_request:
+                i = new Intent(this, CategoryListActivity.class); //Request items menu item
+                startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                break;
+            case R.id.nav_list:
+                i = new Intent(this, DonorRankingList.class);
+                startActivity(i);
+                break;
+            case R.id.nav_about:
+                i = new Intent(this, AboutUs.class);
+                startActivity(i);
+                break;
+            case R.id.nav_logout:
+                StayLoggedIn.clearUserDetails(this);
+                i = new Intent(this, LoginScreenActivity.class);
+                startActivity(i);
+                break;
+            default:
+                break;
         }
         drawerLayout.closeDrawer(GravityCompat.START); //Close drawer after menu item is selected
         return true;
     }
     /*------Item Arrays*---------------*/
 
-    public static class IDArray{
-        public static int[] ID=new int[50];
+    public static class IDArray {
+        public static int[] ID = new int[50];
 
     }
-    public static class ItemArray{
-        public static String[] Item=new String[50];
+
+    public static class ItemArray {
+        public static String[] Item = new String[50];
     }
-    public static class QtyArray{
-        public static String[] Qty=new String[50];
+
+    public static class QtyArray {
+        public static String[] Qty = new String[50];
     }
 
     /*-------------------JSON method------------------------*/
@@ -200,14 +228,13 @@ public class DoneeDashboard extends AppCompatActivity implements NavigationView.
             JSONArray all = new JSONArray(json);
             for (int i = 0; i < all.length(); i++) {
                 JSONObject item = all.getJSONObject(i);
-                String SUM= item.getString("SUM");
-                sum= sum+ Integer.parseInt(SUM);
+                String SUM = item.getString("SUM");
+                sum = sum + Integer.parseInt(SUM);
             }
-            TotalDonors.setText(sum+" Donors in total!");
-        } catch(JSONException e){
+            TotalDonors.setText(sum + " Donors in total!");
+        } catch (JSONException e) {
             e.printStackTrace();
         }
-
 
 
     }

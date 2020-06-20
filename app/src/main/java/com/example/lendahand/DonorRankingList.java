@@ -24,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -60,9 +61,10 @@ public class DonorRankingList extends AppCompatActivity implements NavigationVie
 
         setSupportActionBar(toolbar);
         /*---------------------nav view-----------------------------------------*/
-        Menu menu= navigationView.getMenu();
-        menu.findItem(R.id.nav_list).setVisible(false);
         navigationView.bringToFront(); //nav view can slide back
+
+        //show which nav item was selected
+        navigationView.setCheckedItem(R.id.nav_list);
 
         //toggle is for the nav bar to go back and forth
         ActionBarDrawerToggle toggle= new ActionBarDrawerToggle(this, drawerLayout,toolbar,R.string.nav_open,R.string.nav_close);
@@ -90,50 +92,52 @@ public class DonorRankingList extends AppCompatActivity implements NavigationVie
 
             @Override
             public void onFinish() {
-                //Toast.makeText(DonorRankingList.this,"Done",Toast.LENGTH_SHORT).show();
-                pb.setVisibility(View.VISIBLE);
-                OkHttpClient client = new OkHttpClient();
-                String url = "https://lamp.ms.wits.ac.za/home/s2089676/donor_ranking.php";
-
-                Request request = new Request.Builder()
-                        .url(url)
-                        .build();
-                client.newCall(request).enqueue(new Callback() {
-                    @Override
-                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
-
-                    }
-
-                    @Override
-                    public void onResponse(@NotNull Call call, @NotNull final Response response) throws IOException {
-                        final String responseData = response.body().string();
-
-                        DonorRankingList.this.runOnUiThread(new Runnable() {
-                            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
-                            @Override
-                            public void run() {
-                                processJSON(responseData);
-                            }
-                        });
-                    }
-                });
-
-
+                //check connectivity
+                GlobalConnectivityCheck globalConnectivityCheck = new GlobalConnectivityCheck(getApplicationContext());
+                if (!globalConnectivityCheck.isNetworkConnected()) {
+                    //if internet is not connected
+                    Toast toast = Toast.makeText(getApplicationContext(), getText(R.string.txt_internet_disconnected), Toast.LENGTH_SHORT);
+                    toast.show();
+                } else {
+                    pb.setVisibility(View.VISIBLE);
+                    //get all donors by performing a request to the server
+                    performRequest();
+                }
             }
         }.start();
 
-
-
         donor_layout= findViewById(R.id.donor_list);
-
-
-
-
 
     }
 
+    private void performRequest() {
+            OkHttpClient client = new OkHttpClient();
+            String url = "https://lamp.ms.wits.ac.za/home/s2089676/donor_ranking.php";
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(@NotNull Call call, @NotNull IOException e) {
+
+                }
+
+                @Override
+                public void onResponse(@NotNull Call call, @NotNull final Response response) throws IOException {
+                    final String responseData = response.body().string();
+
+                    DonorRankingList.this.runOnUiThread(new Runnable() {
+                        @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+                        @Override
+                        public void run() {
+                            processJSON(responseData);
+                        }
+                    });
+                }
+            });
+    }
+
     public void processJSON(String json) {
         try {
 
@@ -146,37 +150,6 @@ public class DonorRankingList extends AppCompatActivity implements NavigationVie
 
 
                RelativeLayout layout= new RelativeLayout(this);
-
-
-                /*TxtName= new TextView(this);
-                TxtName.setText(name+" "+surname);
-                TxtName.setTextSize(15);
-                TxtName.setTextColor(Color.parseColor("#000000"));
-                ConstraintLayout.LayoutParams lp= new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT,ConstraintLayout.LayoutParams.WRAP_CONTENT);
-                //lp.leftMargin=30;
-                //lp.topMargin=10;
-                TxtName.setLayoutParams(lp);
-                layout.addView(TxtName);
-
-
-
-
-
-                //Sum
-                //TxtSum= new TextView(this);
-                TxtSum.setText(sum);
-                TxtSum.setTextSize(15);
-                TxtSum.setTextColor(Color.parseColor("#000000"));
-                //ConstraintLayout.LayoutParams lip= new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT,ConstraintLayout.LayoutParams.WRAP_CONTENT);
-                //lip.setMarginStart(350);
-                //lip.topMargin=10;
-                //TxtSum.setLayoutParams(lip);
-                layout.addView(TxtSum);
-                 /*ConstraintSet constraintSet= new ConstraintSet();
-                constraintSet.clone(layout);
-                //constraintSet.connect(TxtName.getId(),ConstraintSet.LEFT,TxtSum.getId(),ConstraintSet.LEFT,10);
-                constraintSet.connect(TxtSum.getId(),ConstraintSet.RIGHT,layout.getId(),constraintSet.RIGHT,0);
-                constraintSet.applyTo(layout);*/
 
                 View view= getLayoutInflater().inflate(R.layout.list,null);
                 TxtSum= view.findViewById(R.id.Sum);
@@ -237,7 +210,13 @@ public class DonorRankingList extends AppCompatActivity implements NavigationVie
             case R.id.nav_about: i=new Intent(this, AboutUs.class);
                 startActivity(i);
                 break;
-            default:break;
+            case R.id.nav_logout:
+                StayLoggedIn.clearUserDetails(this);
+                i = new Intent(this, LoginScreenActivity.class);
+                startActivity(i);
+                break;
+            default:
+                break;
         }
         drawerLayout.closeDrawer(GravityCompat.START); //Close drawer after menu item is selected
         return true;
