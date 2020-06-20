@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/drawer_layout_EmptyCart"
+        tools:context=".EmptyCartActivity"
+        android:background="@drawable/clouds_background">
+        <include
+            android:id="@+id/toolbar_EmptyCart"
+            layout="@layout/toolbar_cart" />
+
+        <TextView
+            android:id="@+id/textView_oops"
+            android:layout_width="wrap_content"
+            android:layout_height="75dp"
+            android:layout_marginTop="60dp"
+            android:text="Oops :("
+            android:textStyle="italic"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="50sp"
+            android:layout_centerHorizontal="true"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView_oops"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:text="Looks like your cart is empty. Go back and select the items you require first."
+            android:textColor="@color/primaryTextColor"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:gravity="center_horizontal" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/cart_animation"
+            app:lottie_loop="true"
+            app:lottie_fileName="empty_cart.json"
+            app:lottie_autoPlay="true"/>
+
+    </RelativeLayout>
+
