@@ -1,18 +1,28 @@
 package com.example.lendahand;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.google.android.material.navigation.NavigationView;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -28,6 +38,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class TotalDonorsActivity extends AppCompatActivity {
+
+    Toolbar toolbar;
     TextView TxtProvince;
     TextView TxtSum;
     LinearLayout donor_layout;
@@ -39,6 +51,20 @@ public class TotalDonorsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_total_donors);
         donor_layout= findViewById(R.id.donor_list);
+
+
+        toolbar=findViewById(R.id.toolbar_Total_Donors);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i= new Intent(TotalDonorsActivity.this, MainActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
+
+
 
         //pb=findViewById(R.id.progressBar);
         pb= findViewById(R.id.progressBar3);
@@ -105,7 +131,7 @@ public class TotalDonorsActivity extends AppCompatActivity {
 
                 RelativeLayout layout= new RelativeLayout(this);
 
-                //Name
+                /*Name
                 TxtProvince= new TextView(this);
                 TxtProvince.setText(province);
                 TxtProvince.setTextColor(Color.parseColor("#000000"));
@@ -122,7 +148,13 @@ public class TotalDonorsActivity extends AppCompatActivity {
                 LinearLayout.LayoutParams lip= new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,100);
                 lip.setMarginStart(350);
                 lip.topMargin=10;
-                layout.addView(TxtSum,lip);
+                layout.addView(TxtSum,lip);*/
+                View view= getLayoutInflater().inflate(R.layout.list,null);
+                TxtSum= view.findViewById(R.id.Sum);
+                TxtSum.setText(sum);
+                TxtProvince= view.findViewById(R.id.Name);
+                TxtProvince.setText(province);
+                layout.addView(view);
 
                 GradientDrawable border = new GradientDrawable();
                 border.setColor(0xFFFFFFFF);
@@ -144,5 +176,14 @@ public class TotalDonorsActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public void onBackPressed() {
+
+            super.onBackPressed();
+
+
+    }
+
 }
 

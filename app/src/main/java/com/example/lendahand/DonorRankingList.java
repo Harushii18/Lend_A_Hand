@@ -1,10 +1,16 @@
 package com.example.lendahand;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
@@ -17,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -25,6 +33,8 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.navigation.NavigationView;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -37,7 +47,10 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class DonorRankingList extends AppCompatActivity {
+public class DonorRankingList extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    Toolbar toolbar;
 
     TextView TxtName;
     TextView TxtSum;
@@ -50,6 +63,24 @@ public class DonorRankingList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donor_ranking_list);
+        drawerLayout = findViewById(R.id.drawer_layout_DonorRank);
+        navigationView=findViewById(R.id.nav_view_DonorRank);
+        toolbar=findViewById(R.id.toolbar_DonorRank);
+
+        setSupportActionBar(toolbar);
+        /*---------------------nav view-----------------------------------------*/
+        Menu menu= navigationView.getMenu();
+        menu.findItem(R.id.nav_list).setVisible(false);
+        navigationView.bringToFront(); //nav view can slide back
+
+        //toggle is for the nav bar to go back and forth
+        ActionBarDrawerToggle toggle= new ActionBarDrawerToggle(this, drawerLayout,toolbar,R.string.nav_open,R.string.nav_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        /*make menu clickable*/
+        navigationView.setNavigationItemSelectedListener(this);
+
 
         pb= findViewById(R.id.progressBar);
         pb.setProgress(0);
@@ -186,5 +217,38 @@ public class DonorRankingList extends AppCompatActivity {
         }
 
 
+    }
+    @Override
+    public void onBackPressed() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+        else{
+            super.onBackPressed();
+        }
+
+    }
+    /*OnClick for navigation bar menu items*/
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Intent i;
+        switch (item.getItemId()){
+            case R.id.nav_request : i= new Intent(this, CategoryListActivity.class); //Request items menu item
+                startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+                break;
+            case R.id.nav_list: i=new Intent(this,DonorRankingList.class);
+                startActivity(i);
+                break;
+            case R.id.nav_home: i= new Intent(this, MainActivity.class);
+                startActivity(i);
+                break;
+            case R.id.nav_about: i=new Intent(this, AboutUs.class);
+                startActivity(i);
+                break;
+            default:break;
+        }
+        drawerLayout.closeDrawer(GravityCompat.START); //Close drawer after menu item is selected
+        return true;
     }
 }

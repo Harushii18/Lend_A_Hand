@@ -3,8 +3,8 @@
     <color name="primaryColor">#81d4fa</color>
     <color name="primaryLightColor">#b6ffff</color>
     <color name="primaryDarkColor">#4ba3c7</color>
-    <color name="secondaryColor">#fafafa</color>
-    <color name="secondaryLightColor">#ffffff</color>
+    <color name="secondaryColor">#4ba3c7</color>
+    <color name="secondaryLightColor">#4ba3c7</color>
     <color name="secondaryDarkColor">#c7c7c7</color>
     <color name="primaryTextColor">#000000</color>
     <color name="secondaryTextColor">#000000</color>

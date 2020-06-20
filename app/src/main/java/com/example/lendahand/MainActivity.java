@@ -13,6 +13,7 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -78,6 +79,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         setSupportActionBar(toolbar);
         /*---------------------nav view-----------------------------------------*/
+        Menu menu= navigationView.getMenu();
+        menu.findItem(R.id.nav_home).setVisible(false);
         navigationView.bringToFront(); //nav view can slide back
 
         //toggle is for the nav bar to go back and forth
@@ -178,6 +181,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             break;
             case R.id.nav_about: i=new Intent(this, AboutUs.class);
             startActivity(i);
+
             break;
             default:break;
         }

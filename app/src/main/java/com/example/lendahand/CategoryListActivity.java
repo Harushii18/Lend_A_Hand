@@ -1,17 +1,29 @@
 package com.example.lendahand;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.telecom.Call;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-public class CategoryListActivity extends AppCompatActivity implements View.OnClickListener {
+import com.google.android.material.navigation.NavigationView;
+
+public class CategoryListActivity extends AppCompatActivity implements View.OnClickListener,NavigationView.OnNavigationItemSelectedListener {
     private ImageView cart;
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    Toolbar toolbar;
     CardView Food;
     CardView SSupplies;
     CardView Stationery;
@@ -25,6 +37,26 @@ public class CategoryListActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_list);
+        drawerLayout = findViewById(R.id.drawer_layout_CategoryList);
+        navigationView=findViewById(R.id.nav_view_CategoryList);
+        toolbar=findViewById(R.id.toolbar_CategoryList);
+
+        /*toolbar, so toolbar acts as action bar to utilise menu toggle*/
+
+        setSupportActionBar(toolbar);
+        /*---------------------nav view-----------------------------------------*/
+        Menu menu= navigationView.getMenu();
+        menu.findItem(R.id.nav_request).setVisible(false);
+        
+        navigationView.bringToFront(); //nav view can slide back
+
+        //toggle is for the nav bar to go back and forth
+        ActionBarDrawerToggle toggle= new ActionBarDrawerToggle(this, drawerLayout,toolbar,R.string.nav_open,R.string.nav_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        /*make menu clickable*/
+        navigationView.setNavigationItemSelectedListener(this);
 
 
 
@@ -104,12 +136,37 @@ public class CategoryListActivity extends AppCompatActivity implements View.OnCl
     }
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        Intent i = new Intent(CategoryListActivity.this, MainActivity.class);
-        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(i);
-        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
-        finish();
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+        else {
+            super.onBackPressed();
+            Intent i = new Intent(CategoryListActivity.this, MainActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            finish();
+        }
+    }
+
+    /*OnClick for navigation bar menu items*/
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Intent i;
+        switch (item.getItemId()){
+            case R.id.nav_list: i=new Intent(this,DonorRankingList.class);
+                startActivity(i);
+                break;
+            case R.id.nav_about: i=new Intent(this, AboutUs.class);
+                startActivity(i);
+                break;
+            case R.id.nav_home: i= new Intent(this, MainActivity.class);
+                startActivity(i);
+                break;
+            default:break;
+        }
+        drawerLayout.closeDrawer(GravityCompat.START); //Close drawer after menu item is selected
+        return true;
     }
 
 }

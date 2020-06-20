@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".EmptyCartActivity"
-    android:background="@drawable/clouds_background"
-    android:orientation="horizontal">
 
     <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/drawer_layout_EmptyCart"
+        tools:context=".EmptyCartActivity"
+        android:background="@drawable/clouds_background">
         <include
-            android:id="@+id/toolbar_cart"
+            android:id="@+id/toolbar_EmptyCart"
             layout="@layout/toolbar_cart" />
 
         <TextView
@@ -53,6 +51,3 @@
 
     </RelativeLayout>
 
-
-
-</LinearLayout>

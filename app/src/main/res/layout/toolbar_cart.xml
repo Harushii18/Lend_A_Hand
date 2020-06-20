@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/transparent"
     android:elevation="20dp"
+    app:navigationIcon="@drawable/back_icon"
     app:title="Cart"
 
     android:minHeight="?attr/actionBarSize">

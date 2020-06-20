@@ -1,39 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout_CategoryList"
     tools:context=".CategoryListActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:fitsSystemWindows="true"
+    tools:openDrawer="end"
     android:background="@drawable/possiblebackground2">
-    <ScrollView
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view_CategoryList"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:headerLayout="@layout/header"
+        app:menu="@menu/main_menu"
+        android:layout_gravity="start"
+        />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <include
+        android:id="@+id/toolbar_CategoryList"
+        layout="@layout/toolbar_category" />
+
+        <ImageView
+            android:id="@+id/imgViewCart"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="28dp"
+            android:src="@drawable/shopcart_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.836"
+            app:layout_constraintStart_toEndOf="@+id/toolbar"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="55dp"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
-            <include
-                android:id="@+id/toolbar"
-                layout="@layout/toolbar_category" />
 
 
-
-            <ImageView
-                android:id="@+id/imgViewCart"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="9dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginRight="16dp"
-                app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/shopcart_icon"
-                />
 
             <LinearLayout
                 android:id="@+id/linearLayout3"
@@ -41,7 +56,6 @@
                 android:layout_height="175dp"
                 android:layout_marginBottom="16dp"
                 android:orientation="horizontal"
-
                 android:padding="10dp"
                 app:layout_constraintBottom_toTopOf="@+id/linearLayout"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -289,9 +303,9 @@
                             android:layout_marginTop="15dp"
                             android:layout_marginBottom="12dp"
                             android:fontFamily="sans-serif"
-                            android:text="Clothes and Blakets"
+                            android:text="Clothes and Blakents"
                             android:textColor="@color/primaryTextColor"
-                            android:textSize="17sp" />
+                            android:textSize="16sp" />
 
                         <ImageView
                             android:id="@+id/imageView7"
@@ -307,4 +321,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-</LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.drawerlayout.widget.DrawerLayout>
