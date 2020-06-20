@@ -3,8 +3,8 @@
     <color name="primaryColor">#81d4fa</color>
     <color name="primaryLightColor">#b6ffff</color>
     <color name="primaryDarkColor">#4ba3c7</color>
-    <color name="secondaryColor">#4ba3c7</color>
-    <color name="secondaryLightColor">#4ba3c7</color>
+    <color name="secondaryColor">#fafafa</color>
+    <color name="secondaryLightColor">#ffffff</color>
     <color name="secondaryDarkColor">#c7c7c7</color>
     <color name="primaryTextColor">#000000</color>
     <color name="secondaryTextColor">#FFFFFF</color>
@@ -55,6 +55,11 @@
     <color name="desel_icon_colors">#3EBDBDBD</color>
     <color name="tab_layout_bg_colors">#ffffff</color>
     <color name="next_icon_tab_colors">#000000</color>
+
+
+    <!--Admin screen-->
+    <color name="admin_show_more_color">#A8A8A8</color>
+    <color name="rb_tint_color">#81d4fa</color>
 
 
 </resources>
