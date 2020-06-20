@@ -65,7 +65,6 @@
     <string name="txt_btn_donor">DONOR</string>
     <string name="txt_btn_donee">DONEE</string>
     <string name="txt_sign_up_sel">SIGN UP!</string>
-    <string name="txt_select_usertype_sentence1">New here?</string>
     <string name="txt_select_usertype_sentence2">Select your user type:</string>
     <string name="txt_have_acc_usertype">Already have an account?\u0020</string>
     <string name="txt_login_usertype">Log in</string>
@@ -166,6 +165,13 @@
     <string name="txt_expand">Show more</string>
     <string name="txt_shrink">Show less</string>
     <string name="txt_donee_pending_btn">Confirm</string>
-    <string name="txt_donee_pending_tb_text">Pending Donees</string>
+    <string name="txt_donee_pending_tb_text">PENDING DONEES</string>
 
+    <!--Add new courier-->
+    <string name="txt_admin_courier_title">ADD COURIER</string>
+    <string name="txt_admin_courier_fname">Enter First Name</string>
+    <string name="txt_admin_courier_lname">Enter Last Name</string>
+    <string name="txt_admin_courier_phone_num">Enter Phone Number</string>
+    <string name="txt_admin_courier_ID">ID Number</string>
+    <string name="txt_admin_add_courier_btn">ADD COURIER</string>
 </resources>

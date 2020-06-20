@@ -4,31 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AdminPendingReqActivity"
-    android:theme="@style/MaterialTheme">
+    android:background="@drawable/clouds_background"
+    android:theme="@style/MaterialTheme"
+    tools:context=".AdminPendingReqActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tbAdminPendingReq"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="@color/admin_opacity_bg"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/txt_donee_pending_tb_text"
-            android:textColor="@color/primaryTextColor"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="18dp" />
-
-    </androidx.appcompat.widget.Toolbar>
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/menu_icon"
+        app:title="@string/txt_donee_pending_tb_text" />
 
 
     <androidx.recyclerview.widget.RecyclerView

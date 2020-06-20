@@ -2,8 +2,6 @@ package com.example.lendahand;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Message;
-import android.se.omapi.Session;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -23,15 +21,8 @@ import com.google.android.material.textfield.TextInputLayout;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.net.PasswordAuthentication;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
 import java.util.regex.Pattern;
-
-import javax.sql.DataSource;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -335,7 +326,7 @@ public class RegActivity4 extends AppCompatActivity {
     private void initViews() {
         tbDonorReg = findViewById(R.id.tbDonorReg4);
         txtPostalCode=findViewById(R.id.txtDonorPostalCode);
-        txtStreetAddress=findViewById(R.id.txtDonorStreetAddress);
+        txtStreetAddress=findViewById(R.id.txtCourierLName);
         txtSuburb=findViewById(R.id.txtDonorSuburb);
         //populate province drop down menu
         txtProvLayout=findViewById(R.id.txtDonorProvinceLayout);

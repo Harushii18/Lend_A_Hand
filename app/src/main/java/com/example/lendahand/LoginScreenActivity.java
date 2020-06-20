@@ -65,17 +65,16 @@ public class LoginScreenActivity extends AppCompatActivity {
             //go to intent for donee/donor/admin accordingly
             if (StayLoggedIn.getUserType(LoginScreenActivity.this).equals("Donor")){
                 //TODO: change to donor class here
-                Intent intent = new Intent(this, DoneeDashboard.class);
+                Intent intent = new Intent(this, AdminAddCourierActivity.class);
                 startActivity(intent);
                 finish();
             }else if (StayLoggedIn.getUserType(LoginScreenActivity.this).equals("Donee")){
-                //TODO: change to donee class here
                 Intent intent = new Intent(this, DoneeDashboard.class);
                 startActivity(intent);
                 finish();
             }else if (StayLoggedIn.getUserType(LoginScreenActivity.this).equals("Admin")){
                 //TODO: change to admin class here
-                Intent intent = new Intent(this, DoneeDashboard.class);
+                Intent intent = new Intent(this, AdminDashboardActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -104,7 +103,6 @@ public class LoginScreenActivity extends AppCompatActivity {
 
                 if (strUserType.equals("Donee")) {
                     //go to donee screens
-                    //TODO: Change this to certain screen depending on if logged in user is donee
                     final Intent intent = new Intent(this, DoneeDashboard.class);
 
                     //thread is used to make sure toast is just shown on login
@@ -125,7 +123,7 @@ public class LoginScreenActivity extends AppCompatActivity {
                 } else if (strUserType.equals("Donor")) {
                     //go to donor screens
                     //TODO: Change this to certain screen depending on if logged in user is donor
-                    final Intent intent = new Intent(this, DoneeDashboard.class);
+                    final Intent intent = new Intent(this, AdminAddCourierActivity.class);
 
                     //thread is used to make sure toast is just shown on login
                     Thread thread = new Thread() {
@@ -146,7 +144,7 @@ public class LoginScreenActivity extends AppCompatActivity {
                 } else if (strUserType.equals("Admin")) {
                     //go to admin screens
                     //TODO: Change this to certain screen depending on if logged in user is admin
-                    final Intent intent = new Intent(this, DoneeDashboard.class);
+                    final Intent intent = new Intent(this, AdminDashboardActivity.class);
 
                     //thread is used to make sure toast is just shown on login
                     Thread thread = new Thread() {
@@ -307,6 +305,7 @@ public class LoginScreenActivity extends AppCompatActivity {
                                     } else {
                                         setblnValid(false, "");
                                     }
+                                    //TODO: change the login php to get email and fname and lname too. set shared preferences as well
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
