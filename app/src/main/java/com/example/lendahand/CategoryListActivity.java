@@ -10,12 +10,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.telecom.Call;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -92,7 +90,7 @@ public class CategoryListActivity extends AppCompatActivity implements View.OnCl
         String url;
         switch (v.getId()) {
             case R.id.imgViewCart:
-                if(MainActivity.QtyArray.Qty[0]==null||MainActivity.QtyArray.Qty[0]=="0") {
+                if(DoneeDashboard.QtyArray.Qty[0]==null|| DoneeDashboard.QtyArray.Qty[0]=="0") {
                     i = new Intent(this, EmptyCartActivity.class);
                     startActivity(i);
                     break;
@@ -141,7 +139,7 @@ public class CategoryListActivity extends AppCompatActivity implements View.OnCl
         }
         else {
             super.onBackPressed();
-            Intent i = new Intent(CategoryListActivity.this, MainActivity.class);
+            Intent i = new Intent(CategoryListActivity.this, DoneeDashboard.class);
             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
@@ -160,7 +158,7 @@ public class CategoryListActivity extends AppCompatActivity implements View.OnCl
             case R.id.nav_about: i=new Intent(this, AboutUs.class);
                 startActivity(i);
                 break;
-            case R.id.nav_home: i= new Intent(this, MainActivity.class);
+            case R.id.nav_home: i= new Intent(this, DoneeDashboard.class);
                 startActivity(i);
                 break;
             default:break;

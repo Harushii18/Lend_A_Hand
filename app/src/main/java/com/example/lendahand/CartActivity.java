@@ -1,11 +1,8 @@
 package com.example.lendahand;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
@@ -13,7 +10,6 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -31,9 +27,9 @@ public class CartActivity extends AppCompatActivity  {
     Button minus;
     ImageView trash;
     int limit=0;
-    int [] ID=MainActivity.IDArray.ID;
-    String[] Item = MainActivity.ItemArray.Item;
-    String[] Qty = MainActivity.QtyArray.Qty;
+    int [] ID= DoneeDashboard.IDArray.ID;
+    String[] Item = DoneeDashboard.ItemArray.Item;
+    String[] Qty = DoneeDashboard.QtyArray.Qty;
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -166,7 +162,7 @@ public class CartActivity extends AppCompatActivity  {
 
                     startActivity(getIntent());
                     overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
-                    if (MainActivity.QtyArray.Qty[0]=="0"){
+                    if (DoneeDashboard.QtyArray.Qty[0]=="0"){
                         Intent i= new Intent(CartActivity.this, EmptyCartActivity.class);
                         startActivity(i);
                         overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
@@ -234,7 +230,7 @@ public class CartActivity extends AppCompatActivity  {
 
                 startActivity(getIntent());
                 overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
-                if (MainActivity.QtyArray.Qty[0]=="0"){
+                if (DoneeDashboard.QtyArray.Qty[0]=="0"){
                     Intent i= new Intent(CartActivity.this, EmptyCartActivity.class);
                     startActivity(i);
                     overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);

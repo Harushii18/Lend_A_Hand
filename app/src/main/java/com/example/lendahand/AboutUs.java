@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -68,7 +67,7 @@ public class AboutUs extends AppCompatActivity implements NavigationView.OnNavig
             case R.id.nav_list: i=new Intent(this,DonorRankingList.class);
                 startActivity(i);
                 break;
-            case R.id.nav_home: i= new Intent(this, MainActivity.class);
+            case R.id.nav_home: i= new Intent(this, DoneeDashboard.class);
                 startActivity(i);
                 break;
             default:break;

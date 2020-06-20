@@ -5,34 +5,25 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.ArrayList;
-import java.util.List;
 
 
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -240,7 +231,7 @@ public class DonorRankingList extends AppCompatActivity implements NavigationVie
             case R.id.nav_list: i=new Intent(this,DonorRankingList.class);
                 startActivity(i);
                 break;
-            case R.id.nav_home: i= new Intent(this, MainActivity.class);
+            case R.id.nav_home: i= new Intent(this, DoneeDashboard.class);
                 startActivity(i);
                 break;
             case R.id.nav_about: i=new Intent(this, AboutUs.class);

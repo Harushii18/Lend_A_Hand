@@ -9,21 +9,13 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import android.util.Log;
-
-import android.widget.Toast;
 
 
 import androidx.appcompat.widget.Toolbar;
@@ -44,7 +36,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
+public class DoneeDashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
     //Variables
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -61,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_donee_dashboard);
         TotalDonors=findViewById(R.id.textDonors);
         TotalDonees=findViewById(R.id.textDonees);
         requestButton= findViewById(R.id.button);
@@ -117,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onResponse(@NotNull Call call, @NotNull final Response response) throws IOException {
                 final String responseData = response.body().string();
 
-                MainActivity.this.runOnUiThread(new Runnable() {
+                DoneeDashboard.this.runOnUiThread(new Runnable() {
                     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
                     @Override
                     public void run() {
