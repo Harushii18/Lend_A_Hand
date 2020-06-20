@@ -127,7 +127,9 @@ public class PendingRequestAdapter extends RecyclerView.Adapter<PendingRequestAd
                                 } else {
                                     //change status of donee in database
                                     addToDatabase(items.get(position).getPendingUsername(), items.get(position).getStatus());
-                                    //remove that item after having found it
+                                    Toast toast = Toast.makeText(v.getContext(), "Donee status changed", Toast.LENGTH_SHORT);
+                                    toast.show();
+                                    //remove that item after changing donee's status
                                     items.remove(position);
                                     notifyDataSetChanged();
                                 }

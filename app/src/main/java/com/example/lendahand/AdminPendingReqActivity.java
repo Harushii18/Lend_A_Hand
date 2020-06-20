@@ -33,7 +33,10 @@ public class AdminPendingReqActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_pending_req);
+        //hide title bar
+        getSupportActionBar().hide();
 
+        //initialise recycler view
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         final PendingRequestAdapter mAdapter = new PendingRequestAdapter(items, this);

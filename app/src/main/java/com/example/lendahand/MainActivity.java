@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toast toast = Toast.makeText(getApplicationContext(), "Currently logged in as "+StayLoggedIn.getUserName(MainActivity.this), Toast.LENGTH_SHORT);
         toast.show();
-        Intent intent = new Intent(this, AdminPendingReqActivity.class);
+        Intent intent = new Intent(this, AdminDashboardActivity.class);
         startActivity(intent);
         finish();
     }

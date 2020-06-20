@@ -156,5 +156,6 @@
     <string name="txt_expand">Show more</string>
     <string name="txt_shrink">Show less</string>
     <string name="txt_donee_pending_btn">Confirm</string>
+    <string name="txt_donee_pending_tb_text">Pending Donees</string>
 
 </resources>
