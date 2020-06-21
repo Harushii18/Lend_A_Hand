@@ -12,6 +12,7 @@ public class StayLoggedIn {
     static final String PREF_EMAIL_ADDRESS="PREF_USER_EMAIL";
     static final String PREF_USER_FNAME="PREF_USER_FNAME";
     static final String PREF_USER_LNAME="PREF_USER_LNAME";
+    static final String PREF_USER_PROVINCE="PREF_USER_PROVINCE";
 
     static SharedPreferences getSharedPreferences(Context ctx) {
         return PreferenceManager.getDefaultSharedPreferences(ctx);
@@ -46,6 +47,18 @@ public class StayLoggedIn {
     {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.putString(PREF_EMAIL_ADDRESS, userEmail);
+        editor.commit();
+    }
+
+    public static String getProvince(Context ctx)
+    {
+        return getSharedPreferences(ctx).getString(PREF_USER_PROVINCE, "");
+    }
+
+    public static void setProvince(Context ctx, String userProvince)
+    {
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        editor.putString(PREF_USER_PROVINCE, userProvince);
         editor.commit();
     }
 
@@ -95,6 +108,9 @@ public class StayLoggedIn {
         editor.remove(PREF_USER_TYPE);
         editor.remove(PREF_STAY_LOGGED_IN);
         editor.remove(PREF_EMAIL_ADDRESS);
+        editor.remove(PREF_USER_LNAME);
+        editor.remove(PREF_USER_FNAME);
+        editor.remove(PREF_USER_PROVINCE);
         editor.commit();
     }
 

@@ -39,7 +39,7 @@ import static android.graphics.Color.parseColor;
 
 public class LoginScreenActivity extends AppCompatActivity {
     private TextInputLayout txtPassword, txtUsername;
-    private String strUsername, strPassword, strUserType;
+    private String strUsername, strPassword, strUserType,strEmail,strFName,strProvince,strLName;
     private Button btnLogin;
     private String urlLink = "https://lamp.ms.wits.ac.za/home/s2089676/";
     private OkHttpClient client;
@@ -78,6 +78,8 @@ public class LoginScreenActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
+        }else{
+            StayLoggedIn.clearUserDetails(LoginScreenActivity.this);
         }
         setContentView(R.layout.activity_login_screen);
         //initialise views
@@ -178,6 +180,10 @@ public class LoginScreenActivity extends AppCompatActivity {
     private void setUserSignInPreference() {
         StayLoggedIn.setUserName(LoginScreenActivity.this, strUsername);
         StayLoggedIn.setUserType(LoginScreenActivity.this, strUserType);
+        StayLoggedIn.setEmail(LoginScreenActivity.this,strEmail);
+        StayLoggedIn.setFName(LoginScreenActivity.this,strFName);
+        StayLoggedIn.setLName(LoginScreenActivity.this,strLName);
+        StayLoggedIn.setProvince(LoginScreenActivity.this,strProvince);
         //set preferences to stay logged in
         if (chkStayLoggedIn.isChecked()==true) {
             StayLoggedIn.setLoggedIn(LoginScreenActivity.this, true);
@@ -266,7 +272,7 @@ public class LoginScreenActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(@NotNull Call call, @NotNull IOException e) {
                     e.printStackTrace();
-                    setblnValid(false, "");
+                    setblnValid(false, "","","","","");
                     countDownLatch.countDown();
                 }
 
@@ -275,11 +281,11 @@ public class LoginScreenActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         String responseData = response.body().string();
                         if (responseData.equals("")) {
-                            setblnValid(false, "");
+                            setblnValid(false, "","","","","");
                         } else {
                             try {
                                 JSONArray JArray = new JSONArray(responseData);
-                                String objPassword, objType;
+                                String objPassword, objType,objEmail,objFName,objLName,objProvince;
                                 //encrypt password
                                 String generatedPassword = "";
                                 try {
@@ -300,12 +306,18 @@ public class LoginScreenActivity extends AppCompatActivity {
                                     JSONObject object = JArray.getJSONObject(i);
                                     objPassword = object.getString("PASSWORD");
                                     if (objPassword.equals(generatedPassword)) {
+                                        //set variables to their values
                                         objType = object.getString("USER_TYPE");
-                                        setblnValid(true, objType);
+                                        objEmail = object.getString("EMAIL");
+                                        objFName = object.getString("NAME");
+                                        objLName = object.getString("SURNAME");
+                                        objProvince = object.getString("PROVINCE");
+
+                                        setblnValid(true, objType,objEmail,objProvince,objLName,objFName);
                                     } else {
-                                        setblnValid(false, "");
+                                        setblnValid(false, "","","","","");
                                     }
-                                    //TODO: change the login php to get email and fname and lname too. set shared preferences as well
+
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -327,10 +339,13 @@ public class LoginScreenActivity extends AppCompatActivity {
         return blnValid;
     }
 
-    private void setblnValid(boolean blnChange, String usertype) {
+    private void setblnValid(boolean blnChange, String usertype,String useremail, String userprov, String userlname, String userfname) {
         blnValid = blnChange;
         strUserType = usertype;
-
+        strEmail = useremail;
+        strProvince = userprov;
+        strFName = userfname;
+        strLName = userlname;
     }
 
 
