@@ -73,17 +73,17 @@
     <string name="txt_donor_reg">Donor Registration</string>
 
     <!--Registration common screens-->
-    <string name="txt_enter_username">Enter username</string>
-    <string name="txt_enter_password">Enter password</string>
-    <string name="txt_enter_password_again">Re-enter password</string>
-    <string name="txt_enter_firstname">Enter first name</string>
-    <string name="txt_enter_lastname">Enter last name</string>
-    <string name="txt_enter_email">Enter e-mail address</string>
-    <string name="txt_enter_phone_number">Enter  phone number</string>
-    <string name="txt_enter_street_address">Street address</string>
-    <string name="txt_enter_suburb">Suburb</string>
-    <string name="txt_enter_province">Province</string>
-    <string name="txt_enter_postal_code">Postal code</string>
+    <string name="txt_enter_username">Enter Username</string>
+    <string name="txt_enter_password">Enter Password</string>
+    <string name="txt_enter_password_again">Re-enter Password</string>
+    <string name="txt_enter_firstname">Enter First Name</string>
+    <string name="txt_enter_lastname">Enter Last Name</string>
+    <string name="txt_enter_email">Enter E-mail Address</string>
+    <string name="txt_enter_phone_number">Enter  Phone Number</string>
+    <string name="txt_enter_street_address">Enter Street Address</string>
+    <string name="txt_enter_suburb">Enter Suburb</string>
+    <string name="txt_enter_province">Select Province</string>
+    <string name="txt_enter_postal_code">Enter Postal Code</string>
     <string name="txt_sign_up_login_button">Login</string>
 
     <!--Donor viewpager screens-->
@@ -127,6 +127,8 @@
     <string name="txt_invalid_phone_number">Invalid phone number</string>
     <string name="txt_invalid_postal_code">Invalid postal code</string>
     <string name="txt_invalid_province">Select a province from the list</string>
+    <string name="txt_invalid_id_number">Invalid ID number</string>
+
 
     <!--Sending emails-->
     <string name="txt_developer_email">lendahand.rsa@gmail.com</string>
@@ -174,6 +176,8 @@
     <string name="txt_admin_courier_phone_num">Enter Phone Number</string>
     <string name="txt_admin_courier_ID">Enter ID Number</string>
     <string name="txt_admin_add_courier_btn">Add to database</string>
+    <string name="txt_admin_add_courier_successful">Courier added successfully</string>
+    <string name="txt_admin_add_courier_unsuccessful">Something went wrong. Please try again later</string>
 
     <!--Courier List-->
     <string name="txt_admin_view_courier_title">View Couriers</string>
@@ -186,5 +190,8 @@
     <string name="txt_admin_dashboard_pending_req">Pending request</string>
     <string name="txt_admin_dashboard_view_couriers">View Couriers</string>
     <string name="txt_admin_dashboard_add_admin">Add Admin</string>
+
+    <!--Donee edit motivational letter-->
+    <string name="txt_donee_edit_motivational_letter">Edit Motivational Letter</string>
 
 </resources>
