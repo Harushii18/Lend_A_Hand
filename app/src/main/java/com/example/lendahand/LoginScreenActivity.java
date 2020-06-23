@@ -45,6 +45,7 @@ public class LoginScreenActivity extends AppCompatActivity {
     private OkHttpClient client;
     boolean blnValid = false;
     private CheckBox chkStayLoggedIn;
+    private String strDoneeStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +66,7 @@ public class LoginScreenActivity extends AppCompatActivity {
             //go to intent for donee/donor/admin accordingly
             if (StayLoggedIn.getUserType(LoginScreenActivity.this).equals("Donor")){
                 //TODO: change to donor class here
-                Intent intent = new Intent(this, AdminAddCourierActivity.class);
+                Intent intent = new Intent(this, AdminDashboardActivity.class);
                 startActivity(intent);
                 finish();
             }else if (StayLoggedIn.getUserType(LoginScreenActivity.this).equals("Donee")){
@@ -104,6 +105,12 @@ public class LoginScreenActivity extends AppCompatActivity {
                 setUserSignInPreference();
 
                 if (strUserType.equals("Donee")) {
+                    //get Donee status
+                    getDoneeStatus();
+
+                    //set donee status for shared preferences
+                    StayLoggedIn.setDoneeStatus(LoginScreenActivity.this,strDoneeStatus);
+
                     //go to donee screens
                     final Intent intent = new Intent(this, DoneeDashboard.class);
 
@@ -123,9 +130,11 @@ public class LoginScreenActivity extends AppCompatActivity {
 
                     thread.start();
                 } else if (strUserType.equals("Donor")) {
+                    //set donee status to not a donee for shared preferences
+                    StayLoggedIn.setDoneeStatus(LoginScreenActivity.this,"null");
                     //go to donor screens
                     //TODO: Change this to certain screen depending on if logged in user is donor
-                    final Intent intent = new Intent(this, AdminAddCourierActivity.class);
+                    final Intent intent = new Intent(this, AdminDashboardActivity.class);
 
                     //thread is used to make sure toast is just shown on login
                     Thread thread = new Thread() {
@@ -144,9 +153,11 @@ public class LoginScreenActivity extends AppCompatActivity {
                     thread.start();
 
                 } else if (strUserType.equals("Admin")) {
+                    //set donee status to not a donee for shared preferences
+                    StayLoggedIn.setDoneeStatus(LoginScreenActivity.this,"null");
                     //go to admin screens
                     //TODO: Change this to certain screen depending on if logged in user is admin
-                    final Intent intent = new Intent(this, AdminDashboardActivity.class);
+                    final Intent intent = new Intent(this, AdminViewCourierListActivity.class);
 
                     //thread is used to make sure toast is just shown on login
                     Thread thread = new Thread() {
@@ -177,6 +188,68 @@ public class LoginScreenActivity extends AppCompatActivity {
         }
     }
 
+    private void getDoneeStatus() {
+        client = new OkHttpClient();
+        String url = urlLink + "doneestatus.php";
+
+        RequestBody formBody = new FormBody.Builder()
+                .add("username", strUsername)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(formBody)
+                .build();
+        final CountDownLatch countDownLatch = new CountDownLatch(1);
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                e.printStackTrace();
+                setDoneeStatus("null");
+                countDownLatch.countDown();
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String responseData = response.body().string();
+                    if (responseData.equals("")) {
+                        setDoneeStatus("null");
+                    } else {
+
+                        JSONArray JArray;
+                        try {
+                            JArray = new JSONArray(responseData);
+
+                            String objStatus;
+                            //get the donee's status from the server
+                            for (int i = 0; i < JArray.length(); i++) {
+                                JSONObject object = JArray.getJSONObject(i);
+                                objStatus = object.getString("STATUS");
+                                setDoneeStatus(objStatus);
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }
+                countDownLatch.countDown();
+            }
+        });
+
+        try {
+            //to ensure that main thread waits for this
+            countDownLatch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setDoneeStatus(String doneeStatus){
+        strDoneeStatus=doneeStatus;
+    }
     private void setUserSignInPreference() {
         StayLoggedIn.setUserName(LoginScreenActivity.this, strUsername);
         StayLoggedIn.setUserType(LoginScreenActivity.this, strUserType);

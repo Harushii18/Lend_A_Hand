@@ -165,13 +165,26 @@
     <string name="txt_expand">Show more</string>
     <string name="txt_shrink">Show less</string>
     <string name="txt_donee_pending_btn">Confirm</string>
-    <string name="txt_donee_pending_tb_text">PENDING DONEES</string>
+    <string name="txt_donee_pending_tb_text">Pending Donees</string>
 
     <!--Add new courier-->
-    <string name="txt_admin_courier_title">ADD COURIER</string>
+    <string name="txt_admin_courier_title">Add Courier</string>
     <string name="txt_admin_courier_fname">Enter First Name</string>
     <string name="txt_admin_courier_lname">Enter Last Name</string>
     <string name="txt_admin_courier_phone_num">Enter Phone Number</string>
-    <string name="txt_admin_courier_ID">ID Number</string>
-    <string name="txt_admin_add_courier_btn">ADD COURIER</string>
+    <string name="txt_admin_courier_ID">Enter ID Number</string>
+    <string name="txt_admin_add_courier_btn">Add to database</string>
+
+    <!--Courier List-->
+    <string name="txt_admin_view_courier_title">View Couriers</string>
+    <string name="txt_admin_view_courier_name">Courier name</string>
+    <string name="txt_admin_view_courier_num_deliveries">Num deliveries</string>
+
+    <!--Admin dashboard-->
+    <string name="txt_admin_dashboard_donor_list">Donor list</string>
+    <string name="txt_admin_dashboard_add_courier">Add courier</string>
+    <string name="txt_admin_dashboard_pending_req">Pending request</string>
+    <string name="txt_admin_dashboard_view_couriers">View Couriers</string>
+    <string name="txt_admin_dashboard_add_admin">Add Admin</string>
+
 </resources>

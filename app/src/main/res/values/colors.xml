@@ -63,6 +63,7 @@
 
     <!--Add courier screen-->
     <color name="admin_opacity_bg">#43FFFFFF</color>
+    <color name="admin_opacity_bg2">#B7FFFFFF</color>
 
 
 </resources>

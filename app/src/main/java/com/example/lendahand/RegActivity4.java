@@ -326,7 +326,7 @@ public class RegActivity4 extends AppCompatActivity {
     private void initViews() {
         tbDonorReg = findViewById(R.id.tbDonorReg4);
         txtPostalCode=findViewById(R.id.txtDonorPostalCode);
-        txtStreetAddress=findViewById(R.id.txtCourierLName);
+        txtStreetAddress=findViewById(R.id.txtDonorStreetAddress);
         txtSuburb=findViewById(R.id.txtDonorSuburb);
         //populate province drop down menu
         txtProvLayout=findViewById(R.id.txtDonorProvinceLayout);

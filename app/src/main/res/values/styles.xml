@@ -18,6 +18,17 @@
         <item name="colorAccent">@color/secondaryColor</item>
     </style>
 
+    <!--Theme for admin screens-->
+    <style name="MaterialThemeNoActionBar" parent="Theme.MaterialComponents.Light">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="colorAccent">@color/secondaryColor</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+
     <style name="NoAnimTheme" parent="MaterialTheme">
         <item name="android:windowAnimationStyle">@null</item>
     </style>

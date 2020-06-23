@@ -13,6 +13,7 @@ public class StayLoggedIn {
     static final String PREF_USER_FNAME="PREF_USER_FNAME";
     static final String PREF_USER_LNAME="PREF_USER_LNAME";
     static final String PREF_USER_PROVINCE="PREF_USER_PROVINCE";
+    static final String PREF_DONEE_STATUS="PREF_DONEE_STATUS";
 
     static SharedPreferences getSharedPreferences(Context ctx) {
         return PreferenceManager.getDefaultSharedPreferences(ctx);
@@ -47,6 +48,18 @@ public class StayLoggedIn {
     {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.putString(PREF_EMAIL_ADDRESS, userEmail);
+        editor.commit();
+    }
+
+    public static String getDoneeStatus(Context ctx)
+    {
+        return getSharedPreferences(ctx).getString(PREF_DONEE_STATUS, "");
+    }
+
+    public static void setDoneeStatus(Context ctx, String doneeStatus)
+    {
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        editor.putString(PREF_DONEE_STATUS, doneeStatus);
         editor.commit();
     }
 
@@ -111,6 +124,7 @@ public class StayLoggedIn {
         editor.remove(PREF_USER_LNAME);
         editor.remove(PREF_USER_FNAME);
         editor.remove(PREF_USER_PROVINCE);
+        editor.remove(PREF_DONEE_STATUS);
         editor.commit();
     }
 

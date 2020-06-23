@@ -94,6 +94,7 @@ public class DoneeDashboard extends AppCompatActivity implements NavigationView.
         /*----------Button----------*/
         requestButton.setOnClickListener(this);
 
+       String strVariable=StayLoggedIn.getEmail(DoneeDashboard.this);
         /*-------------------------------------------------------OkHttp--------------------------------------*/
         //check connectivity
         GlobalConnectivityCheck globalConnectivityCheck = new GlobalConnectivityCheck(getApplicationContext());
