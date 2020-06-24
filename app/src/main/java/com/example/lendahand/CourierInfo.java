@@ -4,6 +4,11 @@ public class CourierInfo {
 
         private String strCourierName;
         private String strNumDeliveries;
+
+    public CourierInfo(String strCourierName, String strNumDeliveries) {
+        this.strCourierName = strCourierName;
+        this.strNumDeliveries = strNumDeliveries;
+    }
         public String getStrCourierName() {
             return strCourierName;
         }

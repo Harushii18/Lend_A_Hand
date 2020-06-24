@@ -182,7 +182,9 @@
     <!--Courier List-->
     <string name="txt_admin_view_courier_title">View Couriers</string>
     <string name="txt_admin_view_courier_name">Courier name</string>
-    <string name="txt_admin_view_courier_num_deliveries">Num deliveries</string>
+    <string name="txt_admin_view_courier_num_deliveries">Deliveries</string>
+    <string name="txt_admin_view_courier_asc_name">View list by deliveries in ascending order</string>
+    <string name="txt_admin_view_courier_asc_nums">View list by names in ascending order</string>
 
     <!--Admin dashboard-->
     <string name="txt_admin_dashboard_donor_list">Donor list</string>
