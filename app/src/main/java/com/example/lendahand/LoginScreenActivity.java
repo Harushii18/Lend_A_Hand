@@ -59,7 +59,6 @@ public class LoginScreenActivity extends AppCompatActivity {
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         getWindow().setStatusBarColor(parseColor("#81d4fa"));
 
-
         //ensuring that if user decided to stay logged in, they will be redirected to their home page and not shown this screen
         if(StayLoggedIn.getLoggedIn(LoginScreenActivity.this))
         {
@@ -75,7 +74,7 @@ public class LoginScreenActivity extends AppCompatActivity {
                 finish();
             }else if (StayLoggedIn.getUserType(LoginScreenActivity.this).equals("Admin")){
                 //TODO: change to admin class here
-                Intent intent = new Intent(this, AdminDashboardActivity.class);
+                Intent intent = new Intent(this, AdminPendingReqActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -157,7 +156,7 @@ public class LoginScreenActivity extends AppCompatActivity {
                     StayLoggedIn.setDoneeStatus(LoginScreenActivity.this,"null");
                     //go to admin screens
                     //TODO: Change this to certain screen depending on if logged in user is admin
-                    final Intent intent = new Intent(this, AdminViewCourierListActivity.class);
+                    final Intent intent = new Intent(this, AdminPendingReqActivity.class);
 
                     //thread is used to make sure toast is just shown on login
                     Thread thread = new Thread() {
