@@ -32,15 +32,6 @@
         app:singleSelection="true">
 
         <Button
-            android:id="@+id/btnTAscendingName"
-            style="@style/Widget.App.Button.OutlinedButton.IconOnly"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/admin_opacity_bg2"
-            app:icon="@drawable/ic_clist_sort"
-            android:onClick="ShowListAscendingNames"/>
-
-        <Button
             android:id="@+id/btnTAscendingNum"
             style="@style/Widget.App.Button.OutlinedButton.IconOnly"
             android:layout_width="wrap_content"
@@ -48,6 +39,16 @@
             android:backgroundTint="@color/admin_opacity_bg2"
             app:icon="@drawable/ic_clist_numorder"
             android:onClick="ShowListAscendingNum"/>
+
+        <Button
+            android:id="@+id/btnTAscendingName"
+            style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/admin_opacity_bg2"
+            android:onClick="ShowListAscendingNames"
+            app:icon="@drawable/ic_clist_sort" />
+
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
 

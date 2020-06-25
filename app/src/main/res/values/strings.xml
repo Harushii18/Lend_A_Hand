@@ -160,6 +160,7 @@
         \n\n
         The staff at Lend A Hand</string>
 
+
     <!--ADMIN SCREENS-->
     <!--Donee pending screen-->
     <string name="txt_chk_accept">Accept</string>
@@ -195,5 +196,58 @@
 
     <!--Donee edit motivational letter-->
     <string name="txt_donee_edit_motivational_letter">Edit Motivational Letter</string>
+
+    <!--==============================================================================================-->
+    <!--Shared screen View Profile Activity-->
+    <string name="txt_profile_title">Profile</string>
+
+    <!--Default values for texts-->
+    <string name="txt_profile_default_name">FULL NAME</string>
+    <string name="txt_profile_default_username">Username</string>
+    <string name="txt_profile_default_email">E-mail Address</string>
+    <string name="txt_profile_default_phone">Phone</string>
+    <string name="txt_profile_default_street">Street Address</string>
+    <string name="txt_profile_default_suburb">Suburb</string>
+    <string name="txt_profile_default_province">Province</string>
+    <string name="txt_profile_default_postcode">Postal Code</string>
+    <string name="txt_profile_default_password">Change Password</string>
+
+
+    <!--dialog name, surname, email-->
+    <string name="txt_profile_dialog_change_fname">Change First Name</string>
+    <string name="txt_profile_dialog_change_lname">Change Last Name</string>
+    <string name="txt_profile_dialog_change_email">Change E-mail</string>
+    <string name="txt_profile_dialog_fname">Enter New First Name</string>
+    <string name="txt_profile_dialog_lname">Enter New Last Name</string>
+    <string name="txt_profile_dialog_email">Enter New E-mail Address</string>
+    <string name="txt_profile_dialog_phone">Enter New Phone Number</string>
+    <string name="txt_profile_dialog_st_address">Enter New Street Address</string>
+    <string name="txt_profile_dialog_suburb">Enter Suburb</string>
+    <string name="txt_profile_dialog_postal_code">Enter Postal Code</string>
+    <string name="txt_profile_dialog_province">Select Province</string>
+    <string name="txt_profile_dialog_curr_password">Enter current password</string>
+    <string name="txt_profile_dialog_new_password1">Enter new password</string>
+    <string name="txt_profile_dialog_new_password2">Re-enter new password</string>
+    <string name="txt_profile_dialog_password_btn_curr_password">Verify</string>
+    <string name="txt_profile_dialog_password_btn_new_password">Confirm</string>
+
+    <!--dialog successful editing toasts-->
+    <string name="txt_profile_dialog_success_email">E-mail Address edited successfully!</string>
+    <string name="txt_profile_dialog_success_lname">Last Name edited successfully!</string>
+    <string name="txt_profile_dialog_success_fname">First Name edited successfully!</string>
+    <string name="txt_profile_dialog_success_phone">Phone Number edited successfully!</string>
+    <string name="txt_profile_dialog_success_address">Address edited successfully!</string>
+    <string name="txt_profile_dialog_success_password">Password changed successfully!</string>
+    <string name="txt_profile_dialog_success_verify_password">Password verified</string>
+    <string name="txt_profile_dialog_failure_password">Incorrect password</string>
+
+    <!--email sending on email edit-->
+    <string name="txt_email_edit_subject">E-mail address changed </string>
+    <string name="txt_email_edit_body">Hi,\u0020</string>
+    <string name="txt_email_edit_body_2">
+        \n\n
+        We noticed that you changed your e-mail address. We will be contacting you regarding requests via this e-mail address in future.
+        \n\n
+        The staff at Lend A Hand</string>
 
 </resources>

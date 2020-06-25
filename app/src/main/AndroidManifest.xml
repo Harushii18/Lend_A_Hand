@@ -23,7 +23,8 @@
         <activity
             android:name=".ViewProfileActivity"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity"
+            android:theme="@style/MaterialThemeNoActionBar"/>
         <activity
             android:name=".AdminAddCourierActivity"
             android:screenOrientation="portrait"
