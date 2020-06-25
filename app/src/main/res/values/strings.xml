@@ -86,7 +86,6 @@
     <string name="txt_enter_postal_code">Enter Postal Code</string>
     <string name="txt_sign_up_login_button">Login</string>
     <string name="txt_do_not_swipe_back">You cannot return to previous steps</string>
-    <string name="txt_do_not_swipe_forward">Click the tab at the bottom to go to the next step</string>
 
     <!--Donor viewpager screens-->
     <string name="txt_step_one">Step 1: Enter your details</string>
