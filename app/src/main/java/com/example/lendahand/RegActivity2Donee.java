@@ -7,6 +7,7 @@ import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,6 +20,11 @@ public class RegActivity2Donee extends AppCompatActivity {
     private TabLayout tbDoneeReg;
     private TextInputLayout txtFName, txtLName;
     private String strFName, strLName;
+
+    //these variables are for checking if user swipes
+    private float x1,x2;
+    static final int MIN_DISTANCE = 100;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,24 +48,7 @@ public class RegActivity2Donee extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition() ==2 ) {
-                    if (validateInput()) {
-
-                        Intent intent = new Intent(RegActivity2Donee.this, RegActivity3Donee.class);
-                        //get from previous activity
-                        Bundle bundle = getIntent().getExtras();
-                        String strPassword = bundle.getString("password");
-                        String strUsername = bundle.getString("username");
-                        //pass to next activity
-                        intent.putExtra("password", strPassword);
-                        intent.putExtra("username", strUsername);
-                        intent.putExtra("fname", strFName);
-                        intent.putExtra("lname", strLName);
-                        startActivity(intent);
-                        finish();
-                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                    }else{
-                        tbDoneeReg.getTabAt(1).select();
-                    }
+                    goToNextActivity();
                 }
             }
 
@@ -74,6 +63,64 @@ public class RegActivity2Donee extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void goToNextActivity() {
+        if (validateInput()) {
+
+            Intent intent = new Intent(RegActivity2Donee.this, RegActivity3Donee.class);
+            //get from previous activity
+            Bundle bundle = getIntent().getExtras();
+            String strPassword = bundle.getString("password");
+            String strUsername = bundle.getString("username");
+            //pass to next activity
+            intent.putExtra("password", strPassword);
+            intent.putExtra("username", strUsername);
+            intent.putExtra("fname", strFName);
+            intent.putExtra("lname", strLName);
+            startActivity(intent);
+            finish();
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        }else{
+            tbDoneeReg.getTabAt(1).select();
+        }
+    }
+
+    //to prevent swiping
+    @Override
+    public boolean onTouchEvent(MotionEvent event)
+    {
+        switch(event.getAction())
+        {
+            case MotionEvent.ACTION_DOWN:
+                x1 = event.getX();
+                break;
+            case MotionEvent.ACTION_UP:
+                x2 = event.getX();
+                float deltaX = x2 - x1;
+
+                if (Math.abs(deltaX) > MIN_DISTANCE)
+                {
+                    // Left to Right swipe action
+                    if (x2 > x1)
+                    {
+                        Toast.makeText(this, getText(R.string.txt_do_not_swipe_back), Toast.LENGTH_SHORT).show ();
+                    }
+
+                    // Right to left swipe action
+                    else
+                    {
+                        goToNextActivity();
+                    }
+
+                }
+                else
+                {
+                    // don't do anything
+                }
+                break;
+        }
+        return super.onTouchEvent(event);
     }
 
     private void initViews() {

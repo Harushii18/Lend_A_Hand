@@ -41,6 +41,10 @@ public class RegActivity1Donee extends AppCompatActivity {
     private String urlLink = "https://lamp.ms.wits.ac.za/home/s2089676/";
     boolean usernameExists = false;
 
+    //these variables are for checking if user swipes
+    private float x1,x2;
+    static final int MIN_DISTANCE = 100;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,35 +68,7 @@ public class RegActivity1Donee extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition() == 1) {
-
-                    if (validateInput()) {
-                        //if it is valid
-                        //encrypt and hash password with SHA-512 to send through multiple intents
-                        String generatedPassword = "";
-                        try {
-                            String salt="A$thy*BJFK_P_$%#";
-                            MessageDigest md = MessageDigest.getInstance("SHA-512");
-                            md.update(salt.getBytes(StandardCharsets.UTF_8));
-                            byte[] hashedPassword = md.digest(strPassword.getBytes(StandardCharsets.UTF_8));
-                            StringBuilder stringBuilder = new StringBuilder();
-                            for (int i = 0; i < hashedPassword.length; i++) {
-                                stringBuilder.append(Integer.toString((hashedPassword[i] & 0xff) + 0x100, 16).substring(1));
-                            }
-                            generatedPassword = stringBuilder.toString();
-                        } catch (NoSuchAlgorithmException e) {
-                            e.printStackTrace();
-                        }
-
-                        Intent intent = new Intent(RegActivity1Donee.this, RegActivity2Donee.class);
-                        //pass password and username
-                        intent.putExtra("username", strUsername);
-                        intent.putExtra("password", generatedPassword);
-                        startActivity(intent);
-                        finish();
-                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                    } else {
-                        tbDoneeReg.getTabAt(0).select();
-                    }
+                    goToNextActivity();
                 }
             }
 
@@ -106,6 +82,75 @@ public class RegActivity1Donee extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void goToNextActivity() {
+
+        if (validateInput()) {
+            //if it is valid
+            //encrypt and hash password with SHA-512 to send through multiple intents
+            String generatedPassword = "";
+            try {
+                String salt="A$thy*BJFK_P_$%#";
+                MessageDigest md = MessageDigest.getInstance("SHA-512");
+                md.update(salt.getBytes(StandardCharsets.UTF_8));
+                byte[] hashedPassword = md.digest(strPassword.getBytes(StandardCharsets.UTF_8));
+                StringBuilder stringBuilder = new StringBuilder();
+                for (int i = 0; i < hashedPassword.length; i++) {
+                    stringBuilder.append(Integer.toString((hashedPassword[i] & 0xff) + 0x100, 16).substring(1));
+                }
+                generatedPassword = stringBuilder.toString();
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+
+            Intent intent = new Intent(RegActivity1Donee.this, RegActivity2Donee.class);
+            //pass password and username
+            intent.putExtra("username", strUsername);
+            intent.putExtra("password", generatedPassword);
+            startActivity(intent);
+            finish();
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        } else {
+            tbDoneeReg.getTabAt(0).select();
+        }
+    }
+
+    //to prevent swiping
+    @Override
+    public boolean onTouchEvent(MotionEvent event)
+    {
+        switch(event.getAction())
+        {
+            case MotionEvent.ACTION_DOWN:
+                x1 = event.getX();
+                break;
+            case MotionEvent.ACTION_UP:
+                x2 = event.getX();
+                float deltaX = x2 - x1;
+
+                if (Math.abs(deltaX) > MIN_DISTANCE)
+                {
+                    // Left to Right swipe action
+                    if (x2 > x1)
+                    {
+                        //do nothing
+                    }
+
+                    // Right to left swipe action
+                    else
+                    {
+                       goToNextActivity();
+                    }
+
+                }
+                else
+                {
+                    // don't do anything
+                }
+                break;
+        }
+        return super.onTouchEvent(event);
     }
 
     private void setUserComponentErrorInteractivity() {

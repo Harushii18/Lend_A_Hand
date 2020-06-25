@@ -38,6 +38,10 @@ public class RegActivity3Donee extends AppCompatActivity {
     private OkHttpClient client;
     private boolean blnExist;
 
+    //these variables are for checking if user swipes
+    private float x1,x2;
+    static final int MIN_DISTANCE = 100;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,27 +67,7 @@ public class RegActivity3Donee extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition() == 3) {
-                    if (validateInput()) {
-                        Intent intent = new Intent(RegActivity3Donee.this, RegActivity4Donee.class);
-                        //get from previous activity
-                        Bundle bundle = getIntent().getExtras();
-                        String strPassword = bundle.getString("password");
-                        String strUsername = bundle.getString("username");
-                        String strFName = bundle.getString("fname");
-                        String strLName = bundle.getString("lname");
-                        //pass to next activity
-                        intent.putExtra("password", strPassword);
-                        intent.putExtra("username", strUsername);
-                        intent.putExtra("fname", strFName);
-                        intent.putExtra("lname", strLName);
-                        intent.putExtra("email", strEmail);
-                        intent.putExtra("phoneNo", strPhoneNumber);
-                        startActivity(intent);
-                        finish();
-                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                    } else {
-                        tbDoneeReg.getTabAt(2).select();
-                    }
+                    goToNextActivity();
                 }
             }
 
@@ -98,6 +82,30 @@ public class RegActivity3Donee extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void goToNextActivity() {
+        if (validateInput()) {
+            Intent intent = new Intent(RegActivity3Donee.this, RegActivity4Donee.class);
+            //get from previous activity
+            Bundle bundle = getIntent().getExtras();
+            String strPassword = bundle.getString("password");
+            String strUsername = bundle.getString("username");
+            String strFName = bundle.getString("fname");
+            String strLName = bundle.getString("lname");
+            //pass to next activity
+            intent.putExtra("password", strPassword);
+            intent.putExtra("username", strUsername);
+            intent.putExtra("fname", strFName);
+            intent.putExtra("lname", strLName);
+            intent.putExtra("email", strEmail);
+            intent.putExtra("phoneNo", strPhoneNumber);
+            startActivity(intent);
+            finish();
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        } else {
+            tbDoneeReg.getTabAt(2).select();
+        }
     }
 
     private void setUserComponentErrorInteractivity() {
@@ -212,6 +220,43 @@ public class RegActivity3Donee extends AppCompatActivity {
         });
 
 
+    }
+
+    //to prevent swiping
+    @Override
+    public boolean onTouchEvent(MotionEvent event)
+    {
+        switch(event.getAction())
+        {
+            case MotionEvent.ACTION_DOWN:
+                x1 = event.getX();
+                break;
+            case MotionEvent.ACTION_UP:
+                x2 = event.getX();
+                float deltaX = x2 - x1;
+
+                if (Math.abs(deltaX) > MIN_DISTANCE)
+                {
+                    // Left to Right swipe action
+                    if (x2 > x1)
+                    {
+                        Toast.makeText(this, getText(R.string.txt_do_not_swipe_back), Toast.LENGTH_SHORT).show ();
+                    }
+
+                    // Right to left swipe action
+                    else
+                    {
+                        goToNextActivity();
+                    }
+
+                }
+                else
+                {
+                    // don't do anything
+                }
+                break;
+        }
+        return super.onTouchEvent(event);
     }
 
     private boolean validateInput() {

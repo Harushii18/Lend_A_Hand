@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +15,11 @@ import com.google.android.material.tabs.TabLayout;
 
 public class RegActivityFinal extends AppCompatActivity {
     private TabLayout tbDonorReg;
+
+    //these variables are for checking if user swipes
+    private float x1,x2;
+    static final int MIN_DISTANCE = 100;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +36,44 @@ public class RegActivityFinal extends AppCompatActivity {
 
         //this method ensures that no previous steps can be accessed
         setTabInteractivity();
+    }
+
+
+    //to prevent swiping
+    @Override
+    public boolean onTouchEvent(MotionEvent event)
+    {
+        switch(event.getAction())
+        {
+            case MotionEvent.ACTION_DOWN:
+                x1 = event.getX();
+                break;
+            case MotionEvent.ACTION_UP:
+                x2 = event.getX();
+                float deltaX = x2 - x1;
+
+                if (Math.abs(deltaX) > MIN_DISTANCE)
+                {
+                    // Left to Right swipe action
+                    if (x2 > x1)
+                    {
+                        Toast.makeText(this, getText(R.string.txt_do_not_swipe_back), Toast.LENGTH_SHORT).show ();
+                    }
+
+                    // Right to left swipe action
+                    else
+                    {
+                        //do nothing
+                    }
+
+                }
+                else
+                {
+                    // don't do anything
+                }
+                break;
+        }
+        return super.onTouchEvent(event);
     }
 
     private void setTabInteractivity() {

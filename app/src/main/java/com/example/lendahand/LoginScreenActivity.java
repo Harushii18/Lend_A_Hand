@@ -73,7 +73,6 @@ public class LoginScreenActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }else if (StayLoggedIn.getUserType(LoginScreenActivity.this).equals("Admin")){
-                //TODO: change to admin class here
                 Intent intent = new Intent(this, AdminPendingReqActivity.class);
                 startActivity(intent);
                 finish();
@@ -155,7 +154,6 @@ public class LoginScreenActivity extends AppCompatActivity {
                     //set donee status to not a donee for shared preferences
                     StayLoggedIn.setDoneeStatus(LoginScreenActivity.this,"null");
                     //go to admin screens
-                    //TODO: Change this to certain screen depending on if logged in user is admin
                     final Intent intent = new Intent(this, AdminPendingReqActivity.class);
 
                     //thread is used to make sure toast is just shown on login

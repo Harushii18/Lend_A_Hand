@@ -41,6 +41,10 @@ public class RegActivity5 extends AppCompatActivity {
     private String urlLink = "https://lamp.ms.wits.ac.za/home/s2089676/";
     private OkHttpClient client;
 
+    //these variables are for checking if user swipes
+    private float x1,x2;
+    static final int MIN_DISTANCE = 100;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,116 +67,12 @@ public class RegActivity5 extends AppCompatActivity {
         //this method is to handle the on change event handlers of the edit texts
         setUserComponentErrorInteractivity();
 
+
         tbDoneeReg.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition() == 5) {
-                    //check connectivity
-                    GlobalConnectivityCheck globalConnectivityCheck = new GlobalConnectivityCheck(getApplicationContext());
-                    if (!globalConnectivityCheck.isNetworkConnected()) {
-                        //if internet is not connected
-                        Toast toast = Toast.makeText(getApplicationContext(), getText(R.string.txt_internet_disconnected), Toast.LENGTH_SHORT);
-                        toast.show();
-                    } else {
-                        if (validateInput()) {
-                            Intent intent = new Intent(RegActivity5.this, RegActivityFinalDonee.class);
-                            //get from previous activity
-                            Bundle bundle = getIntent().getExtras();
-                            String strPassword = bundle.getString("password");
-                            final String strUsername = bundle.getString("username");
-                            String strFName = bundle.getString("fname");
-                            String strLName = bundle.getString("lname");
-                            final String strEmail = bundle.getString("email");
-                            String strPhoneNumber = bundle.getString("phoneNo");
-                            String strPostalCode = bundle.getString("postcode");
-                            String strStreetAddress = bundle.getString("streetadd");
-                            String strSuburb = bundle.getString("suburb");
-                            String strProvince = bundle.getString("prov");
-
-                            //ensure the values are of proper format
-                            assert strFName != null;
-                            strFName = capitalizeWord(strFName.toLowerCase());
-                            assert strLName != null;
-                            strLName = capitalizeWord(strLName.toLowerCase());
-                            assert strStreetAddress != null;
-                            strStreetAddress = capitalizeWord(strStreetAddress.toLowerCase());
-                            assert strSuburb != null;
-                            strSuburb = capitalizeWord(strSuburb.toLowerCase());
-
-
-                            client = new OkHttpClient();
-                            String link = urlLink + "doneepost.php";
-
-                            RequestBody formBody = new FormBody.Builder()
-                                    .add("username", strUsername)
-                                    .add("pass", strPassword)
-                                    .add("fname", strFName)
-                                    .add("surname", strLName)
-                                    .add("email", strEmail)
-                                    .add("phone", strPhoneNumber)
-                                    .add("street", strStreetAddress)
-                                    .add("sub", strSuburb)
-                                    .add("prov", strProvince)
-                                    .add("postcode", strPostalCode)
-                                    .add("utype", "donee")
-                                    .add("mot", strMotivationalLetter)
-                                    .add("stat", "Pending")
-                                    .build();
-
-                            Request request = new Request.Builder()
-                                    .url(link)
-                                    .post(formBody)
-                                    .build();
-                            final CountDownLatch countDownLatch = new CountDownLatch(1);
-                            client.newCall(request).enqueue(new Callback() {
-                                @Override
-                                public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                                    e.printStackTrace();
-                                    countDownLatch.countDown();
-                                }
-
-                                @Override
-                                public void onResponse(Call call, final Response response) throws IOException {
-                                    if (response.isSuccessful()) {
-                                        Log.d("INSERT","Inserting new donee to database successful");
-                                    }else{
-                                        Log.d("INSERT","Inserting new donee to database failed");
-                                    }
-                                    countDownLatch.countDown();
-                                }
-                            });
-
-                            try {
-                                //to ensure that main thread waits for this
-                                countDownLatch.await();
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                            //send email to user telling them that their account has been created
-                            new Thread(new Runnable() {
-
-                                @Override
-                                public void run() {
-                                    try {
-                                        GMailSender sender = new GMailSender(getText(R.string.txt_developer_email).toString(),
-                                                getText(R.string.txt_developer_pword).toString());
-                                        sender.sendMail(getText(R.string.txt_email_subject).toString(), getText(R.string.txt_email_body_common).toString()+strUsername+getText(R.string.txt_email_body_donee).toString(),
-                                                getText(R.string.txt_developer_email).toString(), strEmail);
-                                    } catch (Exception e) {
-                                        Log.e("SendMail", e.getMessage(), e);
-                                    }
-                                }
-
-                            }).start();
-
-                            //go to next activity
-                            startActivity(intent);
-                            finish();
-                            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                        } else {
-                            tbDoneeReg = findViewById(R.id.tbDoneeReg5);
-                        }
-                    }
+                    goToNextActivity();
                 }
             }
 
@@ -186,6 +86,151 @@ public class RegActivity5 extends AppCompatActivity {
         });
     }
 
+    private void goToNextActivity() {
+        //check connectivity
+        GlobalConnectivityCheck globalConnectivityCheck = new GlobalConnectivityCheck(getApplicationContext());
+        if (!globalConnectivityCheck.isNetworkConnected()) {
+            //if internet is not connected
+            Toast toast = Toast.makeText(getApplicationContext(), getText(R.string.txt_internet_disconnected), Toast.LENGTH_SHORT);
+            toast.show();
+        } else {
+            if (validateInput()) {
+                Intent intent = new Intent(RegActivity5.this, RegActivityFinalDonee.class);
+                //get from previous activity
+                Bundle bundle = getIntent().getExtras();
+                String strPassword = bundle.getString("password");
+                final String strUsername = bundle.getString("username");
+                String strFName = bundle.getString("fname");
+                String strLName = bundle.getString("lname");
+                final String strEmail = bundle.getString("email");
+                String strPhoneNumber = bundle.getString("phoneNo");
+                String strPostalCode = bundle.getString("postcode");
+                String strStreetAddress = bundle.getString("streetadd");
+                String strSuburb = bundle.getString("suburb");
+                String strProvince = bundle.getString("prov");
+
+                //ensure the values are of proper format
+                assert strFName != null;
+                strFName = capitalizeWord(strFName.toLowerCase());
+                assert strLName != null;
+                strLName = capitalizeWord(strLName.toLowerCase());
+                assert strStreetAddress != null;
+                strStreetAddress = capitalizeWord(strStreetAddress.toLowerCase());
+                assert strSuburb != null;
+                strSuburb = capitalizeWord(strSuburb.toLowerCase());
+
+
+                client = new OkHttpClient();
+                String link = urlLink + "doneepost.php";
+
+                RequestBody formBody = new FormBody.Builder()
+                        .add("username", strUsername)
+                        .add("pass", strPassword)
+                        .add("fname", strFName)
+                        .add("surname", strLName)
+                        .add("email", strEmail)
+                        .add("phone", strPhoneNumber)
+                        .add("street", strStreetAddress)
+                        .add("sub", strSuburb)
+                        .add("prov", strProvince)
+                        .add("postcode", strPostalCode)
+                        .add("utype", "donee")
+                        .add("mot", strMotivationalLetter)
+                        .add("stat", "Pending")
+                        .build();
+
+                Request request = new Request.Builder()
+                        .url(link)
+                        .post(formBody)
+                        .build();
+                final CountDownLatch countDownLatch = new CountDownLatch(1);
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                        e.printStackTrace();
+                        countDownLatch.countDown();
+                    }
+
+                    @Override
+                    public void onResponse(Call call, final Response response) throws IOException {
+                        if (response.isSuccessful()) {
+                            Log.d("INSERT","Inserting new donee to database successful");
+                        }else{
+                            Log.d("INSERT","Inserting new donee to database failed");
+                        }
+                        countDownLatch.countDown();
+                    }
+                });
+
+                try {
+                    //to ensure that main thread waits for this
+                    countDownLatch.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                //send email to user telling them that their account has been created
+                new Thread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        try {
+                            GMailSender sender = new GMailSender(getText(R.string.txt_developer_email).toString(),
+                                    getText(R.string.txt_developer_pword).toString());
+                            sender.sendMail(getText(R.string.txt_email_subject).toString(), getText(R.string.txt_email_body_common).toString()+strUsername+getText(R.string.txt_email_body_donee).toString(),
+                                    getText(R.string.txt_developer_email).toString(), strEmail);
+                        } catch (Exception e) {
+                            Log.e("SendMail", e.getMessage(), e);
+                        }
+                    }
+
+                }).start();
+
+                //go to next activity
+                startActivity(intent);
+                finish();
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            } else {
+                tbDoneeReg = findViewById(R.id.tbDoneeReg5);
+            }
+        }
+    }
+
+    //to prevent swiping
+    @Override
+    public boolean onTouchEvent(MotionEvent event)
+    {
+        switch(event.getAction())
+        {
+            case MotionEvent.ACTION_DOWN:
+                x1 = event.getX();
+                break;
+            case MotionEvent.ACTION_UP:
+                x2 = event.getX();
+                float deltaX = x2 - x1;
+
+                if (Math.abs(deltaX) > MIN_DISTANCE)
+                {
+                    // Left to Right swipe action
+                    if (x2 > x1)
+                    {
+                        Toast.makeText(this, getText(R.string.txt_do_not_swipe_back), Toast.LENGTH_SHORT).show ();
+                    }
+
+                    // Right to left swipe action
+                    else
+                    {
+                        goToNextActivity();
+                    }
+
+                }
+                else
+                {
+                    // don't do anything
+                }
+                break;
+        }
+        return super.onTouchEvent(event);
+    }
     private String capitalizeWord(String str) {
         String words[] = str.split("\\s");
         String capitalizeWord = "";

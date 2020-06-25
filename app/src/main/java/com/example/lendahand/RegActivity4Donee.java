@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -27,6 +28,11 @@ public class RegActivity4Donee extends AppCompatActivity {
     private String strStreetAddress, strSuburb, strProvince="", strPostalCode;
     private  String[] arrProvinces = new String[] {"KwaZulu-Natal", "Western Cape", "North West", "Northern Cape","Free State","Gauteng", "Limpopo","Mpumalanga", "Eastern Cape"};
     private ArrayAdapter<String> adapter;
+
+    //these variables are for checking if user swipes
+    private float x1,x2;
+    static final int MIN_DISTANCE = 100;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,33 +57,7 @@ public class RegActivity4Donee extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition() == 4) {
-                    if (validateInput()) {
-                        Intent intent = new Intent(RegActivity4Donee.this, RegActivity5.class);
-                        //get from previous activity
-                        Bundle bundle = getIntent().getExtras();
-                        String strPassword = bundle.getString("password");
-                        String strUsername = bundle.getString("username");
-                        String strFName = bundle.getString("fname");
-                        String strLName = bundle.getString("lname");
-                        String strEmail = bundle.getString("email");
-                        String strPhoneNumber = bundle.getString("phoneNo");
-                        //pass to next activity
-                        intent.putExtra("password", strPassword);
-                        intent.putExtra("username", strUsername);
-                        intent.putExtra("fname", strFName);
-                        intent.putExtra("lname", strLName);
-                        intent.putExtra("email", strEmail);
-                        intent.putExtra("phoneNo", strPhoneNumber);
-                        intent.putExtra("postcode", strPostalCode);
-                        intent.putExtra("prov", strProvince);
-                        intent.putExtra("streetadd", strStreetAddress);
-                        intent.putExtra("suburb", strSuburb);
-                        startActivity(intent);
-                        finish();
-                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                    } else {
-                        tbDoneeReg.getTabAt(3).select();
-                    }
+                    goToNextActivity();
                 }
             }
 
@@ -91,6 +71,73 @@ public class RegActivity4Donee extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void goToNextActivity() {
+        if (validateInput()) {
+            Intent intent = new Intent(RegActivity4Donee.this, RegActivity5.class);
+            //get from previous activity
+            Bundle bundle = getIntent().getExtras();
+            String strPassword = bundle.getString("password");
+            String strUsername = bundle.getString("username");
+            String strFName = bundle.getString("fname");
+            String strLName = bundle.getString("lname");
+            String strEmail = bundle.getString("email");
+            String strPhoneNumber = bundle.getString("phoneNo");
+            //pass to next activity
+            intent.putExtra("password", strPassword);
+            intent.putExtra("username", strUsername);
+            intent.putExtra("fname", strFName);
+            intent.putExtra("lname", strLName);
+            intent.putExtra("email", strEmail);
+            intent.putExtra("phoneNo", strPhoneNumber);
+            intent.putExtra("postcode", strPostalCode);
+            intent.putExtra("prov", strProvince);
+            intent.putExtra("streetadd", strStreetAddress);
+            intent.putExtra("suburb", strSuburb);
+            startActivity(intent);
+            finish();
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        } else {
+            tbDoneeReg.getTabAt(3).select();
+        }
+    }
+
+    //to prevent swiping
+    @Override
+    public boolean onTouchEvent(MotionEvent event)
+    {
+        switch(event.getAction())
+        {
+            case MotionEvent.ACTION_DOWN:
+                x1 = event.getX();
+                break;
+            case MotionEvent.ACTION_UP:
+                x2 = event.getX();
+                float deltaX = x2 - x1;
+
+                if (Math.abs(deltaX) > MIN_DISTANCE)
+                {
+                    // Left to Right swipe action
+                    if (x2 > x1)
+                    {
+                        Toast.makeText(this, getText(R.string.txt_do_not_swipe_back), Toast.LENGTH_SHORT).show ();
+                    }
+
+                    // Right to left swipe action
+                    else
+                    {
+                        goToNextActivity();
+                    }
+
+                }
+                else
+                {
+                    // don't do anything
+                }
+                break;
+        }
+        return super.onTouchEvent(event);
     }
 
     private boolean validateInput() {
