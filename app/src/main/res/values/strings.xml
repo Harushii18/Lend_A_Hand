@@ -195,7 +195,11 @@
     <string name="txt_admin_dashboard_add_admin">Add Admin</string>
 
     <!--Donee edit motivational letter-->
-    <string name="txt_donee_edit_motivational_letter">Edit Motivational Letter</string>
+    <string name="txt_donee_edit_motivational_letter_title">Edit Motivational Letter</string>
+    <string name="txt_donee_edit_motivational_letter">Motivational Letter</string>
+    <string name="txt_donee_btn_edit_motivational_letter">Edit</string>
+    <string name="txt_donee_btn_confirm_edit_motivational_letter">Confirm</string>
+    <string name="txt_donee_type_new_motivational_letter">Enter new motivational letter</string>
 
     <!--==============================================================================================-->
     <!--Shared screen View Profile Activity-->

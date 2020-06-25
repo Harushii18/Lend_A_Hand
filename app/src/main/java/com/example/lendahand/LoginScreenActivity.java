@@ -66,7 +66,7 @@ public class LoginScreenActivity extends AppCompatActivity {
             //go to intent for donee/donor/admin accordingly
             if (StayLoggedIn.getUserType(LoginScreenActivity.this).equals("Donor")){
                 //TODO: change to donor class here
-                Intent intent = new Intent(this, ViewProfileActivity.class);
+                Intent intent = new Intent(this, DoneeEditMotivationalLetterActivity.class);
                 startActivity(intent);
                 finish();
             }else if (StayLoggedIn.getUserType(LoginScreenActivity.this).equals("Donee")){
@@ -134,7 +134,7 @@ public class LoginScreenActivity extends AppCompatActivity {
                     StayLoggedIn.setDoneeStatus(LoginScreenActivity.this,"null");
                     //go to donor screens
                     //TODO: Change this to certain screen depending on if logged in user is donor
-                    final Intent intent = new Intent(this, ViewProfileActivity.class);
+                    final Intent intent = new Intent(this, DoneeEditMotivationalLetterActivity.class);
 
                     //thread is used to make sure toast is just shown on login
                     Thread thread = new Thread() {
