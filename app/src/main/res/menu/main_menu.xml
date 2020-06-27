@@ -3,31 +3,31 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:title="Home"
+            android:title="@string/txt_menu_home"
             android:icon="@drawable/home_icon"
             />
 
         <item
             android:id="@+id/nav_profile"
-            android:title="Profile"
+            android:title="@string/txt_menu_profile"
             android:icon="@drawable/profile_icon"/>
         <item
             android:id="@+id/nav_request"
-            android:title="Request items"
+            android:title="@string/txt_menu_donee_req_items"
             android:icon="@drawable/shopcart_icon"/>
         <item
             android:id="@+id/nav_list"
-            android:title="Donor list"
+            android:title="@string/txt_menu_donor_list"
             android:icon="@drawable/list_icon"/>
        
         <item
             android:id="@+id/nav_about"
-            android:title="About us"
+            android:title="@string/txt_menu_about_us"
             android:icon="@drawable/info_icon"/>
         <item
             android:id="@+id/nav_logout"
-            android:title="Log out"
-            android:icon="@drawable/phone_icon"/>
+            android:title="@string/txt_menu_sign_out"
+            android:icon="@drawable/ic_menu_logout"/>
 
 
 

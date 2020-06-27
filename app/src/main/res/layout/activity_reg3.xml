@@ -64,8 +64,10 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/tbDonorReg3"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4">
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintVertical_bias="0.0">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/txtDonorEmail"
@@ -109,6 +111,22 @@
 
     </LinearLayout>
 
+    <ProgressBar
+        android:id="@+id/pbDonorReg3"
+        style="@android:style/Widget.Holo.Light.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:indeterminate="true"
+        android:indeterminateDuration="2000"
+        android:indeterminateTint="@color/primaryColor"
+        android:paddingLeft="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="-20dp"
+        android:visibility="invisible"/>
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tbDonorReg3"
         android:layout_width="match_parent"

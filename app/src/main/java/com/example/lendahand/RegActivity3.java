@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,6 +43,8 @@ public class RegActivity3 extends AppCompatActivity {
     private String urlLink = "https://lamp.ms.wits.ac.za/home/s2089676/";
     private OkHttpClient client;
     private boolean blnExist;
+
+    private ProgressBar progressBar;
 
     //these variables are for checking if user swipes
     private float x1,x2;
@@ -177,6 +180,7 @@ public class RegActivity3 extends AppCompatActivity {
         tbDonorReg = findViewById(R.id.tbDonorReg3);
         txtEmail = findViewById(R.id.txtDonorEmail);
         txtPhoneNumber = findViewById(R.id.txtDonorPhoneNumber);
+        progressBar=findViewById(R.id.pbDonorReg3);
     }
 
     private void setTabInteractivity() {
@@ -298,6 +302,10 @@ public class RegActivity3 extends AppCompatActivity {
     }
 
     private boolean checkEmailExists() {
+        //start progress bar
+        //TODO: See what the problem is here
+        progressBar.setVisibility(View.VISIBLE);
+
         //connect to mailbox validator
         blnExist = false;
         client = new OkHttpClient();
@@ -347,9 +355,11 @@ public class RegActivity3 extends AppCompatActivity {
         try {
             //to ensure that main thread waits for this
             countDownLatch.await();
+            progressBar.setVisibility(View.INVISIBLE);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
 
         return blnExist;
     }

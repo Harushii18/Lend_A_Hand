@@ -7,20 +7,24 @@
     android:background="@drawable/headerback"
     android:gravity="bottom"
     android:padding="20dp">
+
     <TextView
+        android:id="@+id/txtNavName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         android:text="Nadine Velpton"
-        android:textSize="30sp"
         android:textColor="@color/primaryTextColor"
-        android:layout_marginBottom="5dp"/>
+        android:textSize="30sp" />
+
     <TextView
+        android:id="@+id/txtNavEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         android:text="nadinevelpton@gmail.com"
-        android:textSize="15sp"
         android:textColor="@color/primaryTextColor"
-        android:layout_marginBottom="5dp"/>
+        android:textSize="15sp" />
 
 
 </LinearLayout>

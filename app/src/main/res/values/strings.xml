@@ -255,4 +255,24 @@
         \n\n
         The staff at Lend A Hand</string>
 
+    <!--MENUS-->
+    <!--common menu strings-->
+    <string name="txt_menu_profile">Profile</string>
+    <string name="txt_menu_sign_out">Log out</string>
+    <string name="txt_menu_about_us">About us</string>
+    <string name="txt_menu_donor_list">Donor List</string>
+    <string name="txt_menu_home">Home</string>
+
+    <!--donee menu strings-->
+    <string name="txt_menu_donee_req_items">Request items</string>
+
+
+    <!--admin menu strings-->
+
+    <string name="txt_admin_menu_add_courier">Add courier</string>
+    <string name="txt_admin_menu_courier_list">Courier List</string>
+    <string name="txt_admin_menu_pending_req">Pending Requests</string>
+
+
+
 </resources>

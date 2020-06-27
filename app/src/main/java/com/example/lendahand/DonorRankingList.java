@@ -39,11 +39,12 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class DonorRankingList extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class DonorRankingList extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
-
+    private TextView txtNavName, txtNavEmail;
+    View headerView;
     TextView TxtName;
     TextView TxtSum;
     LinearLayout donor_layout;
@@ -54,20 +55,48 @@ public class DonorRankingList extends AppCompatActivity implements NavigationVie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_donor_ranking_list);
+
+        //get current user
+        String user=StayLoggedIn.getUserType(DonorRankingList.this);
+        //reuse of code, but only differentcontent views
+        if (user.equals("Admin")){
+            setContentView(R.layout.activity_admin_donor_ranking_list);
+        }else if (user.equals("Donor")){
+            setContentView(R.layout.activity_donor_ranking_list);
+        }else if(user.equals("Donee")){
+            //TODO: set content view to the donee one that has a menu pointing to donee menu
+        }
+
+        //TODO: Add profile changing to every activity's nav bar for donor and donee
+
+
         drawerLayout = findViewById(R.id.drawer_layout_DonorRank);
-        navigationView=findViewById(R.id.nav_view_DonorRank);
-        toolbar=findViewById(R.id.toolbar_DonorRank);
+        navigationView = findViewById(R.id.nav_view_DonorRank);
+        toolbar = findViewById(R.id.toolbar_DonorRank);
 
         setSupportActionBar(toolbar);
         /*---------------------nav view-----------------------------------------*/
         navigationView.bringToFront(); //nav view can slide back
 
         //show which nav item was selected
-        navigationView.setCheckedItem(R.id.nav_list);
+        if (user.equals("Admin")){
+            navigationView.setCheckedItem(R.id.nav_admin_donor_list);
+        }else if (user.equals("Donor")){
+            navigationView.setCheckedItem(R.id.nav_list);
+        }else if(user.equals("Donee")){
+            //TODO: set checked view to donee nav one
+        }
+
+        //initialise nav view header values
+        headerView = navigationView.getHeaderView(0);
+
+        txtNavName = headerView.findViewById(R.id.txtNavName);
+        txtNavEmail = headerView.findViewById(R.id.txtNavEmail);
+        txtNavEmail.setText(StayLoggedIn.getEmail(DonorRankingList.this));
+        txtNavName.setText(StayLoggedIn.getFName(DonorRankingList.this) + ' ' + StayLoggedIn.getLName(DonorRankingList.this));
 
         //toggle is for the nav bar to go back and forth
-        ActionBarDrawerToggle toggle= new ActionBarDrawerToggle(this, drawerLayout,toolbar,R.string.nav_open,R.string.nav_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.nav_open, R.string.nav_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -75,17 +104,17 @@ public class DonorRankingList extends AppCompatActivity implements NavigationVie
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        pb= findViewById(R.id.progressBar);
+        pb = findViewById(R.id.progressBar);
         pb.setProgress(0);
         pb.setSecondaryProgress(0);
         //pb.setMax(10);
-       //
+        //
 
-        countDownTimer= new CountDownTimer(3000,100) {
+        countDownTimer = new CountDownTimer(3000, 100) {
             @Override
             public void onTick(long millisUntilFinished) {
-                int progress = pb.getProgress()+2;
-                if(progress>pb.getMax()) progress=0;
+                int progress = pb.getProgress() + 2;
+                if (progress > pb.getMax()) progress = 0;
                 pb.setProgress(progress);
 
             }
@@ -106,36 +135,37 @@ public class DonorRankingList extends AppCompatActivity implements NavigationVie
             }
         }.start();
 
-        donor_layout= findViewById(R.id.donor_list);
+        donor_layout = findViewById(R.id.donor_list);
 
     }
 
+
     private void performRequest() {
-            OkHttpClient client = new OkHttpClient();
-            String url = "https://lamp.ms.wits.ac.za/home/s2089676/donor_ranking.php";
+        OkHttpClient client = new OkHttpClient();
+        String url = "https://lamp.ms.wits.ac.za/home/s2089676/donor_ranking.php";
 
-            Request request = new Request.Builder()
-                    .url(url)
-                    .build();
-            client.newCall(request).enqueue(new Callback() {
-                @Override
-                public void onFailure(@NotNull Call call, @NotNull IOException e) {
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
 
-                }
+            }
 
-                @Override
-                public void onResponse(@NotNull Call call, @NotNull final Response response) throws IOException {
-                    final String responseData = response.body().string();
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull final Response response) throws IOException {
+                final String responseData = response.body().string();
 
-                    DonorRankingList.this.runOnUiThread(new Runnable() {
-                        @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
-                        @Override
-                        public void run() {
-                            processJSON(responseData);
-                        }
-                    });
-                }
-            });
+                DonorRankingList.this.runOnUiThread(new Runnable() {
+                    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+                    @Override
+                    public void run() {
+                        processJSON(responseData);
+                    }
+                });
+            }
+        });
     }
 
     public void processJSON(String json) {
@@ -146,68 +176,99 @@ public class DonorRankingList extends AppCompatActivity implements NavigationVie
                 JSONObject item = all.getJSONObject(i);
                 String name = item.getString("NAME");
                 String surname = item.getString("SURNAME");
-                String sum= item.getString("SUM");
+                String sum = item.getString("SUM");
 
 
-               RelativeLayout layout= new RelativeLayout(this);
+                RelativeLayout layout = new RelativeLayout(this);
 
-                View view= getLayoutInflater().inflate(R.layout.list,null);
-                TxtSum= view.findViewById(R.id.Sum);
+                View view = getLayoutInflater().inflate(R.layout.list, null);
+                TxtSum = view.findViewById(R.id.Sum);
                 TxtSum.setText(sum);
-                TxtName= view.findViewById(R.id.Name);
-                TxtName.setText(name+" "+surname);
+                TxtName = view.findViewById(R.id.Name);
+                TxtName.setText(name + " " + surname);
                 layout.addView(view);
-
-
-
 
 
                 GradientDrawable border = new GradientDrawable();
                 border.setColor(0xFFFFFFFF);
-                border.setStroke(1,0xFFC0C0C0);
-                if(Build.VERSION.SDK_INT<Build.VERSION_CODES.JELLY_BEAN){
+                border.setStroke(1, 0xFFC0C0C0);
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
                     layout.setBackgroundDrawable(border);
-                }
-                else{
+                } else {
                     layout.setBackground(border);
                 }
                 donor_layout.addView(layout);
 
             }
 
-           pb.setVisibility(View.GONE);
-        } catch(JSONException e){
+            pb.setVisibility(View.GONE);
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
 
     }
+
     @Override
     public void onBackPressed() {
-        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
-        }
-        else{
+        } else {
             super.onBackPressed();
         }
 
     }
+
     /*OnClick for navigation bar menu items*/
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Intent i;
-        switch (item.getItemId()){
-            case R.id.nav_request : i= new Intent(this, CategoryListActivity.class); //Request items menu item
+        switch (item.getItemId()) {
+            case R.id.nav_request:
+                i = new Intent(this, CategoryListActivity.class); //Request items menu item
                 startActivity(i);
-                overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
-            case R.id.nav_list: i=new Intent(this,DonorRankingList.class);
+            case R.id.nav_profile:
+                i = new Intent(this, ViewProfileActivity.class);
                 startActivity(i);
                 break;
-            case R.id.nav_home: i= new Intent(this, DoneeDashboard.class);
+            case R.id.nav_list:
+                i = new Intent(this, DonorRankingList.class);
                 startActivity(i);
                 break;
-            case R.id.nav_about: i=new Intent(this, AboutUs.class);
+            case R.id.nav_admin_add_courier:
+                i = new Intent(this, AdminAddCourierActivity.class); //Request items menu item
+                startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                break;
+            case R.id.nav_admin_logout:
+                StayLoggedIn.clearUserDetails(this);
+                i = new Intent(this, LoginScreenActivity.class);
+                startActivity(i);
+                break;
+            case R.id.nav_admin_profile:
+                i = new Intent(this, ViewProfileActivity.class);
+                startActivity(i);
+                break;
+            case R.id.nav_admin_courier_list:
+                i = new Intent(this, AdminViewCourierListActivity.class);
+                startActivity(i);
+                break;
+            case R.id.nav_admin_donor_list:
+                i = new Intent(this, DonorRankingList.class);
+                startActivity(i);
+                break;
+            case R.id.nav_admin_pending_req:
+                i = new Intent(this, AdminPendingReqActivity.class);
+                startActivity(i);
+                break;
+            case R.id.nav_home:
+                i = new Intent(this, DoneeDashboard.class);
+                startActivity(i);
+                break;
+            case R.id.nav_about:
+                i = new Intent(this, AboutUs.class);
                 startActivity(i);
                 break;
             case R.id.nav_logout:
