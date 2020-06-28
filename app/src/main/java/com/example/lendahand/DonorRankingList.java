@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -65,6 +66,7 @@ public class DonorRankingList extends AppCompatActivity implements NavigationVie
             setContentView(R.layout.activity_donor_ranking_list);
         }else if(user.equals("Donee")){
             //TODO: set content view to the donee one that has a menu pointing to donee menu
+            //TODO: Also have an if statement if they're pending, accepted or rejected, and show the right menu accordingly
         }
 
         //TODO: Add profile changing to every activity's nav bar for donor and donee
@@ -85,6 +87,7 @@ public class DonorRankingList extends AppCompatActivity implements NavigationVie
             navigationView.setCheckedItem(R.id.nav_list);
         }else if(user.equals("Donee")){
             //TODO: set checked view to donee nav one
+            //TODO: Also have an if statement if they're pending or not, and show the right menu accordingly
         }
 
         //initialise nav view header values
@@ -107,8 +110,6 @@ public class DonorRankingList extends AppCompatActivity implements NavigationVie
         pb = findViewById(R.id.progressBar);
         pb.setProgress(0);
         pb.setSecondaryProgress(0);
-        //pb.setMax(10);
-        //
 
         countDownTimer = new CountDownTimer(3000, 100) {
             @Override
@@ -170,35 +171,28 @@ public class DonorRankingList extends AppCompatActivity implements NavigationVie
 
     public void processJSON(String json) {
         try {
-
             JSONArray all = new JSONArray(json);
             for (int i = 0; i < all.length(); i++) {
                 JSONObject item = all.getJSONObject(i);
                 String name = item.getString("NAME");
                 String surname = item.getString("SURNAME");
-                String sum = item.getString("SUM");
+                String sum = item.getString("NO_ITEMS");
 
-
-                RelativeLayout layout = new RelativeLayout(this);
+                ConstraintLayout layout = new ConstraintLayout(this);
 
                 View view = getLayoutInflater().inflate(R.layout.list, null);
                 TxtSum = view.findViewById(R.id.Sum);
+                Toast.makeText(getApplicationContext(), sum, Toast.LENGTH_SHORT).show();
                 TxtSum.setText(sum);
                 TxtName = view.findViewById(R.id.Name);
                 TxtName.setText(name + " " + surname);
                 layout.addView(view);
 
-
                 GradientDrawable border = new GradientDrawable();
                 border.setColor(0xFFFFFFFF);
                 border.setStroke(1, 0xFFC0C0C0);
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                    layout.setBackgroundDrawable(border);
-                } else {
-                    layout.setBackground(border);
-                }
+                layout.setBackground(border);
                 donor_layout.addView(layout);
-
             }
 
             pb.setVisibility(View.GONE);
@@ -224,6 +218,7 @@ public class DonorRankingList extends AppCompatActivity implements NavigationVie
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Intent i;
         switch (item.getItemId()) {
+            //TODO: Add the donee menu items
             case R.id.nav_request:
                 i = new Intent(this, CategoryListActivity.class); //Request items menu item
                 startActivity(i);

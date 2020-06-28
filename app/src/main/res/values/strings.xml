@@ -169,7 +169,7 @@
     <string name="txt_expand">Show more</string>
     <string name="txt_shrink">Show less</string>
     <string name="txt_donee_pending_btn">Confirm</string>
-    <string name="txt_donee_pending_tb_text">Pending Donees</string>
+    <string name="txt_donee_pending_tb_text">Pending Requests</string>
 
     <!--Add new courier-->
     <string name="txt_admin_courier_title">Add Courier</string>
@@ -265,7 +265,10 @@
 
     <!--donee menu strings-->
     <string name="txt_menu_donee_req_items">Request items</string>
+    <string name="txt_menu_donee_motivational_letter">Change motivational letter</string>
 
+    <!--donor menu strings-->
+    <string name="txt_menu_donor_donate_items">Donate items</string>
 
     <!--admin menu strings-->
 

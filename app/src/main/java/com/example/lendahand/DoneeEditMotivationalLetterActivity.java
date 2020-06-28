@@ -40,6 +40,7 @@ public class DoneeEditMotivationalLetterActivity extends AppCompatActivity imple
     private AlertDialog alertDialog;
     private Button btnConfirmEditMotLetter,btnSelEditMotivationLetter;
 
+    //TODO: Add nav bar to this activity for REJECTED DONEE
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

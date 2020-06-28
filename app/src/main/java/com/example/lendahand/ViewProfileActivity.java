@@ -95,6 +95,7 @@ public class ViewProfileActivity extends AppCompatActivity implements Navigation
             setContentView(R.layout.activity_donor_view_profile);
         }else if(user.equals("Donee")){
             //TODO: set content view to the donee one that has a menu pointing to donee menu
+            //TODO: Use an if statement if they're pending, accepted or rejected and use the right menu accordingly
         }
 
         //initialise drawer views
@@ -114,6 +115,7 @@ public class ViewProfileActivity extends AppCompatActivity implements Navigation
             navigationView.setCheckedItem(R.id.nav_profile);
         }else if(user.equals("Donee")){
             //TODO: set checked view to donee nav one
+            //TODO: Use an if statement if they're pending, accepted or rejected and use the right menu accordingly
         }
 
 

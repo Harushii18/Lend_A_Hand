@@ -70,7 +70,7 @@ public class AdminViewCourierListActivity extends AppCompatActivity implements N
         navigationView.bringToFront(); //nav view can slide back
 
         //show which nav item was selected
-        navigationView.setCheckedItem(R.id.nav_admin_profile);
+        navigationView.setCheckedItem(R.id.nav_admin_courier_list);
 
         //initialise nav view header values
         headerView=navigationView.getHeaderView(0);
