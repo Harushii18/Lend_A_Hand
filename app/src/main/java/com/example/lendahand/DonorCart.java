@@ -64,19 +64,15 @@ public class DonorCart extends AppCompatActivity {
         //User details
 
         String usertype= StayLoggedIn.getUserType(DonorCart.this);
-        final String username= StayLoggedIn.getUserName(DonorCart.this);
+        final String donor_username= StayLoggedIn.getUserName(DonorCart.this);
         final String name= StayLoggedIn.getFName(DonorCart.this);
         final String surname = StayLoggedIn.getLName(DonorCart.this);
-        final String email= StayLoggedIn.getEmail(DonorCart.this);
+        final String donor_email= StayLoggedIn.getEmail(DonorCart.this);
 
-        //get date
 
-        SimpleDateFormat currentDate=new SimpleDateFormat("yyyy-MM-dd");
-        Date todayDate= new Date();
-        final String date= currentDate.format(todayDate);
 
-        //TODO: change url
-        final String url= "https://lamp.ms.wits.ac.za/home/s2089676/doneecheckout.php";
+
+        final String url= "https://lamp.ms.wits.ac.za/home/s2089676/donorcheckout.php";
 
         //Using correct array
 
@@ -88,9 +84,10 @@ public class DonorCart extends AppCompatActivity {
 
         //==============================//
 
+
         ////////Add stuff to database
         Checkout=findViewById(R.id.btnDonorCheckout);
-       /* Checkout.setOnClickListener(new View.OnClickListener() {
+        Checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //check connectivity
@@ -100,19 +97,20 @@ public class DonorCart extends AppCompatActivity {
                     Toast toast = Toast.makeText(getApplicationContext(), getText(R.string.txt_internet_disconnected), Toast.LENGTH_SHORT);
                     toast.show();
                 } else {
-                    final Intent intent = new Intent(CartActivity.this, DoneeDashboard.class);
+                    final Intent intent = new Intent(DonorCart.this, DonorDashboardActivity.class);
                     client = new OkHttpClient();
                     String link = url;
-                    for (int k =0; k < 50; k++){
+                    for (int k =0; k < 100; k++){
                         if(ID[k]!=0){
                             ConfirmedItems=ConfirmedItems+ Item[k]+" x"+Qty[k]+'\n';
 
+
                             //Add to database
                             RequestBody formBody = new FormBody.Builder()
-                                    .add("username", username)
+                                    .add("donationid","1")
+                                    .add("username", donor_username)
                                     .add("item", String.valueOf(ID[k]))
                                     .add("qty", Qty[k])
-                                    .add("date_ordered", date)
                                     .build();
                             Request request = new Request.Builder()
                                     .url(link)
@@ -140,7 +138,7 @@ public class DonorCart extends AppCompatActivity {
                         }
                     }
 
-                    //send email to user telling them their items
+                    //send email to donor telling them the items they have donated
                     new Thread(new Runnable() {
 
                         @Override
@@ -148,8 +146,8 @@ public class DonorCart extends AppCompatActivity {
                             try {
                                 GMailSender sender = new GMailSender(getText(R.string.txt_developer_email).toString(),
                                         getText(R.string.txt_developer_pword).toString());
-                                sender.sendMail(getText(R.string.txt_checkout_email_subject).toString(), getText(R.string.txt_email_body_common).toString()+name+" "+surname+getText(R.string.txt_email_doneecheckout_body)+
-                                        ConfirmedItems,getText(R.string.txt_developer_email).toString(),email);
+                                sender.sendMail(getText(R.string.txt_checkout_email_subject).toString(), getText(R.string.txt_email_body_common).toString()+name+" "+surname+getText(R.string.txt_email_donorcheckout_body)+
+                                        ConfirmedItems,getText(R.string.txt_developer_email).toString(),"mahlangufezile.3@gmail.com");
                             } catch (Exception e) {
                                 Log.e("SendMail", e.getMessage(), e);
                             }
@@ -158,7 +156,7 @@ public class DonorCart extends AppCompatActivity {
                     }).start();
 
 
-                    final AlertDialog.Builder builder = new AlertDialog.Builder(CartActivity.this, R.style.AlertDialogTheme); //Error Message for when qty>50
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(DonorCart.this, R.style.AlertDialogTheme);
                     builder.setCancelable(true);
                     builder.setTitle("Successfully checked out your items. ");
                     builder.setMessage("You will be emailed shortly with your item details.");
@@ -167,7 +165,7 @@ public class DonorCart extends AppCompatActivity {
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            for (int y =0; y<50; y++){
+                            for (int y =0; y<100; y++){
                                 ID[y]=0;
                                 Item[y]="0";
                                 Qty[0]="0";
@@ -182,9 +180,9 @@ public class DonorCart extends AppCompatActivity {
                     builder.show();
 
 
-                } //else
+                }
             }
-        });*/
+        });
 
 
 

@@ -172,7 +172,11 @@
         \n\nThis emails serves to confirm that you have requested certain items with Lend A Hand.
         \n\nYour items:
         \n
-
+    </string>
+    <string name="txt_email_donorcheckout_body">
+        \n\nThank you for your donation! A courier will arrive within 2 days to collect your donation.
+        \n\nYou have donated the following items:
+        \n
     </string>
 
     <!--ADMIN SCREENS-->

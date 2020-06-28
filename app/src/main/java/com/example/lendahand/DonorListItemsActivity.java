@@ -327,7 +327,8 @@ public class DonorListItemsActivity extends AppCompatActivity implements View.On
                                 qty.setEnabled(true);
                                 qty.setFocusable(true);
                                 qty.setFocusableInTouchMode(true);
-                                qty.getText().delete(0, 2);
+                                int len= qty.getText().length();
+                                qty.getText().delete(0, len);
                                 tempQty[k] = "0";
                                 for (int j = k; j < 100; j++) {//delete null
                                     if (j != 99) {
@@ -406,7 +407,8 @@ public class DonorListItemsActivity extends AppCompatActivity implements View.On
                                 qty.setEnabled(true);
                                 qty.setFocusable(true);
                                 qty.setFocusableInTouchMode(true);
-                                qty.getText().delete(0, 1);
+                                int len= qty.getText().length();
+                                qty.getText().delete(0, len);
 
 
                                 break;

@@ -262,7 +262,8 @@ public class ListItemsActivity extends AppCompatActivity implements View.OnClick
                                 qty.setEnabled(true);
                                 qty.setFocusable(true);
                                 qty.setFocusableInTouchMode(true);
-                                qty.getText().delete(0, 2);
+                                int len =qty.getText().length();
+                                qty.getText().delete(0, len);
                                 tempID[k] = 0;
                                 tempItem[k] = "0";
                                 tempQty[k] = "0";
@@ -325,7 +326,8 @@ public class ListItemsActivity extends AppCompatActivity implements View.OnClick
                                 qty.setEnabled(true);
                                 qty.setFocusable(true);
                                 qty.setFocusableInTouchMode(true);
-                                qty.getText().delete(0, 1);
+                                int len =qty.getText().length();
+                                qty.getText().delete(0, len);
 
                             } else {
                                 tempID[k] = item_id;
