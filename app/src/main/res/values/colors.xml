@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primaryColor">#81d4fa</color>
+    <color name="primaryLightColor">#b6ffff</color>
+    <color name="primaryDarkColor">#4ba3c7</color>
+    <color name="secondaryColor">#fafafa</color>
+    <color name="secondaryLightColor">#ffffff</color>
+    <color name="secondaryDarkColor">#c7c7c7</color>
+    <color name="primaryTextColor">#000000</color>
+    <color name="secondaryTextColor">#FFFFFF</color>
+    <color name="tileColor">#b2ebf2</color>
+    <color name="secondaryLightTileColor">#e5ffff</color>
+    <color name="secondaryDarkTileColor">#81b9bf</color>
+
+    <color name="btnbackground">#9E0288D1</color>
+    <color name="btnBorder">#3E00334E</color>
+    <color name="heading5">#2D47D0F7</color>
+    <color name="heading">#36C4EEF7</color>
+    <color name="grey">#C0C0C0</color>
+
+
+    <!--splash screen colors-->
+    <color name="innerRadiusColor">#0288d1</color>
+    <color name="outerRadiusColor">#b3e5fc</color>
+
+    <!--onboarding screen colors-->
+    <color name="border_dot_color">#000000</color>
+    <color name="selected_dot_color">#0288d1</color>
+    <color name="deselected_dot_color">#2E0288D1</color>
+    <color name="arrow_color">#004C75</color>
+    <color name="btn_background">#00000000</color>
+    <color name="btn_get_started_bground">#9E0288D1</color>
+    <color name="btn_get_started_border">#3E00334E</color>
+    <color name="btn_skip_border">#3EFBFBFB</color>
+
+    <!--login screen colors-->
+    <color name="sign_up_color">#298EC5</color>
+    <color name="toast_bkground_color">#81d4fa</color>
+    <color name="toast_invalid_color">#000000</color>
+    <color name="toast_invalid_color_icon">#B80000</color>
+    <color name="toast_stroke_color">#53B1BCBE</color>
+    <color name="desel_chk_color">#A7656565</color>
+    <color name="login_grad_start">#81d4fa</color>
+    <color name="login_grad_center">#FFFFFF</color>
+    <color name="login_grad_end">#FFFFFF</color>
+    <color name="login_circle_bg">#6EFFFFFF</color>
+    <color name="login_btn_bg">#FFFFFF</color>
+    <color name="login_btn_stroke">#7EA6A6A6</color>
+    <color name="login_field_bg">#00000000</color>
+
+    <!--general signing in colours-->
+    <color name="sign_in_btn_colors">#81d4fa</color>
+
+    <!--registration de-selected icon colors-->
+    <color name="desel_icon_colors">#3EBDBDBD</color>
+    <color name="tab_layout_bg_colors">#ffffff</color>
+    <color name="next_icon_tab_colors">#000000</color>
+
+
+    <!--Admin screen-->
+    <color name="admin_show_more_color">#A8A8A8</color>
+    <color name="rb_tint_color">#81d4fa</color>
+
+    <!--Add courier screen-->
+    <color name="admin_opacity_bg">#43FFFFFF</color>
+
+
+</resources>

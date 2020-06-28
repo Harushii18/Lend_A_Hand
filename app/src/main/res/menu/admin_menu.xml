@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_admin_home"
+            android:title="Home"
+            android:icon="@drawable/home_icon" />
+        <item
+            android:id="@+id/nav_admin_profile"
+            android:title="Profile"
+            android:icon="@drawable/profile_icon"/>
+
+        <item
+            android:id="@+id/nav_admin_list"
+            android:title="Courier list"
+            android:icon="@drawable/list_icon"/>
+        <item
+            android:id="@+id/nav_admin_addCourier"
+            android:title="Add Courier"
+            android:icon="@drawable/add_icon"/>
+
+        <item
+            android:id="@+id/nav_admin_pending"
+            android:title="Pending request"
+            android:icon="@drawable/pending_icon"/>
+        <item
+            android:id="@+id/nav_admin_logout"
+            android:title="Log out"
+            android:icon="@drawable/phone_icon"/>
+
+
+
+
+
+    </group>
+
+</menu>
