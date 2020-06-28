@@ -116,27 +116,38 @@ public class AdminAddCourierActivity extends AppCompatActivity implements Naviga
                 i = new Intent(this, AdminAddCourierActivity.class); //Request items menu item
                 startActivity(i);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 break;
             case R.id.nav_admin_courier_list:
                 i = new Intent(this, AdminViewCourierListActivity.class);
                 startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 break;
             case R.id.nav_admin_donor_list:
                 i = new Intent(this, DonorRankingList.class);
                 startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 break;
             case R.id.nav_admin_logout:
                 StayLoggedIn.clearUserDetails(this);
                 i = new Intent(this, LoginScreenActivity.class);
                 startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 break;
             case R.id.nav_admin_pending_req:
                 i = new Intent(this, AdminPendingReqActivity.class);
                 startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 break;
             case R.id.nav_admin_profile:
                 i = new Intent(this, ViewProfileActivity.class);
                 startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 break;
             default:
                 break;

@@ -1,5 +1,6 @@
 package com.example.lendahand;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -37,15 +38,19 @@ import okhttp3.Response;
 
 import static android.graphics.Color.parseColor;
 
-public class LoginScreenActivity extends AppCompatActivity {
+public class LoginScreenActivity extends AppCompatActivity{
     private TextInputLayout txtPassword, txtUsername;
-    private String strUsername, strPassword, strUserType,strEmail,strFName,strProvince,strLName;
-    private Button btnLogin;
+    private TextView txtHeading, txtContent;
+    private String strUsername, strPassword, strUserType, strEmail, strFName, strProvince, strLName;
+    private Button btnLogin, btnOK;
     private String urlLink = "https://lamp.ms.wits.ac.za/home/s2089676/";
     private OkHttpClient client;
     boolean blnValid = false;
     private CheckBox chkStayLoggedIn;
     private String strDoneeStatus;
+
+    //dialog for donee
+    private AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,38 +64,40 @@ public class LoginScreenActivity extends AppCompatActivity {
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         getWindow().setStatusBarColor(parseColor("#81d4fa"));
 
+
         //ensuring that if user decided to stay logged in, they will be redirected to their home page and not shown this screen
-        if(StayLoggedIn.getLoggedIn(LoginScreenActivity.this))
-        {
+        if (StayLoggedIn.getLoggedIn(LoginScreenActivity.this)) {
             //go to intent for donee/donor/admin accordingly
-            if (StayLoggedIn.getUserType(LoginScreenActivity.this).equals("Donor")){
+            if (StayLoggedIn.getUserType(LoginScreenActivity.this).equals("Donor")) {
                 //TODO: change to donor class here
                 Intent intent = new Intent(this, DoneeEditMotivationalLetterActivity.class);
                 startActivity(intent);
                 finish();
-            }else if (StayLoggedIn.getUserType(LoginScreenActivity.this).equals("Donee")){
+            } else if (StayLoggedIn.getUserType(LoginScreenActivity.this).equals("Donee")) {
                 Intent intent = new Intent(this, DoneeDashboard.class);
                 startActivity(intent);
                 finish();
-            }else if (StayLoggedIn.getUserType(LoginScreenActivity.this).equals("Admin")){
+            } else if (StayLoggedIn.getUserType(LoginScreenActivity.this).equals("Admin")) {
                 Intent intent = new Intent(this, AdminPendingReqActivity.class);
                 startActivity(intent);
                 finish();
             }
-        }else{
+        } else {
             StayLoggedIn.clearUserDetails(LoginScreenActivity.this);
         }
         setContentView(R.layout.activity_login_screen);
         //initialise views
         initViews();
+
+        btnLogin.setEnabled(true);
     }
 
-    public void LogIn(View view) {
+    public void LogIn(final View view) {
         //check connectivity
         GlobalConnectivityCheck globalConnectivityCheck = new GlobalConnectivityCheck(getApplicationContext());
         if (!globalConnectivityCheck.isNetworkConnected()) {
             //if internet is not connected
-            Toast toast=Toast.makeText(getApplicationContext(),getText(R.string.txt_internet_disconnected),Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getApplicationContext(), getText(R.string.txt_internet_disconnected), Toast.LENGTH_SHORT);
             toast.show();
         } else {
             //extract input
@@ -107,10 +114,11 @@ public class LoginScreenActivity extends AppCompatActivity {
                     getDoneeStatus();
 
                     //set donee status for shared preferences
-                    StayLoggedIn.setDoneeStatus(LoginScreenActivity.this,strDoneeStatus);
+                    StayLoggedIn.setDoneeStatus(LoginScreenActivity.this, strDoneeStatus);
 
                     //go to donee screens
                     final Intent intent = new Intent(this, DoneeDashboard.class);
+
 
                     //thread is used to make sure toast is just shown on login
                     Thread thread = new Thread() {
@@ -118,8 +126,9 @@ public class LoginScreenActivity extends AppCompatActivity {
                         public void run() {
                             try {
                                 Thread.sleep(2000);
-                                startActivity(intent);
-                                finish();
+                                    startActivity(intent);
+                                    finish();
+
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -129,7 +138,7 @@ public class LoginScreenActivity extends AppCompatActivity {
                     thread.start();
                 } else if (strUserType.equals("Donor")) {
                     //set donee status to not a donee for shared preferences
-                    StayLoggedIn.setDoneeStatus(LoginScreenActivity.this,"null");
+                    StayLoggedIn.setDoneeStatus(LoginScreenActivity.this, "null");
                     //go to donor screens
                     //TODO: Change this to certain screen depending on if logged in user is donor
                     final Intent intent = new Intent(this, DoneeEditMotivationalLetterActivity.class);
@@ -152,7 +161,7 @@ public class LoginScreenActivity extends AppCompatActivity {
 
                 } else if (strUserType.equals("Admin")) {
                     //set donee status to not a donee for shared preferences
-                    StayLoggedIn.setDoneeStatus(LoginScreenActivity.this,"null");
+                    StayLoggedIn.setDoneeStatus(LoginScreenActivity.this, "null");
                     //go to admin screens
                     final Intent intent = new Intent(this, AdminPendingReqActivity.class);
 
@@ -184,6 +193,7 @@ public class LoginScreenActivity extends AppCompatActivity {
             }
         }
     }
+
 
     private void getDoneeStatus() {
         client = new OkHttpClient();
@@ -244,21 +254,21 @@ public class LoginScreenActivity extends AppCompatActivity {
         }
     }
 
-    private void setDoneeStatus(String doneeStatus){
-        strDoneeStatus=doneeStatus;
+    private void setDoneeStatus(String doneeStatus) {
+        strDoneeStatus = doneeStatus;
     }
 
     private void setUserSignInPreference() {
         StayLoggedIn.setUserName(LoginScreenActivity.this, strUsername);
         StayLoggedIn.setUserType(LoginScreenActivity.this, strUserType);
-        StayLoggedIn.setEmail(LoginScreenActivity.this,strEmail);
-        StayLoggedIn.setFName(LoginScreenActivity.this,strFName);
-        StayLoggedIn.setLName(LoginScreenActivity.this,strLName);
-        StayLoggedIn.setProvince(LoginScreenActivity.this,strProvince);
+        StayLoggedIn.setEmail(LoginScreenActivity.this, strEmail);
+        StayLoggedIn.setFName(LoginScreenActivity.this, strFName);
+        StayLoggedIn.setLName(LoginScreenActivity.this, strLName);
+        StayLoggedIn.setProvince(LoginScreenActivity.this, strProvince);
         //set preferences to stay logged in
-        if (chkStayLoggedIn.isChecked()==true) {
+        if (chkStayLoggedIn.isChecked() == true) {
             StayLoggedIn.setLoggedIn(LoginScreenActivity.this, true);
-        }else{
+        } else {
             StayLoggedIn.setLoggedIn(LoginScreenActivity.this, false);
         }
     }
@@ -268,6 +278,10 @@ public class LoginScreenActivity extends AppCompatActivity {
         View layout = inflater.inflate(R.layout.custom_toast,
                 (ViewGroup) findViewById(R.id.custom_toast_container));
         TextView txtToast = layout.findViewById(R.id.txtToast);
+        chkStayLoggedIn.setEnabled(false);
+        txtPassword.setEnabled(false);
+        txtUsername.setEnabled(false);
+        btnLogin.setEnabled(false);
         txtToast.setText(getText(R.string.txt_toast_login));
         Toast toast = new Toast(getApplicationContext());
         toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
@@ -313,13 +327,14 @@ public class LoginScreenActivity extends AppCompatActivity {
         txtUsername = findViewById(R.id.txtUsername);
         txtPassword = findViewById(R.id.txtPassword);
         btnLogin = findViewById(R.id.btnLogin);
-        chkStayLoggedIn=findViewById(R.id.chkStaySignedIn);
+        chkStayLoggedIn = findViewById(R.id.chkStaySignedIn);
 
     }
 
     public void SignIn(View view) {
         Intent intent = new Intent(this, SelectUserTypeActivity.class);
         startActivity(intent);
+        finish();
     }
 
     private boolean validateUser() {
@@ -343,7 +358,7 @@ public class LoginScreenActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(@NotNull Call call, @NotNull IOException e) {
                     e.printStackTrace();
-                    setblnValid(false, "","","","","");
+                    setblnValid(false, "", "", "", "", "");
                     countDownLatch.countDown();
                 }
 
@@ -352,11 +367,11 @@ public class LoginScreenActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         String responseData = response.body().string();
                         if (responseData.equals("")) {
-                            setblnValid(false, "","","","","");
+                            setblnValid(false, "", "", "", "", "");
                         } else {
                             try {
                                 JSONArray JArray = new JSONArray(responseData);
-                                String objPassword, objType,objEmail,objFName,objLName,objProvince;
+                                String objPassword, objType, objEmail, objFName, objLName, objProvince;
                                 //encrypt password
                                 String generatedPassword = "";
                                 try {
@@ -384,9 +399,9 @@ public class LoginScreenActivity extends AppCompatActivity {
                                         objLName = object.getString("SURNAME");
                                         objProvince = object.getString("PROVINCE");
 
-                                        setblnValid(true, objType,objEmail,objProvince,objLName,objFName);
+                                        setblnValid(true, objType, objEmail, objProvince, objLName, objFName);
                                     } else {
-                                        setblnValid(false, "","","","","");
+                                        setblnValid(false, "", "", "", "", "");
                                     }
 
                                 }
@@ -410,7 +425,7 @@ public class LoginScreenActivity extends AppCompatActivity {
         return blnValid;
     }
 
-    private void setblnValid(boolean blnChange, String usertype,String useremail, String userprov, String userlname, String userfname) {
+    private void setblnValid(boolean blnChange, String usertype, String useremail, String userprov, String userlname, String userfname) {
         blnValid = blnChange;
         strUserType = usertype;
         strEmail = useremail;
@@ -418,5 +433,6 @@ public class LoginScreenActivity extends AppCompatActivity {
         strFName = userfname;
         strLName = userlname;
     }
+
 
 }

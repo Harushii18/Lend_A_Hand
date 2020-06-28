@@ -201,7 +201,19 @@
     <string name="txt_donee_btn_edit_motivational_letter">Edit</string>
     <string name="txt_donee_btn_confirm_edit_motivational_letter">Confirm</string>
     <string name="txt_donee_type_new_motivational_letter">Enter new motivational letter</string>
-
+    <string name="txt_donee_edit_confirmed">Your donee status is under review</string>
+    <string name="txt_donee_email_status_subject">Donee status </string>
+    <string name="txt_donee_email_status_body">Hi,\u0020</string>
+    <string name="txt_donee_email_status_body_reject_2">
+        \n\n
+        We regret to inform you that your donee application has been rejected. Your motivational letter was not sufficient. If you believe that we have not reviewed it correctly, please log in and change your motivational letter. Your donee application will then be reviewed once again.
+        \n\n
+        The staff at Lend A Hand</string>
+    <string name="txt_donee_email_status_body_accept_2">
+        \n\n
+        Your donee application has been accepted. You can now request items on the app.
+        \n\n
+        The staff at Lend A Hand</string>
     <!--==============================================================================================-->
     <!--Shared screen View Profile Activity-->
     <string name="txt_profile_title">Profile</string>
@@ -275,6 +287,14 @@
     <string name="txt_admin_menu_add_courier">Add courier</string>
     <string name="txt_admin_menu_courier_list">Courier List</string>
     <string name="txt_admin_menu_pending_req">Pending Requests</string>
+
+    <!--Dialog donee dashboard-->
+    <string name="txt_donee_dialog_btn">Ok</string>
+    <string name="txt_donee_dialog_heading_rejected">Your donee application has been rejected</string>
+    <string name="txt_donee_dialog_Content_rejected">If you wish to be reviewed once more, please refer to the menu to send a new letter of motivation as to why you need the help.</string>
+    <string name="txt_donee_dialog_heading_pending">Your donee status is pending</string>
+    <string name="txt_donee_dialog_Content_pending">We will send you an e-mail when your donee status has been processed.</string>
+
 
 
 

@@ -96,7 +96,7 @@ public class PendingRequestAdapter extends RecyclerView.Adapter<PendingRequestAd
         RadioGroup rgStatus;
         int rbAccept, rbReject;
 
-        public ViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
+        public ViewHolder(@NonNull final View itemView, final OnItemClickListener listener) {
             super(itemView);
             txtMotivationLetter = itemView.findViewById(R.id.txtAdminMotivationLetter);
             txtDoneeName = itemView.findViewById(R.id.txtAdminDoneePending);
@@ -108,7 +108,7 @@ public class PendingRequestAdapter extends RecyclerView.Adapter<PendingRequestAd
             //set on click listener for the button
             btnConfirm.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onClick(final View v) {
                     if (listener != null) {
                         final int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) {
@@ -128,22 +128,34 @@ public class PendingRequestAdapter extends RecyclerView.Adapter<PendingRequestAd
                                 } else {
                                     //change status of donee in database
                                     addToDatabase(items.get(position).getPendingUsername(), items.get(position).getStatus());
+
                                     //send email to donee informing them of their status
+                                    final GMailSender sender=  new GMailSender(v.getContext().getString(R.string.txt_developer_email),
+                                            v.getContext().getString(R.string.txt_developer_pword));
+
+                                    final String email=items.get(position).getEmail();
+                                    final String username=items.get(position).getPendingUsername();
                                     new Thread(new Runnable() {
 
                                         @Override
                                         public void run() {
                                             try {
-                                                GMailSender sender = new GMailSender(Resources.getSystem().getString(R.string.txt_developer_email),
-                                                       Resources.getSystem().getString(R.string.txt_developer_pword));
-                                                sender.sendMail(Resources.getSystem().getString(R.string.txt_email_subject), Resources.getSystem().getString(R.string.txt_email_body_common),
-                                                        Resources.getSystem().getString(R.string.txt_developer_email), items.get(position).getEmail());
+                                                if (items.get(position).getStatus().equals("Accept")){
+                                                    sender.sendMail(v.getContext().getString(R.string.txt_donee_email_status_subject),v.getContext().getString(R.string.txt_donee_email_status_body)+ username+v.getContext().getString(R.string.txt_donee_email_status_body_accept_2),
+                                                            v.getContext().getString(R.string.txt_developer_email), email);
+                                                }else if (items.get(position).getStatus().equals("Reject")){
+                                                    sender.sendMail(v.getContext().getString(R.string.txt_donee_email_status_subject), v.getContext().getString(R.string.txt_donee_email_status_body)+ username+v.getContext().getString(R.string.txt_donee_email_status_body_reject_2),
+                                                            v.getContext().getString(R.string.txt_developer_email), email);
+                                                }
+
                                             } catch (Exception e) {
                                                 Log.e("SendMail", e.getMessage(), e);
                                             }
                                         }
 
                                     }).start();
+
+
                                     //show toast
                                     Toast toast = Toast.makeText(v.getContext(), "Donee status changed", Toast.LENGTH_SHORT);
                                     toast.show();

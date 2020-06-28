@@ -68,6 +68,23 @@ public class DoneeDashboard extends AppCompatActivity implements NavigationView.
         //show which nav item was selected
         navigationView.setCheckedItem(R.id.nav_home);
 
+        //hide certain menu options depending on if donee is pending or not
+        Menu nav_Menu = navigationView.getMenu();
+        String status=StayLoggedIn.getDoneeStatus(DoneeDashboard.this);
+        if (status.equals("Pending")){
+            nav_Menu.findItem(R.id.nav_donee_edit).setVisible(false);
+            nav_Menu.findItem(R.id.nav_request).setVisible(false);
+        }else if(status.equals("Rejected")){
+            nav_Menu.findItem(R.id.nav_donee_edit).setVisible(true);
+            nav_Menu.findItem(R.id.nav_request).setVisible(false);
+        }else if(status.equals("Accepted")){
+            nav_Menu.findItem(R.id.nav_donee_edit).setVisible(false);
+            nav_Menu.findItem(R.id.nav_request).setVisible(true);
+        };
+
+
+
+
         //toggle is for the nav bar to go back and forth
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.nav_open, R.string.nav_close);
         drawerLayout.addDrawerListener(toggle);
@@ -85,7 +102,7 @@ public class DoneeDashboard extends AppCompatActivity implements NavigationView.
         /*----------Button----------*/
         requestButton.setOnClickListener(this);
 
-       String strVariable=StayLoggedIn.getEmail(DoneeDashboard.this);
+
         /*-------------------------------------------------------OkHttp--------------------------------------*/
         //check connectivity
         GlobalConnectivityCheck globalConnectivityCheck = new GlobalConnectivityCheck(getApplicationContext());
@@ -190,19 +207,38 @@ public class DoneeDashboard extends AppCompatActivity implements NavigationView.
                 i = new Intent(this, CategoryListActivity.class); //Request items menu item
                 startActivity(i);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 break;
             case R.id.nav_list:
                 i = new Intent(this, DonorRankingList.class);
                 startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 break;
             case R.id.nav_about:
                 i = new Intent(this, AboutUs.class);
                 startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
+                break;
+            case R.id.nav_donee_edit:
+                i = new Intent(this, DoneeEditMotivationalLetterActivity.class);
+                startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
+                break;
+            case R.id.nav_profile:
+                i = new Intent(this, ViewProfileActivity.class);
+                startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 break;
             case R.id.nav_logout:
                 StayLoggedIn.clearUserDetails(this);
                 i = new Intent(this, LoginScreenActivity.class);
                 startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 break;
             default:
                 break;

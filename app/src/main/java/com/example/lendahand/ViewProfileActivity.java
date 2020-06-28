@@ -14,6 +14,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,10 +93,9 @@ public class ViewProfileActivity extends AppCompatActivity implements Navigation
         if (user.equals("Admin")){
             setContentView(R.layout.activity_view_profile);
         }else if (user.equals("Donor")){
-            setContentView(R.layout.activity_donor_view_profile);
+            //TODO: set content view to the donor one that has a menu pointing to donor menu
         }else if(user.equals("Donee")){
-            //TODO: set content view to the donee one that has a menu pointing to donee menu
-            //TODO: Use an if statement if they're pending, accepted or rejected and use the right menu accordingly
+            setContentView(R.layout.activity_donee_view_profile);
         }
 
         //initialise drawer views
@@ -112,10 +112,23 @@ public class ViewProfileActivity extends AppCompatActivity implements Navigation
         if (user.equals("Admin")){
             navigationView.setCheckedItem(R.id.nav_admin_profile);
         }else if (user.equals("Donor")){
-            navigationView.setCheckedItem(R.id.nav_profile);
+            //TODO: set checked view to donor nav one
         }else if(user.equals("Donee")){
-            //TODO: set checked view to donee nav one
-            //TODO: Use an if statement if they're pending, accepted or rejected and use the right menu accordingly
+
+            navigationView.setCheckedItem(R.id.nav_profile);
+            //hide certain menu options depending on if donee is pending or not
+            Menu nav_Menu = navigationView.getMenu();
+            String status=StayLoggedIn.getDoneeStatus(ViewProfileActivity.this);
+            if (status.equals("Pending")){
+                nav_Menu.findItem(R.id.nav_donee_edit).setVisible(false);
+                nav_Menu.findItem(R.id.nav_request).setVisible(false);
+            }else if(status.equals("Rejected")){
+                nav_Menu.findItem(R.id.nav_donee_edit).setVisible(true);
+                nav_Menu.findItem(R.id.nav_request).setVisible(false);
+            }else if(status.equals("Accepted")){
+                nav_Menu.findItem(R.id.nav_donee_edit).setVisible(false);
+                nav_Menu.findItem(R.id.nav_request).setVisible(true);
+            };
         }
 
 
@@ -169,57 +182,73 @@ public class ViewProfileActivity extends AppCompatActivity implements Navigation
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Intent i;
         switch (item.getItemId()) {
-            case R.id.nav_profile:
-                i = new Intent(this, ViewProfileActivity.class);
-                startActivity(i);
-                break;
             case R.id.nav_admin_add_courier:
                 i = new Intent(this, AdminAddCourierActivity.class); //Request items menu item
                 startActivity(i);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 break;
             case R.id.nav_admin_courier_list:
                 i = new Intent(this, AdminViewCourierListActivity.class);
                 startActivity(i);
-                break;
-            case R.id.nav_admin_profile:
-                i = new Intent(this, ViewProfileActivity.class);
-                startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 break;
             case R.id.nav_admin_donor_list:
                 i = new Intent(this, DonorRankingList.class);
                 startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 break;
             case R.id.nav_admin_logout:
                 StayLoggedIn.clearUserDetails(this);
                 i = new Intent(this, LoginScreenActivity.class);
                 startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 break;
             case R.id.nav_admin_pending_req:
                 i = new Intent(this, AdminPendingReqActivity.class);
                 startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 break;
             case R.id.nav_request:
                 i = new Intent(this, CategoryListActivity.class); //Request items menu item
                 startActivity(i);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 break;
             case R.id.nav_list:
                 i = new Intent(this, DonorRankingList.class);
                 startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 break;
             case R.id.nav_home:
                 i = new Intent(this, DoneeDashboard.class);
                 startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 break;
             case R.id.nav_about:
                 i = new Intent(this, AboutUs.class);
                 startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
+                break;
+            case R.id.nav_donee_edit:
+                i = new Intent(this, DoneeEditMotivationalLetterActivity.class);
+                startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 break;
             case R.id.nav_logout:
                 StayLoggedIn.clearUserDetails(this);
                 i = new Intent(this, LoginScreenActivity.class);
                 startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 break;
             default:
                 break;

@@ -11,10 +11,18 @@
             android:id="@+id/nav_profile"
             android:title="@string/txt_menu_profile"
             android:icon="@drawable/profile_icon"/>
+    </group>
+        <item
+            android:id="@+id/nav_donee_edit"
+            android:icon="@drawable/ic_edit_donee"
+            android:title="@string/txt_menu_donee_motivational_letter" />
+
         <item
             android:id="@+id/nav_request"
             android:title="@string/txt_menu_donee_req_items"
             android:icon="@drawable/shopcart_icon"/>
+
+    <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_list"
             android:title="@string/txt_menu_donor_list"
@@ -28,9 +36,6 @@
             android:id="@+id/nav_logout"
             android:title="@string/txt_menu_sign_out"
             android:icon="@drawable/ic_menu_logout"/>
-
-
-
 
 
     </group>

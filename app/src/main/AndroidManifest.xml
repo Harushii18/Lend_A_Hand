@@ -16,7 +16,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".DoneeEditMotivationalLetterActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:theme="@style/MaterialThemeNoActionBar"
             tools:ignore="LockedOrientationActivity"/>
         <activity android:name=".AdminDonorRankingList"
             android:screenOrientation="portrait"
@@ -42,12 +42,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".AdminDashboardActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
+          <activity
             android:name=".TotalDoneesActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"

@@ -88,8 +88,20 @@ public class DonorRankingList extends AppCompatActivity implements NavigationVie
             //TODO: set checked view to donee nav one
         }else if(user.equals("Donee")){
             navigationView.setCheckedItem(R.id.nav_list);
+            //hide certain menu options depending on if donee is pending or not
+            Menu nav_Menu = navigationView.getMenu();
+            String status=StayLoggedIn.getDoneeStatus(DonorRankingList.this);
+            if (status.equals("Pending")){
+                nav_Menu.findItem(R.id.nav_donee_edit).setVisible(false);
+                nav_Menu.findItem(R.id.nav_request).setVisible(false);
+            }else if(status.equals("Rejected")){
+                nav_Menu.findItem(R.id.nav_donee_edit).setVisible(true);
+                nav_Menu.findItem(R.id.nav_request).setVisible(false);
+            }else if(status.equals("Accepted")){
+                nav_Menu.findItem(R.id.nav_donee_edit).setVisible(false);
+                nav_Menu.findItem(R.id.nav_request).setVisible(true);
+            };
 
-            //TODO: Also have an if statement if they're pending or not, and show the right menu accordingly
         }
 
         //initialise nav view header values
@@ -224,53 +236,75 @@ public class DonorRankingList extends AppCompatActivity implements NavigationVie
                 i = new Intent(this, CategoryListActivity.class); //Request items menu item
                 startActivity(i);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 break;
             case R.id.nav_profile:
                 i = new Intent(this, ViewProfileActivity.class);
                 startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 break;
             case R.id.nav_list:
                 i = new Intent(this, DonorRankingList.class);
                 startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 break;
             case R.id.nav_admin_add_courier:
                 i = new Intent(this, AdminAddCourierActivity.class); //Request items menu item
                 startActivity(i);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 break;
             case R.id.nav_admin_logout:
                 StayLoggedIn.clearUserDetails(this);
                 i = new Intent(this, LoginScreenActivity.class);
                 startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 break;
             case R.id.nav_admin_profile:
                 i = new Intent(this, ViewProfileActivity.class);
                 startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 break;
             case R.id.nav_admin_courier_list:
                 i = new Intent(this, AdminViewCourierListActivity.class);
                 startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 break;
             case R.id.nav_admin_donor_list:
                 i = new Intent(this, DonorRankingList.class);
                 startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 break;
             case R.id.nav_admin_pending_req:
                 i = new Intent(this, AdminPendingReqActivity.class);
                 startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 break;
             case R.id.nav_home:
                 i = new Intent(this, DoneeDashboard.class);
                 startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 break;
             case R.id.nav_about:
                 i = new Intent(this, AboutUs.class);
                 startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 break;
             case R.id.nav_logout:
                 StayLoggedIn.clearUserDetails(this);
                 i = new Intent(this, LoginScreenActivity.class);
                 startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 break;
             default:
                 break;

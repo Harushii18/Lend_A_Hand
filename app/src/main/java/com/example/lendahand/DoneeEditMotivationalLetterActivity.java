@@ -1,19 +1,28 @@
 package com.example.lendahand;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.jetbrains.annotations.NotNull;
@@ -32,7 +41,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class DoneeEditMotivationalLetterActivity extends AppCompatActivity implements View.OnClickListener {
+public class DoneeEditMotivationalLetterActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener {
     private TextView txtMotLetter;
     private TextInputLayout txtEditMotLetter;
     private OkHttpClient client;
@@ -40,12 +49,60 @@ public class DoneeEditMotivationalLetterActivity extends AppCompatActivity imple
     private AlertDialog alertDialog;
     private Button btnConfirmEditMotLetter,btnSelEditMotivationLetter;
 
+    //variables for navbar
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private Toolbar toolbar;
+    private TextView txtNavName,txtNavEmail;
+    View headerView;
     //TODO: Add nav bar to this activity for REJECTED DONEE
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donee_edit_motivational_letter);
 
+        //initialise drawer views
+        initialiseNavBarViews();
+        /*---------------------nav view-----------------------------------------*/
+        //initialise navigation drawer
+        setSupportActionBar(toolbar);
+
+        navigationView.bringToFront(); //nav view can slide back
+
+        //hide certain menu options depending on if donee is pending or not
+        Menu nav_Menu = navigationView.getMenu();
+        String status=StayLoggedIn.getDoneeStatus(DoneeEditMotivationalLetterActivity.this);
+        if (status.equals("Pending")){
+            nav_Menu.findItem(R.id.nav_donee_edit).setVisible(false);
+            nav_Menu.findItem(R.id.nav_request).setVisible(false);
+        }else if(status.equals("Rejected")){
+            nav_Menu.findItem(R.id.nav_donee_edit).setVisible(true);
+            nav_Menu.findItem(R.id.nav_request).setVisible(false);
+        }else if(status.equals("Accepted")){
+            nav_Menu.findItem(R.id.nav_donee_edit).setVisible(false);
+            nav_Menu.findItem(R.id.nav_request).setVisible(true);
+        };
+
+        //initialise nav view header values
+        headerView=navigationView.getHeaderView(0);
+
+        txtNavName=headerView.findViewById(R.id.txtNavName);
+        txtNavEmail=headerView.findViewById(R.id.txtNavEmail);
+        txtNavEmail.setText(StayLoggedIn.getEmail(DoneeEditMotivationalLetterActivity.this));
+        txtNavName.setText(StayLoggedIn.getFName(DoneeEditMotivationalLetterActivity.this)+' '+StayLoggedIn.getLName(DoneeEditMotivationalLetterActivity.this));
+
+        //show which nav item was selected
+        navigationView.setCheckedItem(R.id.nav_admin_pending_req);
+
+        //toggle is for the nav bar to go back and forth
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.nav_open, R.string.nav_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        /*make menu clickable*/
+        navigationView.setNavigationItemSelectedListener(this);
+
+        /*-------------------nav view end------------------------------------*/
         //initialise views
         txtMotLetter = findViewById(R.id.txtEditMotivationalLetter);
         btnSelEditMotivationLetter=findViewById(R.id.btnEditMotivationalLetter);
@@ -57,7 +114,71 @@ public class DoneeEditMotivationalLetterActivity extends AppCompatActivity imple
          populateMotLetterTextView();
 
     }
+    //=========================================================
+    //navigation view methods
+    private void initialiseNavBarViews() {
+        drawerLayout = findViewById(R.id.dlDoneeEditLetter);
+        navigationView = findViewById(R.id.donee_nav_view_edit_letter);
+        toolbar = findViewById(R.id.tbDoneeEditLetter);
 
+    }
+
+
+    /*OnClick for navigation bar menu items*/
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Intent i;
+        switch (item.getItemId()) {
+            case R.id.nav_request:
+                i = new Intent(this, CategoryListActivity.class); //Request items menu item
+                startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
+                break;
+            case R.id.nav_list:
+                i = new Intent(this, DonorRankingList.class);
+                startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
+                break;
+            case R.id.nav_home:
+                i = new Intent(this, DoneeDashboard.class);
+                startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
+                break;
+            case R.id.nav_about:
+                i = new Intent(this, AboutUs.class);
+                startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
+                break;
+            case R.id.nav_logout:
+                StayLoggedIn.clearUserDetails(this);
+                i = new Intent(this, LoginScreenActivity.class);
+                startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
+                break;
+            default:
+                break;
+        }
+        drawerLayout.closeDrawer(GravityCompat.START); //Close drawer after menu item is selected
+        return true;
+    }
+
+    //so that when back button is pressed, it only closes the nav bar and the app doesn't close
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+
+    }
+
+    //==========================================================
     private void populateMotLetterTextView() {
         client = new OkHttpClient();
         String url = urlLink + "getmotivationalletter.php";
@@ -128,7 +249,8 @@ public class DoneeEditMotivationalLetterActivity extends AppCompatActivity imple
 
     private void EditMotivationalLetter() {
         boolean blnValid = true;
-        String strMotivationalLetter = txtEditMotLetter.getEditText().getText().toString().trim();
+        String strMotivationalLetter = txtEditMotLetter.getEditText().getText().toString();
+
         if (strMotivationalLetter.length() == 0) {
             txtEditMotLetter.setError(getText(R.string.txt_empty_field));
             blnValid = false;
@@ -212,7 +334,11 @@ public class DoneeEditMotivationalLetterActivity extends AppCompatActivity imple
 
         }
 
+        Toast.makeText(getApplicationContext(), getText(R.string.txt_donee_edit_confirmed), Toast.LENGTH_SHORT).show();
 
+        //change activity
+        Intent i = new Intent(this, DoneeDashboard.class);
+        startActivity(i);
     }
 
     private void selEditMotivationalLetter(View v) {
