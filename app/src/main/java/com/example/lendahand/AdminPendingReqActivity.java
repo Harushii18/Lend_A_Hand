@@ -190,14 +190,15 @@ public class AdminPendingReqActivity extends AppCompatActivity implements Naviga
                     String strResponse = response.body().string();
                     try {
                         JSONArray JArray = new JSONArray(strResponse);
-                        String objMotivation, objName, objSurname, objUsername;
+                        String objMotivation, objName, objSurname, objUsername,objEmail;
                         for (int i = 0; i < JArray.length(); i++) {
                             JSONObject object = JArray.getJSONObject(i);
                             objMotivation = object.getString("MOTIVATION_LETTER");
                             objName = object.getString("NAME");
                             objSurname = object.getString("SURNAME");
                             objUsername = object.getString("USERNAME");
-                            items.add(new PendingRequestItem(objName + ' ' + objSurname, objMotivation, "Null", objUsername));
+                            objEmail = object.getString("EMAIL");
+                            items.add(new PendingRequestItem(objName + ' ' + objSurname, objMotivation, "Null", objUsername,objEmail));
                         }
 
                     } catch (JSONException e) {

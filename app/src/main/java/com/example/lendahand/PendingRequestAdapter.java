@@ -2,6 +2,7 @@ package com.example.lendahand;
 
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -109,7 +110,7 @@ public class PendingRequestAdapter extends RecyclerView.Adapter<PendingRequestAd
                 @Override
                 public void onClick(View v) {
                     if (listener != null) {
-                        int position = getAdapterPosition();
+                        final int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) {
                             listener.onButtonClick(position);
 
@@ -127,6 +128,23 @@ public class PendingRequestAdapter extends RecyclerView.Adapter<PendingRequestAd
                                 } else {
                                     //change status of donee in database
                                     addToDatabase(items.get(position).getPendingUsername(), items.get(position).getStatus());
+                                    //send email to donee informing them of their status
+                                    new Thread(new Runnable() {
+
+                                        @Override
+                                        public void run() {
+                                            try {
+                                                GMailSender sender = new GMailSender(Resources.getSystem().getString(R.string.txt_developer_email),
+                                                       Resources.getSystem().getString(R.string.txt_developer_pword));
+                                                sender.sendMail(Resources.getSystem().getString(R.string.txt_email_subject), Resources.getSystem().getString(R.string.txt_email_body_common),
+                                                        Resources.getSystem().getString(R.string.txt_developer_email), items.get(position).getEmail());
+                                            } catch (Exception e) {
+                                                Log.e("SendMail", e.getMessage(), e);
+                                            }
+                                        }
+
+                                    }).start();
+                                    //show toast
                                     Toast toast = Toast.makeText(v.getContext(), "Donee status changed", Toast.LENGTH_SHORT);
                                     toast.show();
                                     //remove that item after changing donee's status
@@ -157,6 +175,7 @@ public class PendingRequestAdapter extends RecyclerView.Adapter<PendingRequestAd
 
         }
     }
+
 
     private void addToDatabase(String strUsername, String strStatus) {
         client = new OkHttpClient();

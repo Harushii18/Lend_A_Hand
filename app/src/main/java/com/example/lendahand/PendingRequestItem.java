@@ -4,19 +4,21 @@ package com.example.lendahand;
 public class PendingRequestItem {
     private String doneeName;
     private String motivationLetter;
-    private boolean isShrink=true;
+    private boolean isShrink = true;
     private String status;
     private int checkedID;
     private String username;
+    private String email;
 
     public PendingRequestItem() {
     }
 
-    public PendingRequestItem(String doneeName, String motivationLetter, String status, String username) {
+    public PendingRequestItem(String doneeName, String motivationLetter, String status, String username, String email) {
         this.doneeName = doneeName;
         this.motivationLetter = motivationLetter;
-        this.status=status;
-        this.username=username;
+        this.status = status;
+        this.username = username;
+        this.email = email;
     }
 
 
@@ -42,6 +44,14 @@ public class PendingRequestItem {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getDoneeName() {

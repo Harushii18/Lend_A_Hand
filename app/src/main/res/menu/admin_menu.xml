@@ -3,10 +3,13 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_admin_profile"
+            android:icon="@drawable/profile_icon"
+            android:title="@string/txt_menu_profile" />
+        <item
             android:id="@+id/nav_admin_pending_req"
             android:icon="@drawable/ic_admin_menu_pending_req"
             android:title="@string/txt_admin_menu_pending_req" />
-
         <item
             android:id="@+id/nav_admin_add_courier"
             android:icon="@drawable/ic_menu_add_courier"
@@ -16,10 +19,7 @@
             android:id="@+id/nav_admin_courier_list"
             android:icon="@drawable/ic_menu_courier_list"
             android:title="@string/txt_admin_menu_courier_list" />
-        <item
-            android:id="@+id/nav_admin_profile"
-            android:icon="@drawable/profile_icon"
-            android:title="@string/txt_menu_profile" />
+
         <item
             android:id="@+id/nav_admin_donor_list"
             android:icon="@drawable/list_icon"

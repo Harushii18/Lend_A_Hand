@@ -63,9 +63,10 @@ public class DonorRankingList extends AppCompatActivity implements NavigationVie
         if (user.equals("Admin")){
             setContentView(R.layout.activity_admin_donor_ranking_list);
         }else if (user.equals("Donor")){
-            setContentView(R.layout.activity_donor_ranking_list);
+            //TODO: set content view to the donee one that has a menu pointing to donor menu
         }else if(user.equals("Donee")){
-            //TODO: set content view to the donee one that has a menu pointing to donee menu
+            setContentView(R.layout.activity_donor_ranking_list);
+
             //TODO: Also have an if statement if they're pending, accepted or rejected, and show the right menu accordingly
         }
 
@@ -84,9 +85,10 @@ public class DonorRankingList extends AppCompatActivity implements NavigationVie
         if (user.equals("Admin")){
             navigationView.setCheckedItem(R.id.nav_admin_donor_list);
         }else if (user.equals("Donor")){
-            navigationView.setCheckedItem(R.id.nav_list);
-        }else if(user.equals("Donee")){
             //TODO: set checked view to donee nav one
+        }else if(user.equals("Donee")){
+            navigationView.setCheckedItem(R.id.nav_list);
+
             //TODO: Also have an if statement if they're pending or not, and show the right menu accordingly
         }
 
@@ -182,7 +184,6 @@ public class DonorRankingList extends AppCompatActivity implements NavigationVie
 
                 View view = getLayoutInflater().inflate(R.layout.list, null);
                 TxtSum = view.findViewById(R.id.Sum);
-                Toast.makeText(getApplicationContext(), sum, Toast.LENGTH_SHORT).show();
                 TxtSum.setText(sum);
                 TxtName = view.findViewById(R.id.Name);
                 TxtName.setText(name + " " + surname);

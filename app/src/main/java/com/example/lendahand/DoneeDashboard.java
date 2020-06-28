@@ -48,7 +48,6 @@ public class DoneeDashboard extends AppCompatActivity implements NavigationView.
     private Button requestButton;
     TextView TotalDonors;
     TextView TotalDonees;
-    private TextView txtHeading;
     int sum;
 
 
@@ -59,9 +58,6 @@ public class DoneeDashboard extends AppCompatActivity implements NavigationView.
 
         //initialise views
         intiViews();
-
-        //set heading to say "hi" and their name
-        txtHeading.setText("Hi, "+StayLoggedIn.getFName(DoneeDashboard.this)+"!");
 
         /*toolbar, so toolbar acts as action bar to utilise menu toggle*/
 
@@ -115,7 +111,6 @@ public class DoneeDashboard extends AppCompatActivity implements NavigationView.
         HowCardview = findViewById(R.id.HowItWorks_cardview);
         DonorsView = findViewById(R.id.DonorsView);
         DoneesView = findViewById(R.id.DoneesView);
-        txtHeading=findViewById(R.id.txtDoneeHeading);
     }
 
     private void performRequest() {

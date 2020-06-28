@@ -58,7 +58,8 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:fadeScrollbars="false">
             <LinearLayout
                 android:id="@+id/donor_list"
                 android:layout_width="match_parent"
@@ -82,6 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
                 android:layout_marginBottom="1dp"
+                android:backgroundTint="@android:color/transparent"
                 app:cardElevation="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -94,13 +96,14 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_margin="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
+                        android:paddingStart="5dp"
                         android:text="No. of donations"
+                        android:textColor="@color/primaryTextColor"
                         android:textSize="17sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -108,14 +111,14 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_margin="20dp"
-                        android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
+                        android:paddingStart="10dp"
                         android:text="Name and Surname"
+                        android:textColor="@color/primaryTextColor"
                         android:textSize="17sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/guideline2"
@@ -127,7 +130,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        app:layout_constraintGuide_begin="255dp" />
+                        app:layout_constraintGuide_begin="200dp" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
