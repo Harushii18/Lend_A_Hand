@@ -2,43 +2,39 @@
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
+    android:id="@+id/drawer_donor_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/possiblebackground2"
+    tools:context=".DonorDashboardActivity"
     android:fitsSystemWindows="true"
-    tools:context=".DoneeDashboard"
-    tools:openDrawer="end">
-
+    tools:openDrawer="end"
+    >
     <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav_view"
+        android:id="@+id/nav_donor_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
         app:headerLayout="@layout/header"
-        app:menu="@menu/main_menu" />
+        app:menu="@menu/donor_menu"
+        android:layout_gravity="start"
+        />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <include
-            android:id="@+id/toolbar"
-            layout="@layout/toolbar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            android:id="@+id/toolbar_donor"
+            layout="@layout/toolbar_donor" />
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="55dp">
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
 
                 <TextView
                     android:id="@+id/NadineTextView"
@@ -46,14 +42,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:text="Hi Nadine!"
+                    android:text="Hi!"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="25sp"
                     app:layout_constraintBottom_toTopOf="@+id/linearLayout"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.142" />
+
+
 
 
                 <LinearLayout
@@ -69,7 +66,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/DonorsView"
+                        android:id="@+id/Donor_DonorsView"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
@@ -82,7 +79,7 @@
                             android:layout_height="match_parent">
 
                             <TextView
-                                android:id="@+id/textDonors"
+                                android:id="@+id/textDonorDonors"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/imageView2"
@@ -102,7 +99,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/DoneesView"
+                        android:id="@+id/Donor_DoneesView"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
@@ -115,13 +112,13 @@
                             android:layout_height="match_parent">
 
                             <TextView
-                                android:id="@+id/textDonees"
+                                android:id="@+id/textDonorDonees"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/imageView3"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="10dp"
-                                android:text="200 lives impacted."
+                                android:text=""
                                 android:textColor="@color/primaryTextColor" />
 
                             <ImageView
@@ -147,7 +144,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <androidx.cardview.widget.CardView
-
+                        android:id="@+id/RequestedCardView"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
@@ -166,7 +163,7 @@
                                 android:layout_below="@id/imageView4"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="10dp"
-                                android:text="See Testimonials."
+                                android:text="Most requested items"
                                 android:textColor="@color/primaryTextColor" />
 
                             <ImageView
@@ -174,13 +171,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
-                                app:srcCompat="@mipmap/letter_icon_foreground" />
+                                app:srcCompat="@mipmap/food_icon_foreground" />
                         </RelativeLayout>
                     </androidx.cardview.widget.CardView>
 
 
+
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/HowItWorks_cardview"
+                        android:id="@+id/Donor_HowItWorks"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
@@ -199,7 +197,7 @@
                                 android:layout_below="@id/imageView6"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="10dp"
-                                android:text="How it works."
+                                android:text="How it works"
                                 android:textColor="@color/primaryTextColor" />
 
                             <ImageView
@@ -213,7 +211,7 @@
                 </LinearLayout>
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/Donatebutton"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="187dp"
                     android:layout_height="69dp"
@@ -225,17 +223,15 @@
                     android:layout_marginBottom="118dp"
 
                     android:background="@drawable/round_button"
-                    android:focusableInTouchMode="true"
-
                     android:includeFontPadding="false"
-                    android:soundEffectsEnabled="true"
-                    android:text="Request"
-                    android:textStyle="bold"
+                    android:text="Donate"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+                    android:textStyle="bold"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.drawerlayout.widget.DrawerLayout>

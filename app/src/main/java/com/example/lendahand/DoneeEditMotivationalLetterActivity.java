@@ -86,8 +86,8 @@ public class DoneeEditMotivationalLetterActivity extends AppCompatActivity imple
         //initialise nav view header values
         headerView=navigationView.getHeaderView(0);
 
-        txtNavName=headerView.findViewById(R.id.txtNavName);
-        txtNavEmail=headerView.findViewById(R.id.txtNavEmail);
+        txtNavName=headerView.findViewById(R.id.headerName);
+        txtNavEmail=headerView.findViewById(R.id.headerEmail);
         txtNavEmail.setText(StayLoggedIn.getEmail(DoneeEditMotivationalLetterActivity.this));
         txtNavName.setText(StayLoggedIn.getFName(DoneeEditMotivationalLetterActivity.this)+' '+StayLoggedIn.getLName(DoneeEditMotivationalLetterActivity.this));
 

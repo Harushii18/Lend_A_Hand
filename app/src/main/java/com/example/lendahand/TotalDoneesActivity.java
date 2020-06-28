@@ -46,6 +46,7 @@ public class TotalDoneesActivity extends AppCompatActivity {
 
 
         toolbar = findViewById(R.id.toolbar_Total_Donors);
+        //Make button on toolbar clickable
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,7 +60,7 @@ public class TotalDoneesActivity extends AppCompatActivity {
         pb.setProgress(0);
         pb.setSecondaryProgress(0);
 
-        countDownTimer = new CountDownTimer(3000, 100) {
+        countDownTimer = new CountDownTimer(3000, 100) { //Timer for progress bar
             @Override
             public void onTick(long millisUntilFinished) {
                 int progress = pb.getProgress() + 2;

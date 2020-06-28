@@ -40,12 +40,11 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class DonorRankingList extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class DonorDonorRankingList extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
-    private TextView txtNavName, txtNavEmail;
-    View headerView;
+
     TextView TxtName;
     TextView TxtSum;
     LinearLayout donor_layout;
@@ -56,80 +55,44 @@ public class DonorRankingList extends AppCompatActivity implements NavigationVie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //get current user
-        String user=StayLoggedIn.getUserType(DonorRankingList.this);
-        //reuse of code, but only differentcontent views
-        if (user.equals("Admin")){
-            setContentView(R.layout.activity_admin_donor_ranking_list);
-        }else if (user.equals("Donor")){
-            //TODO: set content view to the donee one that has a menu pointing to donor menu
-        }else if(user.equals("Donee")){
-            setContentView(R.layout.activity_donor_ranking_list);
-
-            //TODO: Also have an if statement if they're pending, accepted or rejected, and show the right menu accordingly
-        }
-
-        //TODO: Add profile changing to every activity's nav bar for donor and donee
-
-
-        drawerLayout = findViewById(R.id.drawer_layout_DonorRank);
-        navigationView = findViewById(R.id.nav_view_DonorRank);
-        toolbar = findViewById(R.id.toolbar_DonorRank);
+        setContentView(R.layout.activity_donor_donor_ranking_list);
+        drawerLayout = findViewById(R.id.drawer_layout_DonorDonorRank);
+        navigationView=findViewById(R.id.nav_view_DonorDonorRank);
+        toolbar=findViewById(R.id.toolbar_DonorDonorRank);
 
         setSupportActionBar(toolbar);
         /*---------------------nav view-----------------------------------------*/
         navigationView.bringToFront(); //nav view can slide back
 
         //show which nav item was selected
-        if (user.equals("Admin")){
-            navigationView.setCheckedItem(R.id.nav_admin_donor_list);
-        }else if (user.equals("Donor")){
-            //TODO: set checked view to donee nav one
-        }else if(user.equals("Donee")){
-            navigationView.setCheckedItem(R.id.nav_list);
-            //hide certain menu options depending on if donee is pending or not
-            Menu nav_Menu = navigationView.getMenu();
-            String status=StayLoggedIn.getDoneeStatus(DonorRankingList.this);
-            if (status.equals("Pending")){
-                nav_Menu.findItem(R.id.nav_donee_edit).setVisible(false);
-                nav_Menu.findItem(R.id.nav_request).setVisible(false);
-            }else if(status.equals("Rejected")){
-                nav_Menu.findItem(R.id.nav_donee_edit).setVisible(true);
-                nav_Menu.findItem(R.id.nav_request).setVisible(false);
-            }else if(status.equals("Accepted")){
-                nav_Menu.findItem(R.id.nav_donee_edit).setVisible(false);
-                nav_Menu.findItem(R.id.nav_request).setVisible(true);
-            };
-
-        }
-
-        //initialise nav view header values
-        headerView = navigationView.getHeaderView(0);
-
-        txtNavName = headerView.findViewById(R.id.headerName);
-        txtNavEmail = headerView.findViewById(R.id.headerEmail);
-        txtNavEmail.setText(StayLoggedIn.getEmail(DonorRankingList.this));
-        txtNavName.setText(StayLoggedIn.getFName(DonorRankingList.this) + ' ' + StayLoggedIn.getLName(DonorRankingList.this));
+        navigationView.setCheckedItem(R.id.nav_donor_list);
 
         //toggle is for the nav bar to go back and forth
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.nav_open, R.string.nav_close);
+        ActionBarDrawerToggle toggle= new ActionBarDrawerToggle(this, drawerLayout,toolbar,R.string.nav_open,R.string.nav_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
         /*make menu clickable*/
         navigationView.setNavigationItemSelectedListener(this);
+        View headerView= navigationView.getHeaderView(0);
+        TextView headerName= headerView.findViewById(R.id.headerName); //changing name and email on nav bar header
+        headerName.setText(StayLoggedIn.getFName(DonorDonorRankingList.this)+" "+StayLoggedIn.getLName(DonorDonorRankingList.this));
+
+        TextView headerEmail= headerView.findViewById(R.id.headerEmail);
+        headerEmail.setText(StayLoggedIn.getEmail(DonorDonorRankingList.this));
 
 
-        pb = findViewById(R.id.progressBar);
+
+        pb= findViewById(R.id.progressBar);
         pb.setProgress(0);
         pb.setSecondaryProgress(0);
 
-        countDownTimer = new CountDownTimer(3000, 100) {
+
+        countDownTimer= new CountDownTimer(3000,100) {      //Timer for progress Bar
             @Override
             public void onTick(long millisUntilFinished) {
-                int progress = pb.getProgress() + 2;
-                if (progress > pb.getMax()) progress = 0;
+                int progress = pb.getProgress()+2;
+                if(progress>pb.getMax()) progress=0;
                 pb.setProgress(progress);
 
             }
@@ -150,10 +113,9 @@ public class DonorRankingList extends AppCompatActivity implements NavigationVie
             }
         }.start();
 
-        donor_layout = findViewById(R.id.donor_list);
+        donor_layout= findViewById(R.id.donor_list);
 
     }
-
 
     private void performRequest() {
         OkHttpClient client = new OkHttpClient();
@@ -172,7 +134,7 @@ public class DonorRankingList extends AppCompatActivity implements NavigationVie
             public void onResponse(@NotNull Call call, @NotNull final Response response) throws IOException {
                 final String responseData = response.body().string();
 
-                DonorRankingList.this.runOnUiThread(new Runnable() {
+                DonorDonorRankingList.this.runOnUiThread(new Runnable() {
                     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
                     @Override
                     public void run() {
@@ -183,8 +145,10 @@ public class DonorRankingList extends AppCompatActivity implements NavigationVie
         });
     }
 
+    /*------------------------processJSON method--------------------*/
     public void processJSON(String json) {
         try {
+
             JSONArray all = new JSONArray(json);
             for (int i = 0; i < all.length(); i++) {
                 JSONObject item = all.getJSONObject(i);
@@ -209,99 +173,56 @@ public class DonorRankingList extends AppCompatActivity implements NavigationVie
             }
 
             pb.setVisibility(View.GONE);
-        } catch (JSONException e) {
+        } catch(JSONException e){
             e.printStackTrace();
         }
 
 
     }
-
     @Override
     public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
             drawerLayout.closeDrawer(GravityCompat.START);
-        } else {
+        }
+        else{
             super.onBackPressed();
         }
 
     }
-
     /*OnClick for navigation bar menu items*/
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Intent i;
-        switch (item.getItemId()) {
-            //TODO: Add the donee menu items
-            case R.id.nav_request:
-                i = new Intent(this, CategoryListActivity.class); //Request items menu item
+        switch (item.getItemId()){
+            case R.id.nav_donor_donate : i= new Intent(this, DonorCategoryListActivity.class); //Request items menu item
                 startActivity(i);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
                 finish();
                 break;
-            case R.id.nav_profile:
-                i = new Intent(this, ViewProfileActivity.class);
+            case R.id.nav_donor_list: i=new Intent(this,DonorDonorRankingList.class);
                 startActivity(i);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
                 finish();
                 break;
-            case R.id.nav_list:
-                i = new Intent(this, DonorRankingList.class);
+            case R.id.nav_donor_home: i= new Intent(this, DonorDashboardActivity.class);
                 startActivity(i);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
                 finish();
                 break;
-            case R.id.nav_admin_add_courier:
-                i = new Intent(this, AdminAddCourierActivity.class); //Request items menu item
+            case R.id.nav_donor_about: i=new Intent(this, DonorAboutUs.class);
                 startActivity(i);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
-                break;
-            case R.id.nav_admin_logout:
-                StayLoggedIn.clearUserDetails(this);
-                i = new Intent(this, LoginScreenActivity.class);
-                startActivity(i);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
-                break;
-            case R.id.nav_admin_profile:
-                i = new Intent(this, ViewProfileActivity.class);
-                startActivity(i);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
-                break;
-            case R.id.nav_admin_courier_list:
-                i = new Intent(this, AdminViewCourierListActivity.class);
-                startActivity(i);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
-                break;
-            case R.id.nav_admin_donor_list:
-                i = new Intent(this, DonorRankingList.class);
-                startActivity(i);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
-                break;
-            case R.id.nav_admin_pending_req:
-                i = new Intent(this, AdminPendingReqActivity.class);
-                startActivity(i);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
-                break;
-            case R.id.nav_home:
-                i = new Intent(this, DoneeDashboard.class);
-                startActivity(i);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
-                break;
-            case R.id.nav_about:
-                i = new Intent(this, AboutUs.class);
-                startActivity(i);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
                 finish();
                 break;
             case R.id.nav_logout:
                 StayLoggedIn.clearUserDetails(this);
                 i = new Intent(this, LoginScreenActivity.class);
+                startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+                finish();
+                break;
+            case R.id.nav_donor_profile:
+                i= new Intent(this, ViewProfileActivity.class);
                 startActivity(i);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();

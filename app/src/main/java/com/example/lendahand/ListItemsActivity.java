@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -53,7 +54,7 @@ public class ListItemsActivity extends AppCompatActivity implements View.OnClick
 
 
     int index = 100;
-    int limit = 0;
+    int limit ;
     int num = 0;
 
     ProgressBar pb;
@@ -70,8 +71,11 @@ public class ListItemsActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_items);
 
+        limit=0;
+
 
         toolbar = findViewById(R.id.toolbar_ListItems);
+        //Make button on toolbar clickable
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,14 +114,14 @@ public class ListItemsActivity extends AppCompatActivity implements View.OnClick
         }
 
 
-        btnAdd = findViewById(R.id.btnAddQty);
+        btnAdd = findViewById(R.id.btnAddQty); //Make "Add To Cart" clickable
         btnAdd.setOnClickListener(this);
 
 
 
 
         /* Getting stuff from remote database using OkHttp*/
-        countDownTimer = new CountDownTimer(3000, 100) {
+        countDownTimer = new CountDownTimer(3000, 100) { //Timer for progress Bar
             @Override
             public void onTick(long millisUntilFinished) {
                 int progress = pb.getProgress() + 2;
@@ -230,99 +234,112 @@ public class ListItemsActivity extends AppCompatActivity implements View.OnClick
 
             @Override
             public void afterTextChanged(Editable s) {
-                final AlertDialog.Builder builder = new AlertDialog.Builder(ListItemsActivity.this);
-                builder.setCancelable(true);
-                builder.setTitle("Your cart is full. ");
-                builder.setMessage("You are only permitted to request 50 or less items.");
-
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //dialog.cancel();
-                        //qty.setHint("0");
-                        startActivity(getIntent());
-                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                    }
-                });
 
 
-                if (s.toString().length() > 0) {
+                if (s.toString().length() > 0  ) {
                     limit = limit + Integer.parseInt(s.toString());
-                }
 
 
-                for (int k = 0; k < 50; k++) {
 
-                    if (tempID[k] != 0 && tempID[k] == item_id) {
-                        limit = limit - Integer.parseInt(tempQty[k]);
-                        //index=index-1;
-                        if (s.toString().length() > 0 && limit <= 50) {
-                            tempQty[k] = s.toString();
-                            break;
-                        } else if (limit > 50) {
-                            //Toast.makeText(ListItemsActivity.this, "Sorry, your cart is full.", Toast.LENGTH_SHORT).show();
+                    for (int k = 0; k < 50; k++) {
 
-                            builder.show();
+                        if (tempID[k] != 0 && tempID[k] == item_id) {//check duplicates
+                            limit = limit - Integer.parseInt(tempQty[k]);
+
+                            if (s.toString().length() > 0 && limit <= 50) {
+                                tempQty[k] = s.toString();
+                                break;
+                            } else if (limit > 50) {
+
+                                limit = limit - Integer.parseInt(s.toString());
+
+                                qty.setEnabled(false);
+                                qty.setFocusable(false);
+                                qty.setFocusableInTouchMode(false);
+                                Toast toast = Toast.makeText(ListItemsActivity.this, "Sorry. \nYou are only permitted to request 50 or less items", Toast.LENGTH_LONG);
+                                toast.setGravity(Gravity.CENTER, 0, 0);
+                                toast.show();
+                                qty.setEnabled(true);
+                                qty.setFocusable(true);
+                                qty.setFocusableInTouchMode(true);
+                                int len =qty.getText().length();
+                                qty.getText().delete(0, len);
+                                tempID[k] = 0;
+                                tempItem[k] = "0";
+                                tempQty[k] = "0";
 
 
-                            for (int j = k; j < 50; j++) {
-                                if (j != 49) {
-                                    if (tempID[j + 1] != 0) {
-                                        tempID[j] = tempID[j + 1];
-                                        tempItem[j] = tempItem[j + 1];
-                                        tempQty[j] = tempQty[j + 1];
-                                        tempID[j + 1] = 0;
-                                        tempItem[j + 1] = "0";
-                                        tempQty[j + 1] = "0";
+                                for (int j = 0; j < 50; j++) { //Delete  repetition from array
+                                    if (j != 49) {
+                                        if (tempID[j + 1] != 0) {
+                                            tempID[j] = tempID[j + 1];
+                                            tempItem[j] = tempItem[j + 1];
+                                            tempQty[j] = tempQty[j + 1];
+                                            tempID[j + 1] = 0;
+                                            tempItem[j + 1] = "0";
+                                            tempQty[j + 1] = "0";
 
-                                    } else {
-                                        tempID[j] = 0;
-                                        tempItem[j] = "0";
-                                        tempQty[j] = "0";
+                                        } else {
+                                            tempID[j] = 0;
+                                            tempItem[j] = "0";
+                                            tempQty[j] = "0";
+
+                                        }
                                     }
                                 }
-                            }
 
-                            break;
-                        } else {
-                            for (int j = k; j < 50; j++) {
-                                if (j != 49) {
-                                    if (tempID[j + 1] != 0) {
-                                        tempID[j] = tempID[j + 1];
-                                        tempItem[j] = tempItem[j + 1];
-                                        tempQty[j] = tempQty[j + 1];
-                                        tempID[j + 1] = 0;
-                                        tempItem[j + 1] = "0";
-                                        tempQty[j + 1] = "0";
 
-                                    } else {
-                                        tempID[j] = 0;
-                                        tempItem[j] = "0";
-                                        tempQty[j] = "0";
+                                break;
+                            } else if (s.toString().length() <= 0) {
+                                for (int j = k; j < 50; j++) {//delete null
+                                    if (j != 49) {
+                                        if (tempID[j + 1] != 0) {
+                                            tempID[j] = tempID[j + 1];
+                                            tempItem[j] = tempItem[j + 1];
+                                            tempQty[j] = tempQty[j + 1];
+                                            tempID[j + 1] = 0;
+                                            tempItem[j + 1] = "0";
+                                            tempQty[j + 1] = "0";
+
+                                        } else {
+                                            tempID[j] = 0;
+                                            tempItem[j] = "0";
+                                            tempQty[j] = "0";
+                                        }
                                     }
                                 }
+
+                                break;
                             }
 
-                            break;
+                        } else if (tempID[k] == 0) { //add to temporary array
+                            if (limit > 50) {
+                                limit = limit - Integer.parseInt(s.toString());
+
+                                qty.setEnabled(false);
+                                qty.setFocusable(false);
+                                qty.setFocusableInTouchMode(false);
+                                Toast toast = Toast.makeText(ListItemsActivity.this, "Sorry. \nYou are only permitted to request 50 or less items", Toast.LENGTH_LONG);
+                                toast.setGravity(Gravity.CENTER, 0, 0);
+                                toast.show();
+
+                                qty.setEnabled(true);
+                                qty.setFocusable(true);
+                                qty.setFocusableInTouchMode(true);
+                                int len =qty.getText().length();
+                                qty.getText().delete(0, len);
+
+                            } else {
+                                tempID[k] = item_id;
+                                tempItem[k] = item_name;
+                                tempQty[k] = s.toString();
+                                break;
+                            }
+
+
                         }
-
-                    } else if (tempID[k] == 0) {
-                        if (limit > 50) {
-                            //Toast.makeText(ListItemsActivity.this, "Sorry, your cart is full.", Toast.LENGTH_SHORT).show();
-
-                            builder.show();
-
-                        } else {
-                            tempID[k] = item_id;
-                            tempItem[k] = item_name;
-                            tempQty[k] = s.toString();
-                            break;
-                        }
-
-
                     }
                 }
-
 
             }//end of textChanged
         });
@@ -334,12 +351,12 @@ public class ListItemsActivity extends AppCompatActivity implements View.OnClick
         switch (v.getId()) {
             case R.id.btnAddQty:
                 int temp = 0;
-                if (tempID[0] == 0) {
+                if (tempID[0] == 0) { //Check if user entered any qty
                     Toast.makeText(ListItemsActivity.this, "Enter quantity for required items.", Toast.LENGTH_SHORT).show();
 
-                } else {
+                } else { //if user clicks "Add do cart" then add stuff to main Arrays
                     for (int j = num; j < 50; j++) {
-                        if (tempID[temp] != 0) {
+                        if (tempID[temp] != 0 ) {
                             ID[j] = tempID[temp];
                             Item[j] = tempItem[temp];
                             Qty[j] = tempQty[temp];

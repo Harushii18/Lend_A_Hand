@@ -77,8 +77,8 @@ public class AdminAddCourierActivity extends AppCompatActivity implements Naviga
         //initialise nav view header values
         headerView=navigationView.getHeaderView(0);
 
-        txtNavName=headerView.findViewById(R.id.txtNavName);
-        txtNavEmail=headerView.findViewById(R.id.txtNavEmail);
+        txtNavName=headerView.findViewById(R.id.headerName);
+        txtNavEmail=headerView.findViewById(R.id.headerEmail);
         txtNavEmail.setText(StayLoggedIn.getEmail(AdminAddCourierActivity.this));
         txtNavName.setText(StayLoggedIn.getFName(AdminAddCourierActivity.this)+' '+StayLoggedIn.getLName(AdminAddCourierActivity.this));
 

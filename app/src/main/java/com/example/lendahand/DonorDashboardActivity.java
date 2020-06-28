@@ -13,7 +13,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -39,93 +38,89 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class DoneeDashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+public class DonorDashboardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     //Variables
     DrawerLayout drawerLayout;
     NavigationView navigationView;
+    TextView Nadine;
     Toolbar toolbar;
+    Button donateButton;
+    CardView How;
     private CardView DonorsView;
-    private CardView HowCardview;
     private CardView DoneesView;
-    private Button requestButton;
+    CardView MostRequested;
+
     TextView TotalDonors;
     TextView TotalDonees;
     int sum;
     int doneesum;
 
-    TextView Nadine;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_donee_dashboard);
-        TotalDonors = findViewById(R.id.textDonors);
-        TotalDonees = findViewById(R.id.textDonees);
-        requestButton = findViewById(R.id.button);
-        drawerLayout = findViewById(R.id.drawer_layout);
-        navigationView = findViewById(R.id.nav_view);
-        toolbar = findViewById(R.id.toolbar);
-        HowCardview = findViewById(R.id.HowItWorks_cardview);
-        DonorsView = findViewById(R.id.DonorsView);
-        DoneesView = findViewById(R.id.DoneesView);
+        setContentView(R.layout.activity_donor_dashboard);
+
+        TotalDonors= findViewById(R.id.textDonorDonors);
+        TotalDonees=findViewById(R.id.textDonorDonees);
+
         Nadine= findViewById(R.id.NadineTextView);
 
-        String temp= "Hi "+ StayLoggedIn.getFName(DoneeDashboard.this)+"!";
+        String temp= "Hi "+ StayLoggedIn.getFName(DonorDashboardActivity.this)+"!";
         Nadine.setText(temp);
 
+
+
+        DonorsView= findViewById(R.id.Donor_DonorsView);
+        DoneesView=findViewById(R.id.Donor_DoneesView);
+
+
+
+        donateButton=findViewById(R.id.Donatebutton);
+        donateButton.setOnClickListener(this);
+
+        How= findViewById(R.id.Donor_HowItWorks);
+        MostRequested= findViewById(R.id.RequestedCardView);
+
+
+        How.setOnClickListener(this);
+        DonorsView.setOnClickListener(this);
+        DoneesView.setOnClickListener(this);
+        MostRequested.setOnClickListener(this);
+
+
+
+        drawerLayout = findViewById(R.id.drawer_donor_layout);
+        navigationView=findViewById(R.id.nav_donor_view);
+        toolbar=findViewById(R.id.toolbar_donor);
+
         View headerView= navigationView.getHeaderView(0);
-        TextView headerName= headerView.findViewById(R.id.headerName); //changing name and email on nav bar header
-        headerName.setText(StayLoggedIn.getFName(DoneeDashboard.this)+" "+StayLoggedIn.getLName(DoneeDashboard.this));
+        TextView headerName= headerView.findViewById(R.id.headerName);//changing name and email on nav bar header
+        headerName.setText(StayLoggedIn.getFName(DonorDashboardActivity.this)+" "+StayLoggedIn.getLName(DonorDashboardActivity.this));
 
         TextView headerEmail= headerView.findViewById(R.id.headerEmail);
-        headerEmail.setText(StayLoggedIn.getEmail(DoneeDashboard.this));
+        headerEmail.setText(StayLoggedIn.getEmail(DonorDashboardActivity.this));
 
-
-
-
-        /*toolbar, so toolbar acts as action bar to utilise menu toggle*/
+        /*toolbar, so toolbar acts as action bar to utilise toggle*/
 
         setSupportActionBar(toolbar);
-        /*---------------------nav view-----------------------------------------*/
-        navigationView.bringToFront(); //nav view can slide back
+        /*nav view*/
+        navigationView.bringToFront(); //animation on clicking menu items
 
         //show which nav item was selected
-        navigationView.setCheckedItem(R.id.nav_home);
-
-        //hide certain menu options depending on if donee is pending or not
-        Menu nav_Menu = navigationView.getMenu();
-        String status=StayLoggedIn.getDoneeStatus(DoneeDashboard.this);
-        if (status.equals("Pending")){
-            nav_Menu.findItem(R.id.nav_donee_edit).setVisible(false);
-            nav_Menu.findItem(R.id.nav_request).setVisible(false);
-        }else if(status.equals("Rejected")){
-            nav_Menu.findItem(R.id.nav_donee_edit).setVisible(true);
-            nav_Menu.findItem(R.id.nav_request).setVisible(false);
-        }else if(status.equals("Accepted")){
-            nav_Menu.findItem(R.id.nav_donee_edit).setVisible(false);
-            nav_Menu.findItem(R.id.nav_request).setVisible(true);
-        };
-
-
+        navigationView.setCheckedItem(R.id.nav_donor_home);
 
 
         //toggle is for the nav bar to go back and forth
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.nav_open, R.string.nav_close);
+        ActionBarDrawerToggle toggle= new ActionBarDrawerToggle(this, drawerLayout,toolbar,R.string.nav_open,R.string.nav_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
         /*make menu clickable*/
-        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(this); //animation on menu items
 
-        /*--------------CardView-----------------------*/
-        HowCardview.setOnClickListener(this);
-        DonorsView.setOnClickListener(this);
-        DoneesView.setOnClickListener(this);
-
-
-        /*----------Button----------*/
-        requestButton.setOnClickListener(this);
 
         /*-------------------------------------------------------OkHttp--------------------------------------*/
         //check connectivity
@@ -139,8 +134,6 @@ public class DoneeDashboard extends AppCompatActivity implements NavigationView.
             performDonorRequest();
             performDoneeRequest();
         }
-
-
     }
 
     private void performDonorRequest() {
@@ -160,7 +153,7 @@ public class DoneeDashboard extends AppCompatActivity implements NavigationView.
             public void onResponse(@NotNull Call call, @NotNull final Response response) throws IOException {
                 final String responseData = response.body().string();
 
-                DoneeDashboard.this.runOnUiThread(new Runnable() {
+                DonorDashboardActivity.this.runOnUiThread(new Runnable() {
                     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
                     @Override
                     public void run() {
@@ -188,7 +181,7 @@ public class DoneeDashboard extends AppCompatActivity implements NavigationView.
             public void onResponse(@NotNull Call call, @NotNull final Response response) throws IOException {
                 final String responseData = response.body().string();
 
-                DoneeDashboard.this.runOnUiThread(new Runnable() {
+                DonorDashboardActivity.this.runOnUiThread(new Runnable() {
                     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
                     @Override
                     public void run() {
@@ -199,6 +192,7 @@ public class DoneeDashboard extends AppCompatActivity implements NavigationView.
         });
 
     }
+
     /*-------------------JSON method------------------------*/
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     public void processJSON(String json) {
@@ -216,6 +210,7 @@ public class DoneeDashboard extends AppCompatActivity implements NavigationView.
 
 
     }
+
     /*-------------------Donee JSON method------------------------*/
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     public void processDoneeJSON(String json) {
@@ -234,46 +229,19 @@ public class DoneeDashboard extends AppCompatActivity implements NavigationView.
 
     }
 
-    /*--------------------------------------------OnClick Listener method--------------------------------------------------------------*/
     @Override
-    public void onClick(View v) {
-        Intent i;
-        switch (v.getId()) {
-            case R.id.HowItWorks_cardview:
-                i = new Intent(this, HowItWorksActivity.class); //HowItWorks cardView
-                startActivity(i);
-                break;
-            case R.id.button:
-                i = new Intent(this, CategoryListActivity.class); //RequestButton
-                startActivity(i);
-                break;
-            case R.id.DonorsView:
-                i = new Intent(this, TotalDonorsActivity.class);
-                startActivity(i);
-                break;
-            case R.id.DoneesView:
-                i = new Intent(this, TotalDoneesActivity.class);
-                startActivity(i);
-                break;
-            default:
-                break;
-        }
-
-    }
-
-    //so that when back button is pressed, it only closes the nav bar and the app doesn't close
-    @Override
-    public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+    public void onBackPressed() { //so that when back button is pressed, it only closes the nav bar and the app doesn't close
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
             drawerLayout.closeDrawer(GravityCompat.START);
-        } else {
-            int ID[]= DoneeDashboard.IDArray.ID;
+        }
+        else{
+            int ID[]= DonorDashboardActivity.IDArray.ID;
             if(ID[0]==0){
                 this.finishAffinity();
             }
             else{
 
-                final AlertDialog.Builder builder = new AlertDialog.Builder(DoneeDashboard.this, R.style.AlertDialogTheme); //Error Message for when qty>50
+                final AlertDialog.Builder builder = new AlertDialog.Builder(DonorDashboardActivity.this, R.style.AlertDialogTheme); //Error Message for when qty>50
                 builder.setCancelable(true);
                 builder.setTitle("Cart not empty. ");
                 builder.setMessage("You still have items in your cart, are you sure you want to exit?");
@@ -283,7 +251,7 @@ public class DoneeDashboard extends AppCompatActivity implements NavigationView.
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        DoneeDashboard.this.finishAffinity();
+                        DonorDashboardActivity.this.finishAffinity();
 
 
                     }
@@ -302,45 +270,37 @@ public class DoneeDashboard extends AppCompatActivity implements NavigationView.
 
     }
 
-
-    /*OnClick for navigation bar menu items*/
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) { //OnClicks. that intent thing. for menu items,goes in this method
         Intent i;
         switch (item.getItemId()) {
-            case R.id.nav_request:
-                i = new Intent(this, CategoryListActivity.class); //Request items menu item
+            case R.id.nav_donor_donate:
+                i = new Intent(this, DonorCategoryListActivity.class);
                 startActivity(i);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
                 finish();
                 break;
-            case R.id.nav_list:
-                i = new Intent(this, DonorRankingList.class);
+            case R.id.nav_donor_list:
+                i = new Intent(this, DonorDonorRankingList.class);
                 startActivity(i);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
                 finish();
                 break;
-            case R.id.nav_about:
-                i = new Intent(this, AboutUs.class);
+            case R.id.nav_donor_about:
+                i = new Intent(this, DonorAboutUs.class);
                 startActivity(i);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
                 finish();
                 break;
-            case R.id.nav_donee_edit:
-                i = new Intent(this, DoneeEditMotivationalLetterActivity.class);
-                startActivity(i);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
-                break;
-            case R.id.nav_profile:
-                i = new Intent(this, ViewProfileActivity.class);
-                startActivity(i);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
-                break;
-            case R.id.nav_logout:
+            case R.id.nav_donor_logout:
                 StayLoggedIn.clearUserDetails(this);
                 i = new Intent(this, LoginScreenActivity.class);
+                startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+                finish();
+                break;
+            case R.id.nav_donor_profile:
+                i= new Intent(this, ViewProfileActivity.class);
                 startActivity(i);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();
@@ -348,24 +308,51 @@ public class DoneeDashboard extends AppCompatActivity implements NavigationView.
             default:
                 break;
         }
-        drawerLayout.closeDrawer(GravityCompat.START); //Close drawer after menu item is selected
+        drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    @Override
+    public void onClick(View v) {
+        Intent i;
+        switch (v.getId()){
+            case R.id.Donor_HowItWorks : i= new Intent(this, DonorHowItWorksActivity.class); //HowItWorks cardView
+                startActivity(i);
+                break;
+            case R.id.RequestedCardView: i= new Intent(this, MostRequestedItemsActivity.class);
+                startActivity(i);
+                break;
+            case R.id.Donatebutton : i = new Intent(this, DonorCategoryListActivity.class);
+                startActivity(i);
+                break;
+            case R.id.Donor_DonorsView : i= new Intent(this, TotalDonorsActivity.class);
+                startActivity(i);
+                break;
+            case R.id.Donor_DoneesView : i= new Intent(this, TotalDoneesActivity.class);
+                startActivity(i);
+                break;
+            default:break;
+        }
+
+    }
+
     /*------Item Arrays*---------------*/
 
     public static class IDArray {
-        public static int[] ID = new int[50];
+        public static int[] ID = new int[100];
 
     }
 
     public static class ItemArray {
-        public static String[] Item = new String[50];
+        public static String[] Item = new String[100];
     }
 
     public static class QtyArray {
-        public static String[] Qty = new String[50];
+        public static String[] Qty = new String[100];
     }
-
+    public static class RequiredArray{
+        public static int[] RequiredArr= new int [100];
+    }
 
 
 

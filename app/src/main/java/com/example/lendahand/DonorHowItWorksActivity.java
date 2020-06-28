@@ -8,21 +8,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-public class HowItWorksActivity extends AppCompatActivity {
+public class DonorHowItWorksActivity extends AppCompatActivity {
 
     Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_how_it_works);
+        setContentView(R.layout.activity_donor_how_it_works);
 
-        //Make back button in tool bar clickable
+        //Make button in toolbar clickable
         toolbar=findViewById(R.id.toolbar_How);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i= new Intent(HowItWorksActivity.this, DoneeDashboard.class);
+                Intent i= new Intent(DonorHowItWorksActivity.this, DonorDashboardActivity.class);
                 startActivity(i);
                 finish();
             }
@@ -33,7 +33,7 @@ public class HowItWorksActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-            super.onBackPressed();
+        super.onBackPressed();
 
 
     }

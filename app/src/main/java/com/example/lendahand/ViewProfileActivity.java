@@ -48,7 +48,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class ViewProfileActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener {
+public class ViewProfileActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     //dialog components
     private TextInputLayout txtEmail, txtFName, txtLName, txtStrAddress, txtProvLayout, txtPostCode, txtPhoneNumber, txtSuburb, txtCurrPassword, txtNewPassword1, txtNewPassword2;
     private Button btnChangeEmail, btnChangeLName, btnChangeFName, btnFName, btnLName, btnEmail, btnPhone, btnAddress, btnVerifyCurrPassword, btnChangePassword;
@@ -59,11 +59,11 @@ public class ViewProfileActivity extends AppCompatActivity implements Navigation
     private String[] arrProvinces = new String[]{"KwaZulu-Natal", "Western Cape", "North West", "Northern Cape", "Free State", "Gauteng", "Limpopo", "Mpumalanga", "Eastern Cape"};
     private ArrayAdapter<String> adapter;
 
-    private String strProfName,strProfSurname;
+    private String strProfName, strProfSurname;
 
     //profile components
     private Button btnGenDetails, btnProfEditPhone, btnProfEditPassword, btnProfEditAddress;
-    private TextView txtProfName, txtProfEmail, txtProfAddress, txtProfSuburb, txtProfProvince, txtProfPostalCode,txtProfPhone,txtProfUsername;
+    private TextView txtProfName, txtProfEmail, txtProfAddress, txtProfSuburb, txtProfProvince, txtProfPostalCode, txtProfPhone, txtProfUsername;
 
     private AlertDialog alertDialog;
 
@@ -81,20 +81,20 @@ public class ViewProfileActivity extends AppCompatActivity implements Navigation
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
-    private TextView txtNavName,txtNavEmail;
+    private TextView txtNavName, txtNavEmail;
     View headerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //get current user
-        String user=StayLoggedIn.getUserType(ViewProfileActivity.this);
-        //reuse of code, but only differentcontent views
-        if (user.equals("Admin")){
+        String user = StayLoggedIn.getUserType(ViewProfileActivity.this);
+        //reuse of code, but only different content views
+        if (user.equals("Admin")) {
             setContentView(R.layout.activity_view_profile);
-        }else if (user.equals("Donor")){
-            //TODO: set content view to the donor one that has a menu pointing to donor menu
-        }else if(user.equals("Donee")){
+        } else if (user.equals("Donor")) {
+            setContentView(R.layout.activity_donor_view_profile);
+        } else if (user.equals("Donee")) {
             setContentView(R.layout.activity_donee_view_profile);
         }
 
@@ -109,36 +109,36 @@ public class ViewProfileActivity extends AppCompatActivity implements Navigation
 
 
         //show which nav item was selected
-        if (user.equals("Admin")){
+        if (user.equals("Admin")) {
             navigationView.setCheckedItem(R.id.nav_admin_profile);
-        }else if (user.equals("Donor")){
-            //TODO: set checked view to donor nav one
-        }else if(user.equals("Donee")){
-
+        } else if (user.equals("Donor")) {
+            navigationView.setCheckedItem(R.id.nav_donor_profile);
+        } else if (user.equals("Donee")) {
             navigationView.setCheckedItem(R.id.nav_profile);
             //hide certain menu options depending on if donee is pending or not
             Menu nav_Menu = navigationView.getMenu();
-            String status=StayLoggedIn.getDoneeStatus(ViewProfileActivity.this);
-            if (status.equals("Pending")){
+            String status = StayLoggedIn.getDoneeStatus(ViewProfileActivity.this);
+            if (status.equals("Pending")) {
                 nav_Menu.findItem(R.id.nav_donee_edit).setVisible(false);
                 nav_Menu.findItem(R.id.nav_request).setVisible(false);
-            }else if(status.equals("Rejected")){
+            } else if (status.equals("Rejected")) {
                 nav_Menu.findItem(R.id.nav_donee_edit).setVisible(true);
                 nav_Menu.findItem(R.id.nav_request).setVisible(false);
-            }else if(status.equals("Accepted")){
+            } else if (status.equals("Accepted")) {
                 nav_Menu.findItem(R.id.nav_donee_edit).setVisible(false);
                 nav_Menu.findItem(R.id.nav_request).setVisible(true);
-            };
+            }
+            ;
         }
 
 
         //initialise nav view header values
-        headerView=navigationView.getHeaderView(0);
+        headerView = navigationView.getHeaderView(0);
 
-        txtNavName=headerView.findViewById(R.id.txtNavName);
-        txtNavEmail=headerView.findViewById(R.id.txtNavEmail);
+        txtNavName = headerView.findViewById(R.id.headerName);
+        txtNavEmail = headerView.findViewById(R.id.headerEmail);
         txtNavEmail.setText(StayLoggedIn.getEmail(ViewProfileActivity.this));
-        txtNavName.setText(StayLoggedIn.getFName(ViewProfileActivity.this)+' '+StayLoggedIn.getLName(ViewProfileActivity.this));
+        txtNavName.setText(StayLoggedIn.getFName(ViewProfileActivity.this) + ' ' + StayLoggedIn.getLName(ViewProfileActivity.this));
 
         //toggle is for the nav bar to go back and forth
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.nav_open, R.string.nav_close);
@@ -184,6 +184,37 @@ public class ViewProfileActivity extends AppCompatActivity implements Navigation
         switch (item.getItemId()) {
             case R.id.nav_admin_add_courier:
                 i = new Intent(this, AdminAddCourierActivity.class); //Request items menu item
+                startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
+                break;
+            case R.id.nav_donor_about:
+                i = new Intent(this, DonorAboutUs.class);
+                startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
+                break;
+            case R.id.nav_donor_donate:
+                i = new Intent(this, DonorCategoryListActivity.class);
+                startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
+                break;
+            case R.id.nav_donor_home:
+                i = new Intent(this, DonorDashboardActivity.class);
+                startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
+                break;
+            case R.id.nav_donor_list:
+                i = new Intent(this, DonorDonorRankingList.class);
+                startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
+                break;
+            case R.id.nav_donor_logout:
+                StayLoggedIn.clearUserDetails(this);
+                i = new Intent(this, LoginScreenActivity.class);
                 startActivity(i);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();
@@ -397,7 +428,7 @@ public class ViewProfileActivity extends AppCompatActivity implements Navigation
                         try {
                             JArray = new JSONArray(responseData);
 
-                            String strPhoneNum,strFormattedPhoneNum="";
+                            String strPhoneNum, strFormattedPhoneNum = "";
                             //get the donee's status from the server
                             for (int i = 0; i < JArray.length(); i++) {
                                 JSONObject object = JArray.getJSONObject(i);
@@ -406,7 +437,7 @@ public class ViewProfileActivity extends AppCompatActivity implements Navigation
                                 setProfSurname(object.getString("SURNAME"));
 
                                 //populate text views with correct data
-                                txtProfName.setText(object.getString("NAME")+' '+object.getString("SURNAME"));
+                                txtProfName.setText(object.getString("NAME") + ' ' + object.getString("SURNAME"));
                                 txtProfEmail.setText(object.getString("EMAIL"));
                                 txtProfAddress.setText(object.getString("STREET_ADDRESS"));
                                 txtProfSuburb.setText(object.getString("SUBURB"));
@@ -414,12 +445,12 @@ public class ViewProfileActivity extends AppCompatActivity implements Navigation
                                 txtProfPostalCode.setText(object.getString("POSTAL_CODE"));
 
                                 //format phone number
-                                strPhoneNum=object.getString("PHONE_NO");
-                                for (int j=0;j<10;j++){
-                                    if ((j==3) || (j==6)){
-                                        strFormattedPhoneNum=strFormattedPhoneNum+' ';
+                                strPhoneNum = object.getString("PHONE_NO");
+                                for (int j = 0; j < 10; j++) {
+                                    if ((j == 3) || (j == 6)) {
+                                        strFormattedPhoneNum = strFormattedPhoneNum + ' ';
                                     }
-                                    strFormattedPhoneNum=strFormattedPhoneNum+strPhoneNum.charAt(j);
+                                    strFormattedPhoneNum = strFormattedPhoneNum + strPhoneNum.charAt(j);
                                 }
                                 txtProfPhone.setText(strFormattedPhoneNum);
 
@@ -445,11 +476,11 @@ public class ViewProfileActivity extends AppCompatActivity implements Navigation
     }
 
     private void setProfName(String name) {
-        strProfName=name;
+        strProfName = name;
     }
 
     private void setProfSurname(String surname) {
-        strProfSurname=surname;
+        strProfSurname = surname;
     }
 
     private String capitalizeWord(String str) {
@@ -829,8 +860,8 @@ public class ViewProfileActivity extends AppCompatActivity implements Navigation
 
         if (blnValid) {
             //format address accordingly
-            strStreetAddress=capitalizeWord(strStreetAddress);
-            strSuburb=capitalizeWord(strSuburb);
+            strStreetAddress = capitalizeWord(strStreetAddress);
+            strSuburb = capitalizeWord(strSuburb);
 
             //initialise values needed for okhttp request
             endLink = "editaddress.php";
@@ -844,7 +875,7 @@ public class ViewProfileActivity extends AppCompatActivity implements Navigation
             reusableOKHTTPRequester();
 
             //change shared preferences
-            StayLoggedIn.setProvince(ViewProfileActivity.this,strProvince);
+            StayLoggedIn.setProvince(ViewProfileActivity.this, strProvince);
 
             //change activity's contents
             txtProfProvince.setText(strProvince);
@@ -963,14 +994,14 @@ public class ViewProfileActivity extends AppCompatActivity implements Navigation
             reusableOKHTTPRequester();
 
             //change activity's contents
-            String strFormattedPhoneNum="";
+            String strFormattedPhoneNum = "";
 
             //format phone number
-            for (int i=0;i<10;i++){
-                if ((i==3) || (i==6)){
-                    strFormattedPhoneNum=strFormattedPhoneNum+' ';
+            for (int i = 0; i < 10; i++) {
+                if ((i == 3) || (i == 6)) {
+                    strFormattedPhoneNum = strFormattedPhoneNum + ' ';
                 }
-                strFormattedPhoneNum=strFormattedPhoneNum+strPhoneNumber.charAt(i);
+                strFormattedPhoneNum = strFormattedPhoneNum + strPhoneNumber.charAt(i);
             }
 
             txtProfPhone.setText(strFormattedPhoneNum);
@@ -1057,12 +1088,12 @@ public class ViewProfileActivity extends AppCompatActivity implements Navigation
         //initialise text views on viewprofile xml
         txtProfAddress = findViewById(R.id.txtProfStAddress);
         txtProfEmail = findViewById(R.id.txtProfEmail);
-        txtProfPhone=findViewById(R.id.txtProfPhone);
+        txtProfPhone = findViewById(R.id.txtProfPhone);
         txtProfName = findViewById(R.id.txtProfName);
         txtProfSuburb = findViewById(R.id.txtProfStSuburb);
         txtProfProvince = findViewById(R.id.txtProfStProvince);
         txtProfPostalCode = findViewById(R.id.txtProfStPostalCode);
-        txtProfUsername=findViewById(R.id.txtProfUsername);
+        txtProfUsername = findViewById(R.id.txtProfUsername);
 
     }
 
@@ -1084,7 +1115,7 @@ public class ViewProfileActivity extends AppCompatActivity implements Navigation
 
         if (blnValid) {
             //initialise values needed for okhttp request
-            strFName=capitalizeWord(strFName);
+            strFName = capitalizeWord(strFName);
             endLink = "editfname.php";
             formBody = new FormBody.Builder()
                     .add("username", StayLoggedIn.getUserName(ViewProfileActivity.this))
@@ -1093,10 +1124,10 @@ public class ViewProfileActivity extends AppCompatActivity implements Navigation
             reusableOKHTTPRequester();
 
             //change shared preferences
-            StayLoggedIn.setFName(ViewProfileActivity.this,strFName);
+            StayLoggedIn.setFName(ViewProfileActivity.this, strFName);
 
             //change activity's contents
-            txtProfName.setText(strFName+' '+strProfSurname);
+            txtProfName.setText(strFName + ' ' + strProfSurname);
 
             //close dialog
             alertDialog.dismiss();
@@ -1166,7 +1197,7 @@ public class ViewProfileActivity extends AppCompatActivity implements Navigation
             reusableOKHTTPRequester();
 
             //change shared preferences
-            StayLoggedIn.setEmail(ViewProfileActivity.this,strEmail);
+            StayLoggedIn.setEmail(ViewProfileActivity.this, strEmail);
 
             //change text view contents
             txtProfEmail.setText(strEmail);
@@ -1183,7 +1214,7 @@ public class ViewProfileActivity extends AppCompatActivity implements Navigation
                     try {
                         GMailSender sender = new GMailSender(getText(R.string.txt_developer_email).toString(),
                                 getText(R.string.txt_developer_pword).toString());
-                        sender.sendMail(getText(R.string.txt_email_edit_subject).toString(), getText(R.string.txt_email_edit_body).toString()+StayLoggedIn.getUserName(ViewProfileActivity.this)+getText(R.string.txt_email_edit_body_2).toString(),
+                        sender.sendMail(getText(R.string.txt_email_edit_subject).toString(), getText(R.string.txt_email_edit_body).toString() + StayLoggedIn.getUserName(ViewProfileActivity.this) + getText(R.string.txt_email_edit_body_2).toString(),
                                 getText(R.string.txt_developer_email).toString(), strEmail);
                     } catch (Exception e) {
                         Log.e("SendMail", e.getMessage(), e);
@@ -1233,7 +1264,7 @@ public class ViewProfileActivity extends AppCompatActivity implements Navigation
 
         if (blnValid) {
             //initialise values needed for okhttp request
-            strLName=capitalizeWord(strLName);
+            strLName = capitalizeWord(strLName);
             endLink = "editlname.php";
             formBody = new FormBody.Builder()
                     .add("username", StayLoggedIn.getUserName(ViewProfileActivity.this))
@@ -1242,10 +1273,10 @@ public class ViewProfileActivity extends AppCompatActivity implements Navigation
             reusableOKHTTPRequester();
 
             //change shared preferences
-            StayLoggedIn.setLName(ViewProfileActivity.this,strLName);
+            StayLoggedIn.setLName(ViewProfileActivity.this, strLName);
 
             //change activity's contents
-            txtProfName.setText(strProfName+' '+strLName);
+            txtProfName.setText(strProfName + ' ' + strLName);
 
             //close dialog
             alertDialog.dismiss();

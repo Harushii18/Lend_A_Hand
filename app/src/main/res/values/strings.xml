@@ -1,8 +1,16 @@
 <resources>
     <string name="app_name">Lend A Hand</string>
 
+
+    <!--navigation desc-->
     <string name="nav_open">Open navigation drawer</string>
     <string name="nav_close">Close navigation drawer</string>
+
+    <!--How it works texts-->
+    <string name="Donor_how_it_works">To get started on donating items to the people in need you just have to follow 2 easy steps :)</string>
+    <string name="Donor_step1">Click on the \"Donate\" button or select \"Donate items\" in the navigation bar. </string>
+    <string name="Donor_step2">Select the category you wish to donate to (can be more than one) and you will be redirected to a list of items. Indicate the quantity on each item you donate. You may click on the Shopping Cart icon to see all the items you have donated. Click on the \"Checkout\" button to finalize your donation. That is it!</string>
+    <string name="Donor_Note">Please note that these requests and donations are province based, meaning that you will only donate to people in your province, this makes it easier for our courier services. In addition, in each category, you will only be able to donate items that have been requested in your province. A courier will arrive to fetch your donation.</string>
     <string name="how_it_works">To get started on getting your requests delivered to your door you just have to follow 2 easy steps :)</string>
     <string name="step1">Click on the \"Request\" button or select \"Request items\" in the navigation bar. </string>
     <string name="step2">Select the category you wish to request from (can be more than one) and you will be redirected to a list of items. Indicate the quantity you require on each item you request. You may click on the Shopping Cart icon to see all the items you have requested. Click on the \"Checkout\" button to finalize your request. That is it!</string>
@@ -11,6 +19,7 @@
     <string name="Objective">Our objective is to essentially help people by connecting those who can help with those who need help in their respective provinces. Our courier services serve to limit exposure of the corona virus to our users because we know that the safest way to protect yourself is by staying home. Our objective is to create a safe and easy way for donations to occur, as your safety is a priority.   </string>
 
     <!-- ============================================================ -->
+    <!-- ========================================================================================== -->
     <!--Strings for onboarding screen-->
 
     <!--Titles-->
@@ -130,11 +139,11 @@
     <string name="txt_invalid_province">Select a province from the list</string>
     <string name="txt_invalid_id_number">Invalid ID number</string>
 
-
     <!--Sending emails-->
     <string name="txt_developer_email">lendahand.rsa@gmail.com</string>
     <string name="txt_developer_pword">Fezi_&amp;_Su_2618</string>
     <string name="txt_email_subject">Welcome to Lend A Hand </string>
+    <string name="txt_checkout_email_subject">Lend A Hand: Your items.</string>
     <string name="txt_email_body_common">Hi,\u0020</string>
     <string name="txt_email_body_donor">
         \n\n
@@ -160,7 +169,16 @@
         Thank you for joining Lend A Hand.
         \n\n
         The staff at Lend A Hand</string>
-
+    <string name="txt_email_doneecheckout_body">
+        \n\nThis emails serves to confirm that you have requested certain items with Lend A Hand.
+        \n\nYour items:
+        \n
+    </string>
+    <string name="txt_email_donorcheckout_body">
+        \n\nThank you for your donation! A courier will arrive within 2 days to collect your donation.
+        \n\nYou have donated the following items:
+        \n
+    </string>
 
     <!--ADMIN SCREENS-->
     <!--Donee pending screen-->

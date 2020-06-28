@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -28,6 +29,8 @@ public class CategoryListActivity extends AppCompatActivity implements View.OnCl
     CardView Baby;
     CardView Airtime;
     CardView Clothes;
+    private TextView txtNavName,txtNavEmail;
+    View headerView;
 
 
     @Override
@@ -44,8 +47,7 @@ public class CategoryListActivity extends AppCompatActivity implements View.OnCl
         /*---------------------nav view-----------------------------------------*/
         navigationView.bringToFront(); //nav view can slide back
 
-        //show which nav item was selected
-        navigationView.setCheckedItem(R.id.nav_request);
+
 
         //hide certain menu options depending on if donee is pending or not
         Menu nav_Menu = navigationView.getMenu();
@@ -57,11 +59,18 @@ public class CategoryListActivity extends AppCompatActivity implements View.OnCl
             nav_Menu.findItem(R.id.nav_donee_edit).setVisible(true);
             nav_Menu.findItem(R.id.nav_request).setVisible(false);
         } else if (status.equals("Accepted")) {
+            //show which nav item was selected
             nav_Menu.findItem(R.id.nav_donee_edit).setVisible(false);
             nav_Menu.findItem(R.id.nav_request).setVisible(true);
         }
 
-
+        navigationView.setCheckedItem(R.id.nav_request);
+        //initialise nav view header values
+        headerView=navigationView.getHeaderView(0);
+        txtNavName=headerView.findViewById(R.id.headerName);
+        txtNavEmail=headerView.findViewById(R.id.headerEmail);
+        txtNavEmail.setText(StayLoggedIn.getEmail(CategoryListActivity.this));
+        txtNavName.setText(StayLoggedIn.getFName(CategoryListActivity.this)+' '+StayLoggedIn.getLName(CategoryListActivity.this));
 
         //toggle is for the nav bar to go back and forth
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.nav_open, R.string.nav_close);
@@ -190,6 +199,11 @@ public class CategoryListActivity extends AppCompatActivity implements View.OnCl
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();
                 break;
+            case R.id.nav_profile:
+                i = new Intent(this, ViewProfileActivity.class);
+                startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
             case R.id.nav_logout:
                 StayLoggedIn.clearUserDetails(this);
                 i = new Intent(this, LoginScreenActivity.class);

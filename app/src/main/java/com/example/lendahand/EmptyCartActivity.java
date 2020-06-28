@@ -25,23 +25,47 @@ public class EmptyCartActivity extends AppCompatActivity {
 
         toolbar=findViewById(R.id.toolbar_EmptyCart);
 
+        //Make back button on toolbar clickable
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i= new Intent(EmptyCartActivity.this, CategoryListActivity.class);
-                startActivity(i);
-                finish();
+
+                if(StayLoggedIn.getUserType(EmptyCartActivity.this).equals("Donee")){
+                    Intent i= new Intent(EmptyCartActivity.this, CategoryListActivity.class);
+                    startActivity(i);
+                    finish();
+                }
+                else if(StayLoggedIn.getUserType(EmptyCartActivity.this).equals("Donor")){
+                    Intent i= new Intent(EmptyCartActivity.this, DonorCategoryListActivity.class);
+                    startActivity(i);
+                    finish();
+                }
+
             }
         });
     }
     @Override
     public void onBackPressed() {
 
+            //if user type is donor or donee
+        if(StayLoggedIn.getUserType(EmptyCartActivity.this).equals("Donee")){
             super.onBackPressed();
-            Intent i = new Intent(EmptyCartActivity.this, CategoryListActivity.class);
+            Intent i= new Intent(EmptyCartActivity.this, CategoryListActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
             finish();
+        }
+        else if(StayLoggedIn.getUserType(EmptyCartActivity.this).equals("Donor")){
+            super.onBackPressed();
+            Intent i= new Intent(EmptyCartActivity.this, DonorCategoryListActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+            finish();
+        }
+
+
+
 
     }
 

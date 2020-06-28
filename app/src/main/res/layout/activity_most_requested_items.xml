@@ -4,14 +4,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout_TotalDonors"
+    android:id="@+id/layout_Requested_Items"
     android:background="@drawable/possiblebackground2"
-    tools:context=".TotalDoneesActivity"
+    tools:context=".MostRequestedItemsActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_Total_Donors"
+        android:id="@+id/toolbar_Most_Requested"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
@@ -22,7 +22,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Total Donees" />
+        app:title="Most Requested Items" />
 
 
     <TextView
@@ -32,10 +32,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="18dp"
-        android:text="Province"
+        android:text="Item"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_Total_Donors" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_Most_Requested" />
 
     <TextView
         android:id="@+id/textView9"
@@ -44,10 +44,10 @@
         android:layout_marginStart="180dp"
         android:layout_marginLeft="168dp"
         android:layout_marginTop="18dp"
-        android:text="No. of donees"
+        android:text="No. of requests"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_Total_Donors" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_Most_Requested" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -56,7 +56,7 @@
         android:layout_marginTop="120dp">
 
         <ProgressBar
-            android:id="@+id/progressBar3"
+            android:id="@+id/progressBar_Requested"
             style="@android:style/Widget.ProgressBar.Horizontal"
             android:layout_width="100dp"
             android:layout_height="150dp"
@@ -70,7 +70,7 @@
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:id="@+id/donor_list"
+                android:id="@+id/requested_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">

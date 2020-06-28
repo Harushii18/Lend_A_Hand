@@ -4,7 +4,6 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,8 +20,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.navigation.NavigationView;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -37,7 +34,8 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class CartActivity extends AppCompatActivity  {
+public class DonorCart extends AppCompatActivity {
+
     TextView item;
     TextView qty;
     Button add;
@@ -47,10 +45,12 @@ public class CartActivity extends AppCompatActivity  {
     int [] ID;
     String[] Item ;
     String[] Qty ;
+    int [] Required;
     Button Checkout;
     private OkHttpClient client;
 
     String ConfirmedItems="";
+    int r=0;
 
 
     Toolbar toolbar;
@@ -59,35 +59,34 @@ public class CartActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cart);
+        setContentView(R.layout.activity_donor_cart);
 
         //User details
 
-        String usertype= StayLoggedIn.getUserType(CartActivity.this);
-        final String username= StayLoggedIn.getUserName(CartActivity.this);
-        final String name= StayLoggedIn.getFName(CartActivity.this);
-        final String surname = StayLoggedIn.getLName(CartActivity.this);
-        final String email= StayLoggedIn.getEmail(CartActivity.this);
+        String usertype= StayLoggedIn.getUserType(DonorCart.this);
+        final String donor_username= StayLoggedIn.getUserName(DonorCart.this);
+        final String name= StayLoggedIn.getFName(DonorCart.this);
+        final String surname = StayLoggedIn.getLName(DonorCart.this);
+        final String donor_email= StayLoggedIn.getEmail(DonorCart.this);
 
-        //get date
 
-        SimpleDateFormat currentDate=new SimpleDateFormat("yyyy-MM-dd");
-        Date todayDate= new Date();
-        final String date= currentDate.format(todayDate);
 
-        final String url= "https://lamp.ms.wits.ac.za/home/s2089676/doneecheckout.php";
+
+        final String url= "https://lamp.ms.wits.ac.za/home/s2089676/donorcheckout.php";
 
         //Using correct array
 
 
-            ID= DoneeDashboard.IDArray.ID;
-            Item = DoneeDashboard.ItemArray.Item;
-            Qty = DoneeDashboard.QtyArray.Qty;
+        ID= DonorDashboardActivity.IDArray.ID;
+        Item = DonorDashboardActivity.ItemArray.Item;
+        Qty = DonorDashboardActivity.QtyArray.Qty;
+        Required= DonorDashboardActivity.RequiredArray.RequiredArr;
 
         //==============================//
 
+
         ////////Add stuff to database
-        Checkout=findViewById(R.id.btnCheckout);
+        Checkout=findViewById(R.id.btnDonorCheckout);
         Checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,19 +97,20 @@ public class CartActivity extends AppCompatActivity  {
                     Toast toast = Toast.makeText(getApplicationContext(), getText(R.string.txt_internet_disconnected), Toast.LENGTH_SHORT);
                     toast.show();
                 } else {
-                    final Intent intent = new Intent(CartActivity.this, DoneeDashboard.class);
+                    final Intent intent = new Intent(DonorCart.this, DonorDashboardActivity.class);
                     client = new OkHttpClient();
                     String link = url;
-                    for (int k =0; k < 50; k++){
+                    for (int k =0; k < 100; k++){
                         if(ID[k]!=0){
                             ConfirmedItems=ConfirmedItems+ Item[k]+" x"+Qty[k]+'\n';
 
+
                             //Add to database
                             RequestBody formBody = new FormBody.Builder()
-                                    .add("username", username)
+                                    .add("donationid","1")
+                                    .add("username", donor_username)
                                     .add("item", String.valueOf(ID[k]))
                                     .add("qty", Qty[k])
-                                    .add("date_ordered", date)
                                     .build();
                             Request request = new Request.Builder()
                                     .url(link)
@@ -138,7 +138,7 @@ public class CartActivity extends AppCompatActivity  {
                         }
                     }
 
-                    //send email to user telling them their items
+                    //send email to donor telling them the items they have donated
                     new Thread(new Runnable() {
 
                         @Override
@@ -146,8 +146,8 @@ public class CartActivity extends AppCompatActivity  {
                             try {
                                 GMailSender sender = new GMailSender(getText(R.string.txt_developer_email).toString(),
                                         getText(R.string.txt_developer_pword).toString());
-                                sender.sendMail(getText(R.string.txt_checkout_email_subject).toString(), getText(R.string.txt_email_body_common).toString()+name+" "+surname+getText(R.string.txt_email_doneecheckout_body)+
-                                        ConfirmedItems,getText(R.string.txt_developer_email).toString(),email);
+                                sender.sendMail(getText(R.string.txt_checkout_email_subject).toString(), getText(R.string.txt_email_body_common).toString()+name+" "+surname+getText(R.string.txt_email_donorcheckout_body)+
+                                        ConfirmedItems,getText(R.string.txt_developer_email).toString(),"mahlangufezile.3@gmail.com");
                             } catch (Exception e) {
                                 Log.e("SendMail", e.getMessage(), e);
                             }
@@ -156,7 +156,7 @@ public class CartActivity extends AppCompatActivity  {
                     }).start();
 
 
-                    final AlertDialog.Builder builder = new AlertDialog.Builder(CartActivity.this, R.style.AlertDialogTheme); //Error Message for when qty>50
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(DonorCart.this, R.style.AlertDialogTheme);
                     builder.setCancelable(true);
                     builder.setTitle("Successfully checked out your items. ");
                     builder.setMessage("You will be emailed shortly with your item details.");
@@ -165,7 +165,7 @@ public class CartActivity extends AppCompatActivity  {
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            for (int y =0; y<50; y++){
+                            for (int y =0; y<100; y++){
                                 ID[y]=0;
                                 Item[y]="0";
                                 Qty[0]="0";
@@ -180,7 +180,7 @@ public class CartActivity extends AppCompatActivity  {
                     builder.show();
 
 
-                } //else
+                }
             }
         });
 
@@ -191,7 +191,7 @@ public class CartActivity extends AppCompatActivity  {
         LinearLayout items_layout= findViewById(R.id.items_layout);
 
 
-        toolbar=findViewById(R.id.toolbar_Cart);
+        toolbar=findViewById(R.id.toolbar_DonorCart);
 
         //Make back button in toolbar clickable
 
@@ -199,11 +199,9 @@ public class CartActivity extends AppCompatActivity  {
             @Override
             public void onClick(View v) {
 
-                if(StayLoggedIn.getUserType(CartActivity.this).equals("Donee")){
-                    Intent i= new Intent(CartActivity.this, CategoryListActivity.class);
+                    Intent i= new Intent(DonorCart.this, DonorCategoryListActivity.class);
                     startActivity(i);
                     finish();
-                }
 
 
             }
@@ -212,13 +210,13 @@ public class CartActivity extends AppCompatActivity  {
 
         ////
 
-        for (int i=0;i<50;i++){ //this loop removes replicas
-            if(i!=49){
+        for (int i=0;i<100;i++){ //this loop removes replicas
+            if(i!=99){
                 for(int j=i+1;j<50;j++){
                     if(ID[i]!=0&&ID[j]!=0&&ID[i]==ID[j]  ){
-                       ID[i]=ID[j];
-                       Item[i]=Item[j];
-                       Qty[i]=Qty[j];
+                        ID[i]=ID[j];
+                        Item[i]=Item[j];
+                        Qty[i]=Qty[j];
                         ID[j]=0;
                         Item[j]="0";
                         Qty[j]="0";
@@ -226,7 +224,7 @@ public class CartActivity extends AppCompatActivity  {
                     else{
                         continue;
                     }
-            }
+                }
 
 
             }
@@ -240,6 +238,8 @@ public class CartActivity extends AppCompatActivity  {
                 add= new Button(this);
                 minus= new Button(this);
                 trash= new ImageView(this);
+
+                r= Required[i];
 
 
 
@@ -259,7 +259,7 @@ public class CartActivity extends AppCompatActivity  {
                 right.addView(view);
 
                 DeleteMethod(qty,i,right); //Method for trash button
-                AddMethod(qty,i); //Method for increasing qty on cart xml
+                AddMethod(qty,i,r); //Method for increasing qty on cart xml
                 MinusMethod(qty,i);////Method for decreasing qty on cart xml
 
                 //grey lines in list
@@ -307,10 +307,10 @@ public class CartActivity extends AppCompatActivity  {
                     startActivity(getIntent());
                     overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
                     if (Qty[0]=="0"){
-                        Intent i= new Intent(CartActivity.this, EmptyCartActivity.class);
+                        Intent i= new Intent(DonorCart.this, EmptyCartActivity.class);
                         startActivity(i);
                         overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
-
+                        finish();
 
                     }
 
@@ -325,19 +325,23 @@ public class CartActivity extends AppCompatActivity  {
         });
     }
 
-    private void AddMethod(final TextView qty, final int i) {
+    private void AddMethod(final TextView qty,  final int i, final int r) {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int s= Integer.parseInt(Qty[i])+1;
 
                 limit=limit+1;
-                if(limit<=50) {
+                if(s>r){
+                    Toast.makeText(DonorCart.this, "Sorry, you cannot donate more than what is required. ", Toast.LENGTH_LONG).show();
+                    limit=limit-1;
+                }
+                else if(limit<=100) {
                     qty.setText(String.valueOf(s));
                     Qty[i] = String.valueOf(s);
                 }
-                else{
-                    Toast.makeText(CartActivity.this, "Sorry, your cart is full.", Toast.LENGTH_SHORT).show();
+                else if(limit>100){
+                    Toast.makeText(DonorCart.this, "Sorry, your cart is full.", Toast.LENGTH_LONG).show();
                     limit=limit-1;
                 }
 
@@ -350,7 +354,7 @@ public class CartActivity extends AppCompatActivity  {
             @Override
             public void onClick(View v) {
                 qty.setText("0");
-                Toast.makeText(CartActivity.this, "Item deleted.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DonorCart.this, "Item deleted.", Toast.LENGTH_SHORT).show();
                 right.setBackgroundColor(Color.parseColor("#D3D3D3")); //Make list item grey
 
                 for(int j=i;j<50;j++){ //Delete in array
@@ -359,15 +363,19 @@ public class CartActivity extends AppCompatActivity  {
                             ID[j]=ID[j+1];
                             Item[j]=Item[j+1];
                             Qty[j]=Qty[j+1];
+                            Required[j]= Required[j+1];
+
                             ID[j+1]=0;
                             Item[j+1]="0";
                             Qty[j+1]="0";
+                            Required[j+1]=0;
 
                         }
                         else{
                             ID[j]=0;
                             Item[j]="0";
                             Qty[j]="0";
+                            Required[j]=0;
                         }
                     }
                 }
@@ -375,7 +383,7 @@ public class CartActivity extends AppCompatActivity  {
                 startActivity(getIntent());
                 overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
                 if (Qty[0]=="0"){ //Check if cart empty
-                    Intent i= new Intent(CartActivity.this, EmptyCartActivity.class);
+                    Intent i= new Intent(DonorCart.this, EmptyCartActivity.class);
                     startActivity(i);
                     overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
 
@@ -387,12 +395,10 @@ public class CartActivity extends AppCompatActivity  {
     @Override
     public void onBackPressed() {
 
-
-            Intent i = new Intent(CartActivity.this, CategoryListActivity.class);
+            Intent i = new Intent(DonorCart.this, DonorCategoryListActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
             finish();
-
 
 
 
@@ -401,3 +407,4 @@ public class CartActivity extends AppCompatActivity  {
 
 
 }
+

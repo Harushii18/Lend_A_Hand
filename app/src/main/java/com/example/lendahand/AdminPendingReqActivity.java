@@ -66,8 +66,8 @@ public class AdminPendingReqActivity extends AppCompatActivity implements Naviga
         //initialise nav view header values
         headerView=navigationView.getHeaderView(0);
 
-        txtNavName=headerView.findViewById(R.id.txtNavName);
-        txtNavEmail=headerView.findViewById(R.id.txtNavEmail);
+        txtNavName=headerView.findViewById(R.id.headerName);
+        txtNavEmail=headerView.findViewById(R.id.headerEmail);
         txtNavEmail.setText(StayLoggedIn.getEmail(AdminPendingReqActivity.this));
         txtNavName.setText(StayLoggedIn.getFName(AdminPendingReqActivity.this)+' '+StayLoggedIn.getLName(AdminPendingReqActivity.this));
 
