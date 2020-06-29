@@ -64,13 +64,15 @@ public class CategoryListActivity extends AppCompatActivity implements View.OnCl
             nav_Menu.findItem(R.id.nav_request).setVisible(true);
         }
 
-        navigationView.setCheckedItem(R.id.nav_request);
+
         //initialise nav view header values
         headerView=navigationView.getHeaderView(0);
         txtNavName=headerView.findViewById(R.id.headerName);
         txtNavEmail=headerView.findViewById(R.id.headerEmail);
         txtNavEmail.setText(StayLoggedIn.getEmail(CategoryListActivity.this));
         txtNavName.setText(StayLoggedIn.getFName(CategoryListActivity.this)+' '+StayLoggedIn.getLName(CategoryListActivity.this));
+
+        navigationView.setCheckedItem(R.id.nav_request);
 
         //toggle is for the nav bar to go back and forth
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.nav_open, R.string.nav_close);
@@ -98,8 +100,6 @@ public class CategoryListActivity extends AppCompatActivity implements View.OnCl
         Baby.setOnClickListener(this);
         Airtime.setOnClickListener(this);
         Clothes.setOnClickListener(this);
-
-
     }
 
     /*OnClick Listener method*/
