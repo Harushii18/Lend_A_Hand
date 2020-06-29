@@ -1127,7 +1127,9 @@ public class ViewProfileActivity extends AppCompatActivity implements Navigation
             StayLoggedIn.setFName(ViewProfileActivity.this, strFName);
 
             //change activity's contents
-            txtProfName.setText(strFName + ' ' + strProfSurname);
+            String name=strFName+' '+StayLoggedIn.getLName(ViewProfileActivity.this) ;
+            txtProfName.setText(name);
+            txtNavName.setText(name);
 
             //close dialog
             alertDialog.dismiss();
@@ -1201,6 +1203,7 @@ public class ViewProfileActivity extends AppCompatActivity implements Navigation
 
             //change text view contents
             txtProfEmail.setText(strEmail);
+            txtNavEmail.setText(strEmail);
 
             //close dialog
             alertDialog.dismiss();
@@ -1274,10 +1277,10 @@ public class ViewProfileActivity extends AppCompatActivity implements Navigation
 
             //change shared preferences
             StayLoggedIn.setLName(ViewProfileActivity.this, strLName);
-
+            String name=StayLoggedIn.getFName(ViewProfileActivity.this)+ ' ' + strLName;
             //change activity's contents
-            txtProfName.setText(strProfName + ' ' + strLName);
-
+            txtProfName.setText(name);
+            txtNavName.setText(name);
             //close dialog
             alertDialog.dismiss();
             Toast.makeText(getApplicationContext(), getText(R.string.txt_profile_dialog_success_lname), Toast.LENGTH_SHORT).show();
