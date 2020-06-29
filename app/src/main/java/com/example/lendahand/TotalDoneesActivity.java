@@ -51,9 +51,18 @@ public class TotalDoneesActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(TotalDoneesActivity.this, DoneeDashboard.class);
-                startActivity(i);
-                finish();
+                String user = StayLoggedIn.getUserType(TotalDoneesActivity.this);
+                if (user.equals("Donor")) {
+                    Intent i = new Intent(v.getContext(), DonorDashboardActivity.class);
+                    startActivity(i);
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                    finish();
+                } else if (user.equals("Donee")) {
+                    Intent i = new Intent(v.getContext(), DoneeDashboard.class);
+                    startActivity(i);
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                    finish();
+                }
             }
         });
 
@@ -126,7 +135,6 @@ public class TotalDoneesActivity extends AppCompatActivity {
                 String province = item.getString("PROVINCE");
                 String sum = item.getString("SUM");
 
-                //TODO: IF you're ever using this. just change it to this
                 ConstraintLayout layout = new ConstraintLayout(this);
 
                 View view = getLayoutInflater().inflate(R.layout.list, null);

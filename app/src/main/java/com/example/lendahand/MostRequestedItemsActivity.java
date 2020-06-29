@@ -3,6 +3,7 @@ package com.example.lendahand;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
@@ -133,7 +134,7 @@ public class MostRequestedItemsActivity extends AppCompatActivity {
                 String item_name = item.getString("ITEM_NAME");
                 String sum= item.getString("SUM");
 
-                RelativeLayout layout= new RelativeLayout(this);
+                ConstraintLayout layout= new ConstraintLayout(this);
 
                 View view= getLayoutInflater().inflate(R.layout.list,null);
                 TxtSum= view.findViewById(R.id.Sum);
