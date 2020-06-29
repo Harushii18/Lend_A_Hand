@@ -58,8 +58,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fadeScrollbars="false">
+            android:layout_height="match_parent">
             <LinearLayout
                 android:id="@+id/donor_list"
                 android:layout_width="match_parent"
@@ -113,7 +112,6 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:paddingStart="10dp"
@@ -135,7 +133,6 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>

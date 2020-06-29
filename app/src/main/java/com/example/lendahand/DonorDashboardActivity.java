@@ -277,30 +277,30 @@ public class DonorDashboardActivity extends AppCompatActivity implements Navigat
             case R.id.nav_donor_donate:
                 i = new Intent(this, DonorCategoryListActivity.class);
                 startActivity(i);
-                overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();
                 break;
             case R.id.nav_donor_list:
                 i = new Intent(this, DonorDonorRankingList.class);
                 startActivity(i);
-                overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();
                 break;
             case R.id.nav_donor_about:
                 i = new Intent(this, DonorAboutUs.class);
                 startActivity(i);
-                overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();
                 break;
             case R.id.nav_donor_logout:
                 StayLoggedIn.clearUserDetails(this);
                 i = new Intent(this, LoginScreenActivity.class);
                 startActivity(i);
-                overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();
                 break;
             case R.id.nav_donor_profile:
-                i= new Intent(this, ViewProfileActivity.class);
+                i = new Intent(this, ViewProfileActivity.class);
                 startActivity(i);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();

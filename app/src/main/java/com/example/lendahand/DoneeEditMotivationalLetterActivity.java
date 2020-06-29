@@ -55,7 +55,6 @@ public class DoneeEditMotivationalLetterActivity extends AppCompatActivity imple
     private Toolbar toolbar;
     private TextView txtNavName,txtNavEmail;
     View headerView;
-    //TODO: Add nav bar to this activity for REJECTED DONEE
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

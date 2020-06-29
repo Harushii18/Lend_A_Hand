@@ -15,10 +15,11 @@
     <string name="step1">Click on the \"Request\" button or select \"Request items\" in the navigation bar. </string>
     <string name="step2">Select the category you wish to request from (can be more than one) and you will be redirected to a list of items. Indicate the quantity you require on each item you request. You may click on the Shopping Cart icon to see all the items you have requested. Click on the \"Checkout\" button to finalize your request. That is it!</string>
     <string name="Note">Please note that these requests and donations are province based, meaning that the donations you receive will be from your province, this makes it easier for our courier services. In addition, if you happen to have multiple requests, it might occur that you will receive donations from multiple donors. To limit the amount of deliveries in this case, there will be a 5 day window period from the date of your first item request is donated and the delivery date so that donations can be accumulated to minimize deliveries. However, if all your requested items are ready for delivery then you will not have a window period to receive your items. </string>
+
+    <!--About Us Text-->
     <string name="Creators">The creators of the Lend A Hand application are Suraksha Motilal and Fezile Mahlangu, who are currently doing 2nd Year Computer Science at the University of the Witwatersrand. They created this app for a mobile computing software development project aimed to help users during the covid-19 pandemic. They saw fit to make this specific app as they were witnesses to people struggling because of the pandemic.</string>
     <string name="Objective">Our objective is to essentially help people by connecting those who can help with those who need help in their respective provinces. Our courier services serve to limit exposure of the corona virus to our users because we know that the safest way to protect yourself is by staying home. Our objective is to create a safe and easy way for donations to occur, as your safety is a priority.   </string>
 
-    <!-- ============================================================ -->
     <!-- ========================================================================================== -->
     <!--Strings for onboarding screen-->
 

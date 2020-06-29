@@ -7,16 +7,16 @@
     android:layout_height="match_parent"
     android:background="@drawable/possiblebackground2"
     android:fitsSystemWindows="true"
-    tools:context=".DoneeDashboard"
-    tools:openDrawer="end">
-
+    tools:openDrawer="end"
+    >
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
         app:headerLayout="@layout/header"
-        app:menu="@menu/main_menu" />
+        app:menu="@menu/main_menu"
+        android:layout_gravity="start"
+        />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,7 +35,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="55dp">
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -45,15 +44,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="Hi Nadine!"
+                    android:text="Hi!"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="25sp"
                     app:layout_constraintBottom_toTopOf="@+id/linearLayout"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.142" />
+
+
 
 
                 <LinearLayout
@@ -121,7 +121,6 @@
                                 android:layout_below="@id/imageView3"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="10dp"
-                                android:text="200 lives impacted."
                                 android:textColor="@color/primaryTextColor" />
 
                             <ImageView
@@ -166,7 +165,7 @@
                                 android:layout_below="@id/imageView4"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="10dp"
-                                android:text="See Testimonials."
+                                android:text="See Testimonials"
                                 android:textColor="@color/primaryTextColor" />
 
                             <ImageView
@@ -199,7 +198,7 @@
                                 android:layout_below="@id/imageView6"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="10dp"
-                                android:text="How it works."
+                                android:text="How it works"
                                 android:textColor="@color/primaryTextColor" />
 
                             <ImageView

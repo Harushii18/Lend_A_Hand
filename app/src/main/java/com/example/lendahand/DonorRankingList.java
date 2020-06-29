@@ -62,16 +62,9 @@ public class DonorRankingList extends AppCompatActivity implements NavigationVie
         //reuse of code, but only differentcontent views
         if (user.equals("Admin")){
             setContentView(R.layout.activity_admin_donor_ranking_list);
-        }else if (user.equals("Donor")){
-            //TODO: set content view to the donee one that has a menu pointing to donor menu
         }else if(user.equals("Donee")){
             setContentView(R.layout.activity_donor_ranking_list);
-
-            //TODO: Also have an if statement if they're pending, accepted or rejected, and show the right menu accordingly
         }
-
-        //TODO: Add profile changing to every activity's nav bar for donor and donee
-
 
         drawerLayout = findViewById(R.id.drawer_layout_DonorRank);
         navigationView = findViewById(R.id.nav_view_DonorRank);
@@ -84,8 +77,6 @@ public class DonorRankingList extends AppCompatActivity implements NavigationVie
         //show which nav item was selected
         if (user.equals("Admin")){
             navigationView.setCheckedItem(R.id.nav_admin_donor_list);
-        }else if (user.equals("Donor")){
-            //TODO: set checked view to donee nav one
         }else if(user.equals("Donee")){
             navigationView.setCheckedItem(R.id.nav_list);
             //hide certain menu options depending on if donee is pending or not
@@ -231,7 +222,6 @@ public class DonorRankingList extends AppCompatActivity implements NavigationVie
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Intent i;
         switch (item.getItemId()) {
-            //TODO: Add the donee menu items
             case R.id.nav_request:
                 i = new Intent(this, CategoryListActivity.class); //Request items menu item
                 startActivity(i);

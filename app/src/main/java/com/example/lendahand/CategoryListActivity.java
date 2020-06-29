@@ -29,25 +29,20 @@ public class CategoryListActivity extends AppCompatActivity implements View.OnCl
     CardView Baby;
     CardView Airtime;
     CardView Clothes;
-    private TextView txtNavName,txtNavEmail;
-    View headerView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_list);
         drawerLayout = findViewById(R.id.drawer_layout_CategoryList);
-        navigationView = findViewById(R.id.nav_view_CategoryList);
-        toolbar = findViewById(R.id.toolbar_CategoryList);
+        navigationView=findViewById(R.id.nav_view_CategoryList);
+        toolbar=findViewById(R.id.toolbar_CategoryList);
 
         /*toolbar, so toolbar acts as action bar to utilise menu toggle*/
 
         setSupportActionBar(toolbar);
         /*---------------------nav view-----------------------------------------*/
         navigationView.bringToFront(); //nav view can slide back
-
-
 
         //hide certain menu options depending on if donee is pending or not
         Menu nav_Menu = navigationView.getMenu();
@@ -64,18 +59,21 @@ public class CategoryListActivity extends AppCompatActivity implements View.OnCl
             nav_Menu.findItem(R.id.nav_request).setVisible(true);
         }
 
+        //show which nav item was selected
         navigationView.setCheckedItem(R.id.nav_request);
-        //initialise nav view header values
-        headerView=navigationView.getHeaderView(0);
-        txtNavName=headerView.findViewById(R.id.headerName);
-        txtNavEmail=headerView.findViewById(R.id.headerEmail);
-        txtNavEmail.setText(StayLoggedIn.getEmail(CategoryListActivity.this));
-        txtNavName.setText(StayLoggedIn.getFName(CategoryListActivity.this)+' '+StayLoggedIn.getLName(CategoryListActivity.this));
 
         //toggle is for the nav bar to go back and forth
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.nav_open, R.string.nav_close);
+        ActionBarDrawerToggle toggle= new ActionBarDrawerToggle(this, drawerLayout,toolbar,R.string.nav_open,R.string.nav_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+
+        View headerView= navigationView.getHeaderView(0);
+        TextView headerName= headerView.findViewById(R.id.headerName); //changing name and email on nav bar header
+        headerName.setText(StayLoggedIn.getFName(CategoryListActivity.this)+" "+StayLoggedIn.getLName(CategoryListActivity.this));
+
+        TextView headerEmail= headerView.findViewById(R.id.headerEmail);
+        headerEmail.setText(StayLoggedIn.getEmail(CategoryListActivity.this));
+
 
         /*make menu clickable*/
         navigationView.setNavigationItemSelectedListener(this);
@@ -86,21 +84,18 @@ public class CategoryListActivity extends AppCompatActivity implements View.OnCl
 
         /*OnClick Listener for CardViews*/
         Food = findViewById(R.id.FoodCard);
-        SSupplies = findViewById(R.id.SSuppliersCard);
-        Stationery = findViewById(R.id.StationeryCard);
-        Baby = findViewById(R.id.BabyCard);
-        Airtime = findViewById(R.id.AirtimeCard);
-        Clothes = findViewById(R.id.ClothesCard);
-
+        SSupplies=findViewById(R.id.SSuppliersCard);
+        Stationery=findViewById(R.id.StationeryCard);
+        Baby=findViewById(R.id.BabyCard);
+        Airtime=findViewById(R.id.AirtimeCard);
+        Clothes=findViewById(R.id.ClothesCard);
         Food.setOnClickListener(this);
         SSupplies.setOnClickListener(this);
         Stationery.setOnClickListener(this);
         Baby.setOnClickListener(this);
         Airtime.setOnClickListener(this);
         Clothes.setOnClickListener(this);
-
-
-    }
+   }
 
     /*OnClick Listener method*/
     @Override
@@ -109,44 +104,41 @@ public class CategoryListActivity extends AppCompatActivity implements View.OnCl
         String url;
         switch (v.getId()) {
             case R.id.imgViewCart:
-                if (DoneeDashboard.QtyArray.Qty[0] == null || DoneeDashboard.QtyArray.Qty[0] == "0") {
+                if(DoneeDashboard.QtyArray.Qty[0]==null|| DoneeDashboard.QtyArray.Qty[0]=="0") { //Check if cart is empty
                     i = new Intent(this, EmptyCartActivity.class);
                     startActivity(i);
                     break;
-                } else {
-                    i = new Intent(this, CartActivity.class);
+                }
+                else{
+                    i= new Intent(this,CartActivity.class); //If cart is not empty
                     startActivity(i);
                     break;
                 }
+                //Passes corresponding url to respective category.
 
-            case R.id.FoodCard:
-                i = new Intent(v.getContext(), ListItemsActivity.class);
-                url = "https://lamp.ms.wits.ac.za/home/s2089676/items.php?ITEM_TYPE=Food";
+            case R.id.FoodCard: i = new Intent(v.getContext(), ListItemsActivity.class);
+                url="https://lamp.ms.wits.ac.za/home/s2089676/items.php?ITEM_TYPE=Food";
                 i.putExtra("url", url);
                 v.getContext().startActivity(i);
                 break;
 
-            case R.id.SSuppliersCard:
-                i = new Intent(v.getContext(), ListItemsActivity.class);
-                url = "https://lamp.ms.wits.ac.za/home/s2089676/items.php?ITEM_TYPE=Sanitary%20Supplies";
+            case R.id.SSuppliersCard: i = new Intent(v.getContext(), ListItemsActivity.class);
+                url="https://lamp.ms.wits.ac.za/home/s2089676/items.php?ITEM_TYPE=Sanitary%20Supplies";
                 i.putExtra("url", url);
                 v.getContext().startActivity(i);
                 break;
-            case R.id.StationeryCard:
-                i = new Intent(v.getContext(), ListItemsActivity.class);
-                url = "https://lamp.ms.wits.ac.za/home/s2089676/items.php?ITEM_TYPE=Stationery";
+            case R.id.StationeryCard: i = new Intent(v.getContext(), ListItemsActivity.class);
+                url="https://lamp.ms.wits.ac.za/home/s2089676/items.php?ITEM_TYPE=Stationery";
                 i.putExtra("url", url);
                 v.getContext().startActivity(i);
                 break;
-            case R.id.BabyCard:
-                i = new Intent(v.getContext(), ListItemsActivity.class);
-                url = "https://lamp.ms.wits.ac.za/home/s2089676/items.php?ITEM_TYPE=Baby%20Essentials";
+            case R.id.BabyCard: i = new Intent(v.getContext(), ListItemsActivity.class);
+                url="https://lamp.ms.wits.ac.za/home/s2089676/items.php?ITEM_TYPE=Baby%20Essentials";
                 i.putExtra("url", url);
                 v.getContext().startActivity(i);
                 break;
-            case R.id.AirtimeCard:
-                i = new Intent(v.getContext(), ListItemsActivity.class);
-                url = "https://lamp.ms.wits.ac.za/home/s2089676/items.php?ITEM_TYPE=Airtime";
+            case R.id.AirtimeCard: i = new Intent(v.getContext(), ListItemsActivity.class);
+                url="https://lamp.ms.wits.ac.za/home/s2089676/items.php?ITEM_TYPE=Airtime";
                 i.putExtra("url", url);
                 v.getContext().startActivity(i);
                 break;
@@ -155,12 +147,12 @@ public class CategoryListActivity extends AppCompatActivity implements View.OnCl
 
         }
     }
-
     @Override
     public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
             drawerLayout.closeDrawer(GravityCompat.START);
-        } else {
+        }
+        else {
             super.onBackPressed();
             Intent i = new Intent(CategoryListActivity.this, DoneeDashboard.class);
             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -73,8 +73,9 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar_DonorDonorRank"
-            tools:layout_editor_absoluteX="16dp">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_DonorDonorRank">
 
 
             <androidx.cardview.widget.CardView
@@ -112,7 +113,6 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:paddingStart="10dp"
