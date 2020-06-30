@@ -108,9 +108,6 @@ public class DoneeDashboard extends AppCompatActivity implements NavigationView.
             nav_Menu.findItem(R.id.nav_request).setVisible(true);
         };
 
-
-
-
         //toggle is for the nav bar to go back and forth
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.nav_open, R.string.nav_close);
         drawerLayout.addDrawerListener(toggle);

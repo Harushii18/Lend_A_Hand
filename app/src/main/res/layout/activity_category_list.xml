@@ -303,7 +303,7 @@
                             android:layout_marginTop="15dp"
                             android:layout_marginBottom="12dp"
                             android:fontFamily="sans-serif"
-                            android:text="Clothes and Blakents"
+                            android:text="Clothes and Blankets"
                             android:textColor="@color/primaryTextColor"
                             android:textSize="16sp" />
 
