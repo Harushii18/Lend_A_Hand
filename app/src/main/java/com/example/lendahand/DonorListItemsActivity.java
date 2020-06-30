@@ -222,22 +222,13 @@ public class DonorListItemsActivity extends AppCompatActivity implements View.On
 
                 int r=0;
 
-
-
-
                 if(item_type.equals(type) && item_province.equals(donorProvince)&&itemrequired!=0) { //check if items are requested in province
 
-
                     found = found + 1;
-
                     qty = new EditText(this);
-
                     txtrequired= new TextView(this);
-
                     txtitem_name = new TextView(this);
-
                     RelativeLayout rl = new RelativeLayout(this);
-
                     View view = getLayoutInflater().inflate(R.layout.donor_items_list, null);
                     qty = view.findViewById(R.id.qty);
                     txtrequired=view.findViewById(R.id.required);
@@ -412,7 +403,8 @@ public class DonorListItemsActivity extends AppCompatActivity implements View.On
 
 
                                 break;
-                            } else if (enteredqty > required) {
+                            }
+                            else if (enteredqty > required) {
                                 qty.setEnabled(false);
                                 qty.setFocusable(false);
                                 qty.setFocusableInTouchMode(false);
@@ -430,7 +422,8 @@ public class DonorListItemsActivity extends AppCompatActivity implements View.On
                                 tempRequiredArray[k] = Integer.parseInt(item_required);
                                 break;
 
-                            } else {
+                            }
+                            else {
                                 tempID[k] = item_id;
                                 tempItem[k] = item_name;
                                 tempQty[k] = s.toString();

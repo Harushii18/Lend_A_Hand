@@ -145,6 +145,7 @@
     <string name="txt_developer_pword">Fezi_&amp;_Su_2618</string>
     <string name="txt_email_subject">Welcome to Lend A Hand </string>
     <string name="txt_checkout_email_subject">Lend A Hand: Your items.</string>
+    <string name="txt_delivery_subject">Lend A Hand: Delivery.</string>
     <string name="txt_email_body_common">Hi,\u0020</string>
     <string name="txt_email_body_donor">
         \n\n
@@ -179,6 +180,10 @@
         \n\nThank you for your donation! A courier will arrive within 2 days to collect your donation.
         \n\nYou have donated the following items:
         \n
+    </string>
+    <string name="txt_email_delivery_body">
+        \n\nThis is to confirm that one or more of your requested items will be delivered within 2 days.
+        \n\n
     </string>
 
     <!--ADMIN SCREENS-->
@@ -313,8 +318,6 @@
     <string name="txt_donee_dialog_Content_rejected">If you wish to be reviewed once more, please refer to the menu to send a new letter of motivation as to why you need the help.</string>
     <string name="txt_donee_dialog_heading_pending">Your donee status is pending</string>
     <string name="txt_donee_dialog_Content_pending">We will send you an e-mail when your donee status has been processed.</string>
-
-
 
 
 </resources>

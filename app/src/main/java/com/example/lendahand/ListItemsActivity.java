@@ -250,6 +250,7 @@ public class ListItemsActivity extends AppCompatActivity implements View.OnClick
                                 tempQty[k] = s.toString();
                                 break;
                             } else if (limit > 50) {
+                                //disabling user from inserting qty and notifying to user.
 
                                 limit = limit - Integer.parseInt(s.toString());
 

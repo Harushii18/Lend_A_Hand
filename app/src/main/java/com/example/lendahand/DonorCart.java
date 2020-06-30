@@ -4,6 +4,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,10 +22,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -52,6 +58,12 @@ public class DonorCart extends AppCompatActivity {
     String ConfirmedItems="";
     int r=0;
 
+    String donor_province;
+
+    String UpdateRequestUrl;
+    String RequestUrl;
+    String CourierUrl;
+
 
     Toolbar toolbar;
 
@@ -68,11 +80,19 @@ public class DonorCart extends AppCompatActivity {
         final String name= StayLoggedIn.getFName(DonorCart.this);
         final String surname = StayLoggedIn.getLName(DonorCart.this);
         final String donor_email= StayLoggedIn.getEmail(DonorCart.this);
+        donor_province=  StayLoggedIn.getProvince(DonorCart.this);
 
 
 
+        RequestUrl= "https://lamp.ms.wits.ac.za/home/s2089676/request.php";// returns donees and request details from furthest requested
 
-        final String url= "https://lamp.ms.wits.ac.za/home/s2089676/donorcheckout.php";
+        UpdateRequestUrl="https://lamp.ms.wits.ac.za/home/s2089676/updateRequest.php";// UPDATES COURIER NUM DELIVERIES, INSERTS INTO DELIVERY, UPDATES REQUEST QTY, UPDATE DONATION QTY
+
+        CourierUrl= "https://lamp.ms.wits.ac.za/home/s2089676/couriers.php?PROVINCE=";
+        CourierUrl=CourierUrl+donor_province; //TO GET A RANDOM COURIER IN THE COUNTRY
+
+        final String url= "https://lamp.ms.wits.ac.za/home/s2089676/donorcheckout.php"; //INSERTS INTO DONATION, UPDATES DONOR NUM_ITEMS, ECHOS NEW GENERATED DONATION_ID
+
 
         //Using correct array
 
@@ -96,18 +116,18 @@ public class DonorCart extends AppCompatActivity {
                     //if internet is not connected
                     Toast toast = Toast.makeText(getApplicationContext(), getText(R.string.txt_internet_disconnected), Toast.LENGTH_SHORT);
                     toast.show();
-                } else {
+                }
+                else {
                     final Intent intent = new Intent(DonorCart.this, DonorDashboardActivity.class);
                     client = new OkHttpClient();
                     String link = url;
                     for (int k =0; k < 100; k++){
+
                         if(ID[k]!=0){
+                            final int K=k;
                             ConfirmedItems=ConfirmedItems+ Item[k]+" x"+Qty[k]+'\n';
-
-
                             //Add to database
                             RequestBody formBody = new FormBody.Builder()
-                                    .add("donationid","1")
                                     .add("username", donor_username)
                                     .add("item", String.valueOf(ID[k]))
                                     .add("qty", Qty[k])
@@ -124,15 +144,24 @@ public class DonorCart extends AppCompatActivity {
 
                                 @Override
                                 public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                                    if (response.isSuccessful()) {
-                                        Log.d("INSERT","Inserting new request to database successful");
-                                    }else{
-                                        Log.d("INSERT","Inserting new request to database failed");
-                                    }
+
+                                    final String responseData = response.body().string();
+                                    GetCourierMethod(K,responseData);
+
+
+
 
                                 }
                             });
+                            ///=======================================================================
+
+
+
+
+
                         }
+
+
                         else{
                             break;
                         }
@@ -141,13 +170,14 @@ public class DonorCart extends AppCompatActivity {
                     //send email to donor telling them the items they have donated
                     new Thread(new Runnable() {
 
+
                         @Override
                         public void run() {
                             try {
                                 GMailSender sender = new GMailSender(getText(R.string.txt_developer_email).toString(),
                                         getText(R.string.txt_developer_pword).toString());
                                 sender.sendMail(getText(R.string.txt_checkout_email_subject).toString(), getText(R.string.txt_email_body_common).toString()+name+" "+surname+getText(R.string.txt_email_donorcheckout_body)+
-                                        ConfirmedItems,getText(R.string.txt_developer_email).toString(),"mahlangufezile.3@gmail.com");
+                                        ConfirmedItems,getText(R.string.txt_developer_email).toString(),donor_email);
                             } catch (Exception e) {
                                 Log.e("SendMail", e.getMessage(), e);
                             }
@@ -165,11 +195,6 @@ public class DonorCart extends AppCompatActivity {
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            for (int y =0; y<100; y++){
-                                ID[y]=0;
-                                Item[y]="0";
-                                Qty[0]="0";
-                            }
 
                             startActivity(intent);
                             finish();
@@ -208,7 +233,7 @@ public class DonorCart extends AppCompatActivity {
         });
 
 
-        ////
+
 
         for (int i=0;i<100;i++){ //this loop removes replicas
             if(i!=99){
@@ -399,6 +424,270 @@ public class DonorCart extends AppCompatActivity {
             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
             finish();
+
+
+
+    }
+
+    public void GetCourierMethod(final int index, final String DonationID){
+        OkHttpClient RequestClient = new OkHttpClient();
+
+        Request RequestRequest = new Request.Builder()
+                .url(CourierUrl)
+                .build();
+
+        RequestClient.newCall(RequestRequest).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull final Response response) throws IOException {
+                final String responseData = response.body().string();
+
+                DonorCart.this.runOnUiThread(new Runnable() {
+                    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+                    @Override
+                    public void run() {
+                        ResponseCourier(index, DonationID,responseData);
+                    }
+                });
+            }
+        });
+
+    }
+    public void ResponseCourier(final int index,final String DonationID, String json){
+        try {
+            JSONArray all = new JSONArray(json);
+
+            //////////////////////////Get random courier////////////////////////////////
+            int courierArrayLen=all.length();
+
+            Random randy= new Random();
+            int random= randy.nextInt(courierArrayLen);
+            JSONObject item = all.getJSONObject(random);
+
+            String CourierID = item.getString("ID");
+            String CourierName =item.getString("NAME");
+            String CourierSurname= item.getString("SURNAME");
+            String CourierPhoneNo= item.getString("PHONE_NO");
+
+
+
+            GetRequestsMethod(index,DonationID,CourierID, CourierName,CourierSurname,CourierPhoneNo);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void GetRequestsMethod(final int index, final String DonationID, final String CourierID,  final String CourierName,  final String CourierSurname, final String CourierPhoneNo ){
+        OkHttpClient RequestClient = new OkHttpClient();
+
+        Request RequestRequest = new Request.Builder()
+                .url(RequestUrl)
+                .build();
+
+        RequestClient.newCall(RequestRequest).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull final Response response) throws IOException {
+                final String responseData = response.body().string();
+
+                DonorCart.this.runOnUiThread(new Runnable() {
+                    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+                    @Override
+                    public void run() {
+                        finalMethod(index,responseData,DonationID,CourierID,CourierName,CourierSurname,CourierPhoneNo);
+                    }
+                });
+            }
+        });
+
+    }
+
+    public void finalMethod(int index, String json, final String DonationID, String CourierID, final String CourierName, final String CourierSurname, final String CourierPhoneNo){
+        //TODO: DELETE STUFF FROM DONOR CART
+       try {
+            JSONArray all = new JSONArray(json);
+            for (int i = 0; i < all.length(); i++) {
+                JSONObject item = all.getJSONObject(i);
+                final String name =item.getString("NAME");
+                final String surname= item.getString("SURNAME");
+                String username = item.getString("USERNAME");
+                String item_id = item.getString("ITEM_ID");
+                String quantity= item.getString("QUANTITY");
+                String province= item.getString("PROVINCE");
+                final String email= item.getString("EMAIL");
+
+                //Get date for processed delivery.
+
+                SimpleDateFormat currentDate=new SimpleDateFormat("yyyy-MM-dd");
+                Date todayDate= new Date();
+                final String date_processed= currentDate.format(todayDate);
+
+                Calendar c= Calendar.getInstance();
+                c.setTime(todayDate);
+                c.add(Calendar.DATE,2);
+                final String date_received= currentDate.format(c.getTime());
+                ///////
+
+
+                int qty= Integer.parseInt(quantity);
+                int DonorQty= Integer.parseInt(Qty[index]);
+
+                String DonorItemId= String.valueOf(ID[index]);
+
+
+                if(province.equals(donor_province)&& qty!=0 && item_id.equals(DonorItemId) && DonorQty!=0){
+
+
+                    while(DonorQty!=0){
+                        if(qty!=0 && DonorQty!=0){
+                            DonorQty=DonorQty-1;
+                            qty=qty-1;
+                        }
+                        else if((qty==0 && DonorQty!=0)){
+                            Qty[index]=String.valueOf(DonorQty);
+                            //Updating using php
+
+                            OkHttpClient client = new OkHttpClient();
+                            String link = UpdateRequestUrl;
+
+                            RequestBody formBody = new FormBody.Builder()
+                                    .add("donation_id",DonationID)
+                                    .add("courier_id",CourierID)
+                                    .add("donee_username", username)
+                                    .add("date_processed",date_processed)
+                                    .add("date_received",date_received)
+                                    .add("item",item_id)
+                                    .add("qty", String.valueOf(qty))
+                                    .build();
+                            Request request = new Request.Builder()
+                                    .url(link)
+                                    .post(formBody)
+                                    .build();
+                            client.newCall(request).enqueue(new Callback() {
+                                @Override
+                                public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                                    e.printStackTrace();
+                                }
+
+                                @Override
+                                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                                    if (response.isSuccessful()) {
+                                        Log.d("INSERT","Updating REQUEST table in database successful");
+                                    }else{
+                                        Log.d("INSERT","Updating REQUEST table in database failed");
+                                    }
+
+                                }
+                            });
+                            //SEND EMAIL
+                            new Thread(new Runnable() {
+
+
+                                @Override
+                                public void run() {
+                                    try {
+                                        GMailSender sender = new GMailSender(getText(R.string.txt_developer_email).toString(),
+                                                getText(R.string.txt_developer_pword).toString());
+                                        sender.sendMail(getText(R.string.txt_delivery_subject).toString(), getText(R.string.txt_email_body_common).toString()+name+" "+
+                                                        surname+getText(R.string.txt_email_delivery_body)+
+                                                "Your Courier: "+ CourierName+CourierSurname+"\n"+"Phone No: "+ CourierPhoneNo+"\n\n"+"Order ID: "+DonationID,
+                                                getText(R.string.txt_developer_email).toString(),email);
+                                    } catch (Exception e) {
+                                        Log.e("SendMail", e.getMessage(), e);
+                                    }
+                                }
+
+                            }).start();
+
+                            break;
+
+                        }
+
+                    }
+                    Qty[index]= "0";
+                    client = new OkHttpClient();
+                    String link = UpdateRequestUrl;
+
+                    RequestBody formBody = new FormBody.Builder()
+                            .add("donation_id",DonationID)
+                            .add("courier_id",CourierID)
+                            .add("donee_username", username)
+                            .add("date_processed",date_processed)
+                            .add("date_received",date_received)
+                            .add("item",item_id)
+                            .add("qty", String.valueOf(qty))
+                            .build();
+                    Request request = new Request.Builder()
+                            .url(link)
+                            .post(formBody)
+                            .build();
+                    client.newCall(request).enqueue(new Callback() {
+                        @Override
+                        public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        @Override
+                        public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                            if (response.isSuccessful()) {
+                                Log.d("INSERT","Updating REQUEST table in database successful");
+                            }else{
+                                Log.d("INSERT","Updating REQUEST table in database failed");
+                            }
+
+                        }
+                    });
+
+                    //SEND EMAIL
+                    new Thread(new Runnable() {
+
+
+                        @Override
+                        public void run() {
+                            try {
+                                GMailSender sender = new GMailSender(getText(R.string.txt_developer_email).toString(),
+                                        getText(R.string.txt_developer_pword).toString());
+                                sender.sendMail(getText(R.string.txt_delivery_subject).toString(), getText(R.string.txt_email_body_common).toString()+name+" "+surname+getText(R.string.txt_email_delivery_body)+
+                                                "Your Courier: "+ CourierName+CourierSurname+"\n"+"Phone No: "+ CourierPhoneNo+"\n\n"+"Order ID: "+DonationID,
+                                        getText(R.string.txt_developer_email).toString(),email);
+                            } catch (Exception e) {
+                                Log.e("SendMail", e.getMessage(), e);
+                            }
+                        }
+
+                    }).start();
+                    break;
+
+                }
+                else if(DonorQty==0){
+                    break;
+
+                }
+                else{
+                    continue;
+
+                }
+
+
+
+
+
+
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
 
 

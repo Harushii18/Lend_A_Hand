@@ -142,6 +142,11 @@ public class CategoryListActivity extends AppCompatActivity implements View.OnCl
                 i.putExtra("url", url);
                 v.getContext().startActivity(i);
                 break;
+            case R.id.ClothesCard: i= new Intent(v.getContext(),ListItemsActivity.class);
+                url="https://lamp.ms.wits.ac.za/home/s2089676/items.php?ITEM_TYPE=Clothes";
+                i.putExtra("url", url);
+                v.getContext().startActivity(i);
+                break;
             default:
                 break;
 

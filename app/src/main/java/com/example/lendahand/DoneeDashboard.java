@@ -48,6 +48,7 @@ public class DoneeDashboard extends AppCompatActivity implements NavigationView.
     private CardView DonorsView;
     private CardView HowCardview;
     private CardView DoneesView;
+    private CardView TestimonialView;
     private Button requestButton;
     TextView TotalDonors;
     TextView TotalDonees;
@@ -70,6 +71,7 @@ public class DoneeDashboard extends AppCompatActivity implements NavigationView.
         HowCardview = findViewById(R.id.HowItWorks_cardview);
         DonorsView = findViewById(R.id.DonorsView);
         DoneesView = findViewById(R.id.DoneesView);
+        TestimonialView= findViewById(R.id.TestView);
         Nadine= findViewById(R.id.NadineTextView);
 
         String temp= "Hi "+ StayLoggedIn.getFName(DoneeDashboard.this)+"!";
@@ -94,19 +96,26 @@ public class DoneeDashboard extends AppCompatActivity implements NavigationView.
         //show which nav item was selected
         navigationView.setCheckedItem(R.id.nav_home);
 
+
+
         //hide certain menu options depending on if donee is pending or not
         Menu nav_Menu = navigationView.getMenu();
         String status=StayLoggedIn.getDoneeStatus(DoneeDashboard.this);
         if (status.equals("Pending")){
             nav_Menu.findItem(R.id.nav_donee_edit).setVisible(false);
             nav_Menu.findItem(R.id.nav_request).setVisible(false);
+            requestButton.setVisibility(View.GONE);
         }else if(status.equals("Rejected")){
             nav_Menu.findItem(R.id.nav_donee_edit).setVisible(true);
             nav_Menu.findItem(R.id.nav_request).setVisible(false);
+            requestButton.setVisibility(View.GONE);
         }else if(status.equals("Accepted")){
             nav_Menu.findItem(R.id.nav_donee_edit).setVisible(false);
             nav_Menu.findItem(R.id.nav_request).setVisible(true);
         };
+
+
+
 
         //toggle is for the nav bar to go back and forth
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.nav_open, R.string.nav_close);
@@ -120,6 +129,7 @@ public class DoneeDashboard extends AppCompatActivity implements NavigationView.
         HowCardview.setOnClickListener(this);
         DonorsView.setOnClickListener(this);
         DoneesView.setOnClickListener(this);
+        TestimonialView.setOnClickListener(this);
 
 
         /*----------Button----------*/
@@ -251,6 +261,10 @@ public class DoneeDashboard extends AppCompatActivity implements NavigationView.
                 break;
             case R.id.DoneesView:
                 i = new Intent(this, TotalDoneesActivity.class);
+                startActivity(i);
+                break;
+            case R.id.TestView:
+                i = new Intent(this, TestimonialActivity.class );
                 startActivity(i);
                 break;
             default:

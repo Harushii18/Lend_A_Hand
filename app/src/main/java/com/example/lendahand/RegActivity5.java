@@ -71,8 +71,16 @@ public class RegActivity5 extends AppCompatActivity {
         tbDoneeReg.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                if (tab.getPosition() == 5) {
-                    goToNextActivity();
+                //check connectivity
+                GlobalConnectivityCheck globalConnectivityCheck = new GlobalConnectivityCheck(getApplicationContext());
+                if (!globalConnectivityCheck.isNetworkConnected()) {
+                    //if internet is not connected
+                    Toast toast = Toast.makeText(getApplicationContext(), getText(R.string.txt_internet_disconnected), Toast.LENGTH_SHORT);
+                    toast.show();
+                } else {
+                    if (tab.getPosition() == 5) {
+                        goToNextActivity();
+                    }
                 }
             }
 

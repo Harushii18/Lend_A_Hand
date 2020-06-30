@@ -147,6 +147,7 @@
 
                     <androidx.cardview.widget.CardView
 
+                        android:id="@+id/TestView"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"

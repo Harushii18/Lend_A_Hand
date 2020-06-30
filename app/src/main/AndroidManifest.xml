@@ -14,14 +14,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DoneeEditMotivationalLetterActivity"
+        <activity android:name=".TestimonialActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name=".DoneeEditMotivationalLetterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MaterialThemeNoActionBar"
-            tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".AdminDonorRankingList"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".AdminDonorRankingList"
             android:screenOrientation="portrait"
             android:theme="@style/MaterialThemeNoActionBar"
-            tools:ignore="LockedOrientationActivity"/>
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".AdminViewCourierListActivity"
             android:screenOrientation="portrait"
@@ -30,19 +37,18 @@
         <activity
             android:name=".ViewProfileActivity"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"
-            android:theme="@style/MaterialThemeNoActionBar"/>
+            android:theme="@style/MaterialThemeNoActionBar"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".AdminAddCourierActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MaterialThemeNoActionBar"
             tools:ignore="LockedOrientationActivity" />
-        <activity android:name=".DonorCart"
+        <activity
+            android:name=".DonorCart"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            tools:ignore="LockedOrientationActivity">
-
-        </activity>
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".DonorDonorRankingList"
             android:screenOrientation="portrait"
