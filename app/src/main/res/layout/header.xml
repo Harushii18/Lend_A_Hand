@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/headerLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="175dp"
+    android:orientation="vertical"
+    android:background="@drawable/headerback"
+    android:gravity="bottom"
+    android:padding="20dp">
+    <TextView
+        android:id="@+id/headerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name Surname"
+        android:textSize="30sp"
+        android:textColor="@color/primaryTextColor"
+        android:layout_marginBottom="5dp"/>
+    <TextView
+        android:id="@+id/headerEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="email@example.com"
+        android:textSize="15sp"
+        android:textColor="@color/primaryTextColor"
+        android:layout_marginBottom="5dp"/>
+
+
+</LinearLayout>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/transparent"
+    android:elevation="20dp"
+    app:title="Admin"
+    app:navigationIcon="@drawable/menu_icon"
+    android:minHeight="?attr/actionBarSize">
+
+
+</androidx.appcompat.widget.Toolbar>

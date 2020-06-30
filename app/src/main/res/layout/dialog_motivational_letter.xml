@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MaterialTheme"
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="20dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginEnd="20dp"
+    android:layout_marginBottom="20dp"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtDoneeEditMotLetter"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:hint="@string/txt_donee_type_new_motivational_letter"
+        app:counterEnabled="true"
+        app:counterMaxLength="1500"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:inputType="textMultiLine|textCapSentences"
+            android:lines="10"
+            android:maxLength="1500" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnConfirmEditMotivationalLetter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/txt_donee_btn_confirm_edit_motivational_letter"
+        android:textColor="@color/primaryTextColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/txtDoneeEditMotLetter"
+        app:layout_constraintTop_toBottomOf="@+id/txtDoneeEditMotLetter" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

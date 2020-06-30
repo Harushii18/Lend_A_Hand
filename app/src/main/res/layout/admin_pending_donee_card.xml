@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginTop="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    app:cardCornerRadius="15dp">
+    
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="12dp">
+
+        <TextView
+            android:id="@+id/txtAdminDoneePending"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/primaryTextColor"
+            app:layout_constraintEnd_toStartOf="@+id/rgStatus"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RadioGroup
+            android:id="@+id/rgStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RadioButton
+                android:id="@+id/rbAccept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/rb_tint_color"
+                android:text="@string/txt_chk_accept" />
+
+            <RadioButton
+                android:id="@+id/rbReject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/rb_tint_color"
+                android:text="@string/txt_chk_reject" />
+        </RadioGroup>
+
+        <ru.embersoft.expandabletextview.ExpandableTextView
+            android:id="@+id/txtAdminMotivationLetter"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_marginTop="4dp"
+            app:etv_animationTime="20"
+            app:etv_expandLines="1"
+            app:etv_showLine="false"
+            app:etv_textContentColor="@color/primaryTextColor"
+            app:etv_textContentSize="14sp"
+            app:etv_textExpand="@string/txt_expand"
+            app:etv_textShrink="@string/txt_shrink"
+            app:etv_textStateColor="@color/admin_show_more_color"
+            app:layout_constraintEnd_toStartOf="@+id/rgStatus"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtAdminDoneePending" />
+
+
+        <Button
+            android:id="@+id/btnAdminDoneePending"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:clickable="true"
+            android:text="@string/txt_donee_pending_btn"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/rgStatus"
+            app:layout_constraintStart_toStartOf="@+id/txtAdminDoneePending"
+            app:layout_constraintTop_toBottomOf="@+id/txtAdminMotivationLetter" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.cardview.widget.CardView>
