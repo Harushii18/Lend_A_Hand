@@ -1,0 +1,323 @@
+<resources>
+    <string name="app_name">Lend A Hand</string>
+
+
+    <!--navigation desc-->
+    <string name="nav_open">Open navigation drawer</string>
+    <string name="nav_close">Close navigation drawer</string>
+
+    <!--How it works texts-->
+    <string name="Donor_how_it_works">To get started on donating items to the people in need you just have to follow 2 easy steps :)</string>
+    <string name="Donor_step1">Click on the \"Donate\" button or select \"Donate items\" in the navigation bar. </string>
+    <string name="Donor_step2">Select the category you wish to donate to (can be more than one) and you will be redirected to a list of items. Indicate the quantity on each item you donate. You may click on the Shopping Cart icon to see all the items you have donated. Click on the \"Checkout\" button to finalize your donation. That is it!</string>
+    <string name="Donor_Note">Please note that these requests and donations are province based, meaning that you will only donate to people in your province, this makes it easier for our courier services. In addition, in each category, you will only be able to donate items that have been requested in your province. A courier will arrive to fetch your donation.</string>
+    <string name="how_it_works">To get started on getting your requests delivered to your door you just have to follow 2 easy steps :)</string>
+    <string name="step1">Click on the \"Request\" button or select \"Request items\" in the navigation bar. </string>
+    <string name="step2">Select the category you wish to request from (can be more than one) and you will be redirected to a list of items. Indicate the quantity you require on each item you request. You may click on the Shopping Cart icon to see all the items you have requested. Click on the \"Checkout\" button to finalize your request. That is it!</string>
+    <string name="Note">Please note that these requests and donations are province based, meaning that the donations you receive will be from your province, this makes it easier for our courier services. In addition, if you happen to have multiple requests, it might occur that you will receive donations from multiple donors.When you receive a donation you will be notified through email. You will receive the items within 2 days.  </string>
+
+    <!--About Us Text-->
+    <string name="Creators">The creators of the Lend A Hand application are Suraksha Motilal and Fezile Mahlangu, who are currently doing 2nd Year Computer Science at the University of the Witwatersrand. They created this app for a mobile computing software development project aimed to help users during the covid-19 pandemic. They saw fit to make this specific app as they were witnesses to people struggling because of the pandemic.</string>
+    <string name="Objective">Our objective is to essentially help people by connecting those who can help with those who need help in their respective provinces. Our courier services serve to limit exposure of the corona virus to our users because we know that the safest way to protect yourself is by staying home. Our objective is to create a safe and easy way for donations to occur, as your safety is a priority.   </string>
+
+    <!-- ========================================================================================== -->
+    <!--Strings for onboarding screen-->
+
+    <!--Titles-->
+    <string name="first_screen_title">\"LOCKDOWN\"</string>
+    <string name="second_screen_title">DONATE</string>
+    <string name="third_screen_title">RECEIVE</string>
+    <string name="fourth_screen_title">LEND A HAND</string>
+    <string name="fifth_screen_title">JOIN US!</string>
+
+    <!--Descriptions-->
+    <string name="first_screen_desc">The word that we’ve heard a million times now. And because of this word, other words have come up:
+        \n
+        \"hungry\"
+        \n
+        \"in need\"
+        \n
+        And many others.
+</string>
+    <string name="second_screen_desc">Let\'s reduce the amount of people who will use these words by donating to those who need it.</string>
+    <string name="third_screen_desc">And let\'s not be afraid to ask for help when we need it.</string>
+    <string name="fourth_screen_desc">Our app is designed to connect donors and donees all over South Africa in one common place.
+        \n\n
+        Donees request for the items they need, and donors donate items to the donees who request them.
+      </string>
+    <string name="fifth_screen_desc">Help us in our cause by creating an account to request or donate.
+        \n\n
+        It\'s that simple!</string>
+
+
+    <!--Buttons-->
+    <string name="skip_btn">Skip</string>
+    <string name="prev_btn">Previous</string>
+    <string name="next_btn">Next</string>
+    <string name="get_started">Get started</string>
+
+    <!--Common general screens-->
+    <string name="txt_internet_disconnected">Internet disconnected. Please try again</string>
+    <string name="txt_success">Success</string>
+    <!--Login Screen-->
+    <string name="txt_username">Username</string>
+    <string name="txt_password">Password</string>
+    <string name="content_description_username">Username Icon</string>
+    <string name="content_description_password">Password Icon</string>
+    <string name="txt_btnlogin">LOGIN</string>
+    <string name="login_nocc">No account?</string>
+    <string name="login_signup">\u0020Sign up!</string>
+    <string name="stay_signed_in">Stay signed in</string>
+    <string name="txt_toast_login">Logging in...</string>
+    <string name="txt_toast_login_invalid">Invalid login details</string>
+
+    <!--Select user screen-->
+    <string name="txt_btn_donor">DONOR</string>
+    <string name="txt_btn_donee">DONEE</string>
+    <string name="txt_sign_up_sel">SIGN UP!</string>
+    <string name="txt_select_usertype_sentence2">Select your user type:</string>
+    <string name="txt_have_acc_usertype">Already have an account?\u0020</string>
+    <string name="txt_login_usertype">Log in</string>
+
+    <!--Registration donor screen-->
+    <string name="txt_donor_reg">Donor Registration</string>
+
+    <!--Registration common screens-->
+    <string name="txt_enter_username">Enter Username</string>
+    <string name="txt_enter_password">Enter Password</string>
+    <string name="txt_enter_password_again">Re-enter Password</string>
+    <string name="txt_enter_firstname">Enter First Name</string>
+    <string name="txt_enter_lastname">Enter Last Name</string>
+    <string name="txt_enter_email">Enter E-mail Address</string>
+    <string name="txt_enter_phone_number">Enter  Phone Number</string>
+    <string name="txt_enter_street_address">Enter Street Address</string>
+    <string name="txt_enter_suburb">Enter Suburb</string>
+    <string name="txt_enter_province">Select Province</string>
+    <string name="txt_enter_postal_code">Enter Postal Code</string>
+    <string name="txt_sign_up_login_button">Login</string>
+    <string name="txt_do_not_swipe_back">You cannot return to previous steps</string>
+
+    <!--Donor viewpager screens-->
+    <string name="txt_step_one">Step 1: Enter your details</string>
+    <string name="txt_step_one_add_info">You\'ll be logging in using your username and password</string>
+    <string name="txt_step_one_point_five">Step 2: Enter your name</string>
+    <string name="txt_step_one_point_five_add_info">We\'ll need your name for our personal records and delivery information</string>
+    <string name="txt_step_two">Step 3: Enter your e-mail address and phone number</string>
+    <string name="txt_step_two_add_info">We\'ll be using your e-mail and phone number to send confirmation, and for our couriers to call you for pick-ups, therefore it needs to be valid</string>
+    <string name="txt_step_three">Step 4: Enter your address</string>
+    <string name="txt_step_three_add_info">Our couriers will need it to pick up your donations to deliver it to the necessary donees</string>
+    <string name="txt_step_four">Your account has been successfully created!</string>
+    <string name="txt_step_four_add_info">You can now help donees in your province</string>
+
+    <!--Donee viewpager screens-->
+    <string name="txt_step_two_donee_add_info">We\'ll be using your e-mail and phone number to send confirmation, and for our couriers to call you for your requests, therefore it needs to be valid</string>
+    <string name="txt_step_three_donee_add_info">Our couriers will need it to pick up donations to have them delivered to you</string>
+    <string name="txt_step_four_donee">Step 5: Write a motivational letter about why you need the help</string>
+    <string name="txt_step_four_donee_add_info">This will determine whether you can be a donee or not.
+        \n\n
+        The maximum amount of characters is 1500.</string>
+    <string name="txt_step_six_donee">Your account has been successfully created!</string>
+    <string name="txt_step_six_donee_add_info">\n But your donee status is under review. We\'ll send you an e-mail about your donee status between 1-5 days.
+        \n\n
+        If you are approved, you can request items immediately. If you are rejected, you will have to edit your motivational letter for approval.</string>
+
+    <!--Registration donee screen-->
+    <string name="txt_donee_reg">Donee Registration</string>
+    <string name="txt_enter_motivation">Type your motivational letter here</string>
+
+    <!--Possible error messages-->
+    <string name="txt_empty_field">Field cannot be empty</string>
+    <string name="txt_pword_no_match">Passwords do not match</string>
+    <string name="txt_invalid_fname">Invalid name</string>
+    <string name="txt_invalid_username">Invalid username</string>
+    <string name="txt_username_no_spaces">Username cannot contain spaces</string>
+    <string name="txt_username_exists">Username already exists</string>
+    <string name="txt_invalid_lname">Invalid name</string>
+    <string name="txt_invalid_email">Invalid email</string>
+    <string name="txt_email_exists">E-mail address does not exist</string>
+    <string name="txt_invalid_phone_number">Invalid phone number</string>
+    <string name="txt_invalid_postal_code">Invalid postal code</string>
+    <string name="txt_invalid_province">Select a province from the list</string>
+    <string name="txt_invalid_id_number">Invalid ID number</string>
+
+    <!--Sending emails-->
+    <string name="txt_developer_email">lendahand.rsa@gmail.com</string>
+    <string name="txt_developer_pword">Fezi_&amp;_Su_2618</string>
+    <string name="txt_email_subject">Welcome to Lend A Hand </string>
+    <string name="txt_checkout_email_subject">Lend A Hand: Your items.</string>
+    <string name="txt_delivery_subject">Lend A Hand: Delivery.</string>
+    <string name="txt_email_body_common">Hi,\u0020</string>
+    <string name="txt_email_body_donor">
+        \n\n
+        We at Lend a Hand are pleased to have you join our large community of donors all over South Africa.
+        \n\n
+        To get started, simply log in and select the items you wish to donate and our couriers will arrive as soon as possible to pick them up and deliver them to the necessary donees. Once a donation is made, the estimated date of pick-up and donation details will be emailed to you, as well as accessible through the app.
+        \n\n
+        Please ensure that all your contact and location details are correct, as we will be contacting you to ensure that all requests and donations are successful.
+        \n\n
+        Thank you for helping those in need.
+        \n\n
+        The staff at Lend A Hand</string>
+    <string name="txt_email_body_donee">
+        \n\n
+        We at Lend a Hand are pleased to have you join our large community of donees all over South Africa.
+        \n\n
+        To get started, simply log in and select the items you need and our couriers will arrive when a donor donates those items within 5 working days of the donation. Not all requests will be fulfilled immediately, as donees are on a waiting list. This means that donees are served on a first come, first serve basis, and the delivery of goods is dependent on the number of donors that we have. Requests that are made first will be attended to first once a donation for that particular item is made.
+        \n\n
+        Please ensure that all your contact and location details are correct, as we will be contacting you to ensure that all requests and donations are successful.
+        \n\n
+        Once a request is made, or a donation is on its way to you, you will be notified. The request details and estimated date of delivery will be emailed to you, as well as accessible through the app.
+        \n\n
+        Thank you for joining Lend A Hand.
+        \n\n
+        The staff at Lend A Hand</string>
+    <string name="txt_email_doneecheckout_body">
+        \n\nThis emails serves to confirm that you have requested certain items with Lend A Hand.
+        \n\nYour items:
+        \n
+    </string>
+    <string name="txt_email_donorcheckout_body">
+        \n\nThank you for your donation! A courier will arrive within 2 days to collect your donation.
+        \n\nYou have donated the following items:
+        \n
+    </string>
+    <string name="txt_email_delivery_body">
+        \n\nThis is to confirm that one or more of your requested items will be delivered within 2 days.
+        \n\n
+    </string>
+
+    <!--ADMIN SCREENS-->
+    <!--Donee pending screen-->
+    <string name="txt_chk_accept">Accept</string>
+    <string name="txt_chk_reject">Reject</string>
+    <string name="txt_expand">Show more</string>
+    <string name="txt_shrink">Show less</string>
+    <string name="txt_donee_pending_btn">Confirm</string>
+    <string name="txt_donee_pending_tb_text">Pending Requests</string>
+
+    <!--Add new courier-->
+    <string name="txt_admin_courier_title">Add Courier</string>
+    <string name="txt_admin_courier_fname">Enter First Name</string>
+    <string name="txt_admin_courier_lname">Enter Last Name</string>
+    <string name="txt_admin_courier_phone_num">Enter Phone Number</string>
+    <string name="txt_admin_courier_ID">Enter ID Number</string>
+    <string name="txt_admin_add_courier_btn">Add to database</string>
+    <string name="txt_admin_add_courier_successful">Courier added successfully</string>
+    <string name="txt_admin_add_courier_unsuccessful">Something went wrong. Please try again later</string>
+
+    <!--Courier List-->
+    <string name="txt_admin_view_courier_title">View Couriers</string>
+    <string name="txt_admin_view_courier_name">Courier name</string>
+    <string name="txt_admin_view_courier_num_deliveries">Deliveries</string>
+    <string name="txt_admin_view_courier_asc_name">View list by deliveries in ascending order</string>
+    <string name="txt_admin_view_courier_asc_nums">View list by names in ascending order</string>
+
+    <!--Admin dashboard-->
+    <string name="txt_admin_dashboard_donor_list">Donor list</string>
+    <string name="txt_admin_dashboard_add_courier">Add courier</string>
+    <string name="txt_admin_dashboard_pending_req">Pending request</string>
+    <string name="txt_admin_dashboard_view_couriers">View Couriers</string>
+    <string name="txt_admin_dashboard_add_admin">Add Admin</string>
+
+    <!--Donee edit motivational letter-->
+    <string name="txt_donee_edit_motivational_letter_title">Edit Motivational Letter</string>
+    <string name="txt_donee_edit_motivational_letter">Motivational Letter</string>
+    <string name="txt_donee_btn_edit_motivational_letter">Edit</string>
+    <string name="txt_donee_btn_confirm_edit_motivational_letter">Confirm</string>
+    <string name="txt_donee_type_new_motivational_letter">Enter new motivational letter</string>
+    <string name="txt_donee_edit_confirmed">Your donee status is under review</string>
+    <string name="txt_donee_email_status_subject">Donee status </string>
+    <string name="txt_donee_email_status_body">Hi,\u0020</string>
+    <string name="txt_donee_email_status_body_reject_2">
+        \n\n
+        We regret to inform you that your donee application has been rejected. Your motivational letter was not sufficient. If you believe that we have not reviewed it correctly, please log in and change your motivational letter. Your donee application will then be reviewed once again.
+        \n\n
+        The staff at Lend A Hand</string>
+    <string name="txt_donee_email_status_body_accept_2">
+        \n\n
+        Your donee application has been accepted. You can now request items on the app.
+        \n\n
+        The staff at Lend A Hand</string>
+    <!--==============================================================================================-->
+    <!--Shared screen View Profile Activity-->
+    <string name="txt_profile_title">Profile</string>
+
+    <!--Default values for texts-->
+    <string name="txt_profile_default_name">FULL NAME</string>
+    <string name="txt_profile_default_username">Username</string>
+    <string name="txt_profile_default_email">E-mail Address</string>
+    <string name="txt_profile_default_phone">Phone</string>
+    <string name="txt_profile_default_street">Street Address</string>
+    <string name="txt_profile_default_suburb">Suburb</string>
+    <string name="txt_profile_default_province">Province</string>
+    <string name="txt_profile_default_postcode">Postal Code</string>
+    <string name="txt_profile_default_password">Change Password</string>
+
+
+    <!--dialog name, surname, email-->
+    <string name="txt_profile_dialog_change_fname">Change First Name</string>
+    <string name="txt_profile_dialog_change_lname">Change Last Name</string>
+    <string name="txt_profile_dialog_change_email">Change E-mail</string>
+    <string name="txt_profile_dialog_fname">Enter New First Name</string>
+    <string name="txt_profile_dialog_lname">Enter New Last Name</string>
+    <string name="txt_profile_dialog_email">Enter New E-mail Address</string>
+    <string name="txt_profile_dialog_phone">Enter New Phone Number</string>
+    <string name="txt_profile_dialog_st_address">Enter New Street Address</string>
+    <string name="txt_profile_dialog_suburb">Enter Suburb</string>
+    <string name="txt_profile_dialog_postal_code">Enter Postal Code</string>
+    <string name="txt_profile_dialog_province">Select Province</string>
+    <string name="txt_profile_dialog_curr_password">Enter current password</string>
+    <string name="txt_profile_dialog_new_password1">Enter new password</string>
+    <string name="txt_profile_dialog_new_password2">Re-enter new password</string>
+    <string name="txt_profile_dialog_password_btn_curr_password">Verify</string>
+    <string name="txt_profile_dialog_password_btn_new_password">Confirm</string>
+
+    <!--dialog successful editing toasts-->
+    <string name="txt_profile_dialog_success_email">E-mail Address edited successfully!</string>
+    <string name="txt_profile_dialog_success_lname">Last Name edited successfully!</string>
+    <string name="txt_profile_dialog_success_fname">First Name edited successfully!</string>
+    <string name="txt_profile_dialog_success_phone">Phone Number edited successfully!</string>
+    <string name="txt_profile_dialog_success_address">Address edited successfully!</string>
+    <string name="txt_profile_dialog_success_password">Password changed successfully!</string>
+    <string name="txt_profile_dialog_success_verify_password">Password verified</string>
+    <string name="txt_profile_dialog_failure_password">Incorrect password</string>
+
+    <!--email sending on email edit-->
+    <string name="txt_email_edit_subject">E-mail address changed </string>
+    <string name="txt_email_edit_body">Hi,\u0020</string>
+    <string name="txt_email_edit_body_2">
+        \n\n
+        We noticed that you changed your e-mail address. We will be contacting you regarding requests via this e-mail address in future.
+        \n\n
+        The staff at Lend A Hand</string>
+
+    <!--MENUS-->
+    <!--common menu strings-->
+    <string name="txt_menu_profile">Profile</string>
+    <string name="txt_menu_sign_out">Log out</string>
+    <string name="txt_menu_about_us">About us</string>
+    <string name="txt_menu_donor_list">Donor List</string>
+    <string name="txt_menu_home">Home</string>
+
+    <!--donee menu strings-->
+    <string name="txt_menu_donee_req_items">Request items</string>
+    <string name="txt_menu_donee_motivational_letter">Change motivational letter</string>
+
+    <!--donor menu strings-->
+    <string name="txt_menu_donor_donate_items">Donate items</string>
+
+    <!--admin menu strings-->
+
+    <string name="txt_admin_menu_add_courier">Add courier</string>
+    <string name="txt_admin_menu_courier_list">Courier List</string>
+    <string name="txt_admin_menu_pending_req">Pending Requests</string>
+
+    <!--Dialog donee dashboard-->
+    <string name="txt_donee_dialog_btn">Ok</string>
+    <string name="txt_donee_dialog_heading_rejected">Your donee application has been rejected</string>
+    <string name="txt_donee_dialog_Content_rejected">If you wish to be reviewed once more, please refer to the menu to send a new letter of motivation as to why you need the help.</string>
+    <string name="txt_donee_dialog_heading_pending">Your donee status is pending</string>
+    <string name="txt_donee_dialog_Content_pending">We will send you an e-mail when your donee status has been processed.</string>
+
+
+</resources>
